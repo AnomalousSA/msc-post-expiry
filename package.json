@@ -1,0 +1,8 @@
+{
+  "name": "msc-post-expiry",
+  "private": true,
+  "scripts": {
+    "lint": "composer lint",
+    "lint-fix": "composer lint-fix"
+  }
+}
