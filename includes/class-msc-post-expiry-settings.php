@@ -1,249 +1,170 @@
 <?php
+/**
+ * Admin settings class for MSC Post Expiry.
+ */
+
+namespace MSC_Post_Expiry;
 
 if ( ! defined( 'ABSPATH' ) ) {
-    exit;
+	exit;
 }
 
-class MSC_Post_Expiry_Settings {
-    /** @var MSC_Post_Expiry */
-    private $plugin;
+class Settings {
 
-    public function __construct( $plugin ) {
-        $this->plugin = $plugin;
-        add_action( 'admin_menu', array( $this, 'register_menu' ), 5 );
-        add_action( 'admin_init', array( $this, 'handle_save' ) );
-        add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ) );
-        if ( ! has_action( 'admin_menu', 'msc_site_care_reorder_priority_items' ) ) {
-            add_action( 'admin_menu', 'msc_site_care_reorder_priority_items', 999 );
-        }
-        if ( ! has_action( 'admin_head', 'msc_site_care_menu_highlight_styles' ) ) {
-            add_action( 'admin_head', 'msc_site_care_menu_highlight_styles' );
-        }
-    }
+	/**
+	 * Main plugin instance.
+	 *
+	 * @var Plugin
+	 */
+	private $plugin;
 
-    public function register_menu() {
-        global $admin_page_hooks;
+	/**
+	 * Constructor.
+	 *
+	 * @param Plugin $plugin Plugin instance.
+	 */
+	public function __construct( $plugin ) {
+		$this->plugin = $plugin;
 
-        if ( ! isset( $admin_page_hooks['msc-site-care'] ) ) {
-            add_menu_page(
-                __( 'Site Care', 'msc-post-expiry' ),
-                __( 'Site Care', 'msc-post-expiry' ),
-                'manage_options',
-                'msc-site-care',
-                array( __CLASS__, 'render_landing_page' ),
-                'dashicons-shield-alt',
-                65
-            );
-        }
+		add_action( 'admin_menu', array( $this, 'register_menu' ) );
+		add_action( 'admin_post_msc-post-expiry_save_settings', array( $this, 'handle_save' ) );
+	}
 
-        if ( $this->plugin->is_pro_active() ) {
-            return;
-        }
+	/**
+	 * Register admin page.
+	 */
+	public function register_menu() {
+		add_submenu_page(
+			'msc-site-care',
+			'MSC Post Expiry',
+			'MSC Post Expiry',
+			'manage_options',
+			'msc-post-expiry',
+			array( $this, 'render_page' )
+		);
 
-        add_submenu_page(
-            'msc-site-care',
-            __( 'Post Expiry', 'msc-post-expiry' ),
-            __( 'Post Expiry', 'msc-post-expiry' ),
-            'manage_options',
-            'mscpe-settings',
-            array( $this, 'render_page' )
-        );
+		if ( true && true ) {
+			$this->maybe_register_upgrade_submenu();
+		}
+	}
 
-        add_filter( 'msc_upgrade_sections', array( $this, 'add_upgrade_section' ) );
+	/**
+	 * Register one contextual upgrade submenu for free plugin only.
+	 */
+	private function maybe_register_upgrade_submenu() {
+		global $submenu;
 
-        global $submenu;
-        $upgrade_registered = false;
-        if ( ! empty( $submenu['msc-site-care'] ) ) {
-            foreach ( $submenu['msc-site-care'] as $item ) {
-                if ( isset( $item[2] ) && 'msc-site-care-upgrade' === $item[2] ) {
-                    $upgrade_registered = true;
-                    break;
-                }
-            }
-        }
-        if ( ! $upgrade_registered ) {
-            add_submenu_page(
-                'msc-site-care',
-                __( 'Upgrade to Pro', 'msc-post-expiry' ),
-                __( 'Upgrade to Pro', 'msc-post-expiry' ),
-                'manage_options',
-                'msc-site-care-upgrade',
-                'msc_render_combined_upgrade_page'
-            );
-        }
-    }
+		$upgrade_slug = 'msc-site-care-upgrade';
+		$already_registered = false;
 
-    public static function render_landing_page() {
-        echo '<div class="wrap msc-admin-wrap">';
-        echo '<div class="msc-admin-header"><h1>' . esc_html__( 'Site Care', 'msc-post-expiry' ) . '</h1></div>';
-        echo '<div class="msc-admin-card">';
-        echo '<p>' . esc_html__( 'Welcome to Site Care by Anomalous Developers. Use the submenu items to manage each installed module.', 'msc-post-expiry' ) . '</p>';
-        echo '</div>';
-        echo '</div>';
-    }
+		if ( ! empty( $submenu['msc-site-care'] ) ) {
+			foreach ( $submenu['msc-site-care'] as $item ) {
+				if ( isset( $item[2] ) && $upgrade_slug === $item[2] ) {
+					$already_registered = true;
+					break;
+				}
+			}
+		}
 
-    public function enqueue_admin_styles() {
-        $page = isset( $_GET['page'] ) ? sanitize_key( wp_unslash( $_GET['page'] ) ) : '';
-        $allowed_pages = array( 'msc-site-care', 'mscpe-settings', 'msc-site-care-upgrade' );
+		if ( $already_registered ) {
+			return;
+		}
 
-        if ( ! in_array( $page, $allowed_pages, true ) ) {
-            return;
-        }
+		add_submenu_page(
+			'msc-site-care',
+			esc_html__( 'Upgrade to Pro', 'msc-post-expiry' ),
+			esc_html__( 'Upgrade to Pro', 'msc-post-expiry' ),
+			'manage_options',
+			$upgrade_slug,
+			array( $this, 'render_upgrade_page' )
+		);
+	}
 
-        wp_enqueue_style(
-            'mscpe-admin-tokens',
-            MSCPE_PLUGIN_URL . 'assets/css/admin-tokens.css',
-            array(),
-            MSCPE_PLUGIN_VERSION
-        );
+	/**
+	 * Handle settings save.
+	 */
+	public function handle_save() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( esc_html__( 'You do not have permission to access this page.', 'msc-post-expiry' ) );
+		}
 
-        wp_enqueue_style(
-            'mscpe-admin-components',
-            MSCPE_PLUGIN_URL . 'assets/css/admin-components.css',
-            array( 'mscpe-admin-tokens' ),
-            MSCPE_PLUGIN_VERSION
-        );
-    }
+		check_admin_referer( 'msc-post-expiry_save_settings' );
 
-    public function add_upgrade_section( $sections ) {
-        $sections[] = array(
-            'title'    => __( 'Post Expiry Pro', 'msc-post-expiry' ),
-            'features' => __( 'Multi-action expiry, bulk scheduling, and redirect on expiry.', 'msc-post-expiry' ),
-            'url'      => 'https://anomalous.co.za',
-        );
-        return $sections;
-    }
+		$module_enabled = isset( $_POST['module_enabled'] ) ? 1 : 0;
+		$this->plugin->update_options( array( 'module_enabled' => $module_enabled ) );
 
-    public function handle_save() {
-        if ( ! is_admin() || ! isset( $_POST['mscpe_settings_submit'] ) ) {
-            return;
-        }
+		wp_safe_redirect(
+			add_query_arg(
+				array(
+					'page'    => 'msc-post-expiry',
+					'updated' => '1',
+				),
+				admin_url( 'admin.php' )
+			)
+		);
+		exit;
+	}
 
-        if ( ! current_user_can( 'manage_options' ) ) {
-            return;
-        }
+	/**
+	 * Render settings page.
+	 */
+	public function render_page() {
+		$options = array(
+			'module_enabled' => (int) $this->plugin->get_option( 'module_enabled', 1 ),
+		);
+		?>
+		<div class="wrap msc-admin-wrap">
+			<div class="msc-admin-header">
+				<h1><?php echo esc_html( 'MSC Post Expiry' ); ?></h1>
+			</div>
+			<div class="msc-admin-card">
+				<?php if ( isset( $_GET['updated'] ) ) : ?>
+					<div class="msc-admin-notice">
+						<?php echo esc_html__( 'Settings updated.', 'msc-post-expiry' ); ?>
+					</div>
+				<?php endif; ?>
 
-        check_admin_referer( 'mscpe_save_settings', 'mscpe_nonce' );
+				<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+					<input type="hidden" name="action" value="msc-post-expiry_save_settings" />
+					<?php wp_nonce_field( 'msc-post-expiry_save_settings' ); ?>
 
-        $defaults = MSC_Post_Expiry::default_options();
-        $incoming = isset( $_POST['mscpe'] ) ? (array) wp_unslash( $_POST['mscpe'] ) : array();
-        $clean    = $defaults;
+					<div class="msc-admin-form-row">
+						<label for="module_enabled">
+							<input id="module_enabled" type="checkbox" name="module_enabled" value="1" <?php checked( 1, $options['module_enabled'] ); ?> />
+							<?php echo esc_html__( 'Enable module', 'msc-post-expiry' ); ?>
+						</label>
+					</div>
 
-        $clean['module_enabled'] = isset( $incoming['module_enabled'] ) ? 1 : 0;
-        $clean['post_types']     = $this->sanitize_post_types( $incoming, 'post_types' );
+					<button type="submit" class="msc-admin-button msc-admin-button-primary">
+						<?php echo esc_html__( 'Save Settings', 'msc-post-expiry' ); ?>
+					</button>
+				</form>
+			</div>
+		</div>
+		<?php
+	}
 
-        $action         = isset( $incoming['default_action'] ) ? sanitize_key( $incoming['default_action'] ) : 'draft';
-        $clean['default_action'] = in_array( $action, array( 'draft', 'archive_category' ), true ) ? $action : 'draft';
-        $clean['archive_category'] = isset( $incoming['archive_category'] ) ? absint( $incoming['archive_category'] ) : 0;
-
-        $this->plugin->update_options( $clean );
-
-        wp_safe_redirect(
-            add_query_arg(
-                array( 'page' => 'mscpe-settings', 'updated' => 1 ),
-                admin_url( 'admin.php' )
-            )
-        );
-        exit;
-    }
-
-    private function sanitize_post_types( $incoming, $key ) {
-        $types = isset( $incoming[ $key ] ) ? (array) $incoming[ $key ] : array();
-        $types = array_map( 'sanitize_key', $types );
-        return array_values( array_filter( $types ) );
-    }
-
-    public function render_page() {
-        if ( ! current_user_can( 'manage_options' ) ) {
-            return;
-        }
-
-        $options    = $this->plugin->get_options();
-        $post_types = get_post_types( array( 'public' => true ), 'objects' );
-        $categories = get_categories( array( 'hide_empty' => false ) );
-        ?>
-        <div class="wrap msc-admin-wrap">
-            <div class="msc-admin-header">
-                <h1><?php esc_html_e( 'Post Expiry', 'msc-post-expiry' ); ?></h1>
-            </div>
-
-            <?php if ( isset( $_GET['updated'] ) ) : ?>
-                <div class="msc-admin-notice"><p><?php esc_html_e( 'Settings saved.', 'msc-post-expiry' ); ?></p></div>
-            <?php endif; ?>
-
-            <div class="msc-admin-card">
-                <form method="post" action="">
-                    <?php wp_nonce_field( 'mscpe_save_settings', 'mscpe_nonce' ); ?>
-
-                    <table class="form-table" role="presentation">
-                        <tr>
-                            <th scope="row"><?php esc_html_e( 'Enable module', 'msc-post-expiry' ); ?></th>
-                            <td><label><input type="checkbox" name="mscpe[module_enabled]" value="1" <?php checked( 1, (int) $options['module_enabled'] ); ?> /> <?php esc_html_e( 'Enabled', 'msc-post-expiry' ); ?></label></td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><?php esc_html_e( 'Apply to post types', 'msc-post-expiry' ); ?></th>
-                            <td>
-                                <?php foreach ( $post_types as $pt ) : ?>
-                                    <label style="display:block;"><input type="checkbox" name="mscpe[post_types][]" value="<?php echo esc_attr( $pt->name ); ?>" <?php checked( in_array( $pt->name, (array) $options['post_types'], true ) ); ?> /> <?php echo esc_html( $pt->labels->singular_name ); ?></label>
-                                <?php endforeach; ?>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><?php esc_html_e( 'Default expiry action', 'msc-post-expiry' ); ?></th>
-                            <td>
-                                <select class="msc-admin-select" name="mscpe[default_action]">
-                                    <option value="draft" <?php selected( 'draft', $options['default_action'] ); ?>><?php esc_html_e( 'Unpublish to Draft', 'msc-post-expiry' ); ?></option>
-                                    <option value="archive_category" <?php selected( 'archive_category', $options['default_action'] ); ?>><?php esc_html_e( 'Move to archive category', 'msc-post-expiry' ); ?></option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><?php esc_html_e( 'Archive category (Posts only)', 'msc-post-expiry' ); ?></th>
-                            <td>
-                                <select class="msc-admin-select" name="mscpe[archive_category]">
-                                    <option value="0"><?php esc_html_e( 'None selected', 'msc-post-expiry' ); ?></option>
-                                    <?php foreach ( $categories as $category ) : ?>
-                                        <option value="<?php echo esc_attr( $category->term_id ); ?>" <?php selected( (int) $category->term_id, (int) $options['archive_category'] ); ?>><?php echo esc_html( $category->name ); ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </td>
-                        </tr>
-                    </table>
-
-                    <?php submit_button( __( 'Save Settings', 'msc-post-expiry' ), 'primary msc-admin-button msc-admin-button-primary', 'mscpe_settings_submit' ); ?>
-                </form>
-            </div>
-        </div>
-        <?php
-    }
-}
-
-if ( ! function_exists( 'msc_render_combined_upgrade_page' ) ) {
-    function msc_render_combined_upgrade_page() {
-        if ( ! current_user_can( 'manage_options' ) ) {
-            return;
-        }
-        $sections = apply_filters( 'msc_upgrade_sections', array() );
-        echo '<div class="wrap msc-admin-wrap">';
-        echo '<div class="msc-admin-header"><h1>' . esc_html__( 'Upgrade to Pro', 'msc-post-expiry' ) . '</h1></div>';
-        echo '<div class="msc-admin-card">';
-        echo '<p>' . esc_html__( 'Upgrade individual modules to unlock more features for each plugin.', 'msc-post-expiry' ) . '</p>';
-        echo '</div>';
-        if ( empty( $sections ) ) {
-            echo '<div class="msc-admin-card"><p>' . esc_html__( 'No upgrades available.', 'msc-post-expiry' ) . '</p></div>';
-        } else {
-            echo '<div class="msc-admin-grid" style="margin-top:20px;">';
-            foreach ( $sections as $section ) {
-                echo '<div class="msc-admin-card">';
-                echo '<h2>' . esc_html( $section['title'] ) . '</h2>';
-                echo '<p>' . esc_html( $section['features'] ) . '</p>';
-                echo '<a href="' . esc_url( $section['url'] ) . '" target="_blank" rel="noopener noreferrer" class="button button-primary msc-admin-button msc-admin-button-primary">';
-                echo esc_html__( 'Learn more', 'msc-post-expiry' );
-                echo '</a>';
-                echo '</div>';
-            }
-            echo '</div>';
-        }
-        echo '</div>';
-    }
+	/**
+	 * Render contextual upgrade page for free variant.
+	 */
+	public function render_upgrade_page() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+		?>
+		<div class="wrap msc-admin-wrap">
+			<div class="msc-admin-header">
+				<h1><?php echo esc_html__( 'Upgrade to Pro', 'msc-post-expiry' ); ?></h1>
+			</div>
+			<div class="msc-admin-card">
+				<p><?php echo esc_html__( 'Unlock advanced features with the Pro version.', 'msc-post-expiry' ); ?></p>
+				<p>
+					<a class="button button-primary msc-admin-button msc-admin-button-primary" href="https://anomalous.co.za" target="_blank" rel="noopener noreferrer">
+						<?php echo esc_html__( 'Learn More', 'msc-post-expiry' ); ?>
+					</a>
+				</p>
+			</div>
+		</div>
+		<?php
+	}
 }

@@ -1,89 +1,166 @@
 <?php
+/**
+ * Main bootstrap class for MSC Post Expiry.
+ */
+
+namespace MSC_Post_Expiry;
 
 if ( ! defined( 'ABSPATH' ) ) {
-    exit;
+	exit;
 }
 
-class MSC_Post_Expiry {
-    const OPTION_KEY = 'mscpe_options';
+class Plugin {
 
-    /** @var MSC_Post_Expiry|null */
-    private static $instance = null;
+	const OPTION_KEY = 'mscpe_options';
 
-    /** @var array<string,mixed> */
-    private $options = array();
+	/**
+	 * Singleton instance.
+	 *
+	 * @var Plugin|null
+	 */
+	private static $instance = null;
 
-    public static function instance() {
-        if ( null === self::$instance ) {
-            self::$instance = new self();
-        }
-        return self::$instance;
-    }
+	/**
+	 * Module instance.
+	 *
+	 * @var Module|null
+	 */
+	private $module = null;
 
-    public static function default_options() {
-        return array(
-            'module_enabled'   => 1,
-            'post_types'       => array( 'post' ),
-            'default_action'   => 'draft',
-            'archive_category' => 0,
-        );
-    }
+	/**
+	 * Settings instance.
+	 *
+	 * @var Settings
+	 */
+	private $settings;
 
-    public static function activate() {
-        $stored = get_option( self::OPTION_KEY, array() );
-        if ( ! is_array( $stored ) ) {
-            $stored = array();
-        }
-        update_option( self::OPTION_KEY, wp_parse_args( $stored, self::default_options() ) );
+	/**
+	 * Analytics instance.
+	 *
+	 * @var object|null
+	 */
+	private $analytics = null;
 
-        if ( ! wp_next_scheduled( MSC_Post_Expiry_Module::CRON_HOOK ) ) {
-            wp_schedule_event( time() + MINUTE_IN_SECONDS, 'mscpe_every_fifteen_minutes', MSC_Post_Expiry_Module::CRON_HOOK );
-        }
-    }
+	/**
+	 * Admin analytics instance.
+	 *
+	 * @var object|null
+	 */
+	private $admin_analytics = null;
 
-    public static function deactivate() {
-        $next = wp_next_scheduled( MSC_Post_Expiry_Module::CRON_HOOK );
-        if ( $next ) {
-            wp_unschedule_event( $next, MSC_Post_Expiry_Module::CRON_HOOK );
-        }
-    }
+	/**
+	 * Get singleton instance.
+	 *
+	 * @return Plugin
+	 */
+	public static function instance() {
+		if ( null === self::$instance ) {
+			self::$instance = new self();
+		}
+		return self::$instance;
+	}
 
-    private function __construct() {
-        $this->options = wp_parse_args( get_option( self::OPTION_KEY, array() ), self::default_options() );
+	/**
+	 * Activate plugin.
+	 */
+	public static function activate() {
+		$options = get_option( self::OPTION_KEY );
+		if ( ! is_array( $options ) ) {
+			update_option( self::OPTION_KEY, self::default_options() );
+		}
+	}
 
-        add_filter( 'cron_schedules', array( $this, 'add_cron_schedule' ) );
+	/**
+	 * Deactivate plugin.
+	 */
+	public static function deactivate() {
+		// Reserved for deactivation cleanup hooks.
+	}
 
-        new MSC_Post_Expiry_Settings( $this );
+	/**
+	 * Constructor.
+	 */
+	private function __construct() {
+		$this->settings = new Settings( $this );
 
-        if ( ! $this->is_pro_active() ) {
-            new MSC_Post_Expiry_Module( $this );
-        }
-    }
+		if ( false ) {
+			$this->analytics = class_exists( __NAMESPACE__ . '\\Plugin_Analytics' ) ? new Plugin_Analytics() : null;
+		}
 
-    public function add_cron_schedule( $schedules ) {
-        if ( ! isset( $schedules['mscpe_every_fifteen_minutes'] ) ) {
-            $schedules['mscpe_every_fifteen_minutes'] = array(
-                'interval' => 15 * MINUTE_IN_SECONDS,
-                'display'  => __( 'Every 15 Minutes (Micro Site Care: Post Expiry)', 'msc-post-expiry' ),
-            );
-        }
-        return $schedules;
-    }
+		if ( false ) {
+			$this->admin_analytics = class_exists( __NAMESPACE__ . '\\Plugin_Admin_Analytics' ) ? new Plugin_Admin_Analytics() : null;
+			if ( is_object( $this->admin_analytics ) && method_exists( $this->admin_analytics, 'hooks' ) ) {
+				$this->admin_analytics->hooks();
+			}
+		}
 
-    public function is_pro_active() {
-        return (bool) apply_filters( 'mscpe_pro_active', false );
-    }
+		if ( ! $this->is_pro_active() || 'pro' === 'free' ) {
+			$this->module = new Module( $this );
+		}
+	}
 
-    public function get_options() {
-        return $this->options;
-    }
+	/**
+	 * Default options.
+	 *
+	 * @return array<string,mixed>
+	 */
+	public static function default_options() {
+		return array(
+			'module_enabled' => 1,
+			'post_types'     => array( 'post', 'page' ),
+		);
+	}
 
-    public function get_option( $key, $default = null ) {
-        return array_key_exists( $key, $this->options ) ? $this->options[ $key ] : $default;
-    }
+	/**
+	 * Option getter.
+	 *
+	 * @param string $key Key.
+	 * @param mixed  $default Default value.
+	 * @return mixed
+	 */
+	public function get_option( $key, $default = null ) {
+		$options = wp_parse_args( get_option( self::OPTION_KEY, array() ), self::default_options() );
+		return array_key_exists( $key, $options ) ? $options[ $key ] : $default;
+	}
 
-    public function update_options( $new_options ) {
-        $this->options = wp_parse_args( $new_options, self::default_options() );
-        update_option( self::OPTION_KEY, $this->options );
-    }
+	/**
+	 * Save merged options.
+	 *
+	 * @param array<string,mixed> $new_options New values.
+	 * @return bool
+	 */
+	public function update_options( $new_options ) {
+		$current = wp_parse_args( get_option( self::OPTION_KEY, array() ), self::default_options() );
+		$merged  = array_merge( $current, $new_options );
+		return (bool) update_option( self::OPTION_KEY, $merged );
+	}
+
+	/**
+	 * Whether pro plugin is active.
+	 *
+	 * @return bool
+	 */
+	public function is_pro_active() {
+		return (bool) apply_filters( 'msc-post-expiry_pro_active', false );
+	}
+
+	/**
+	 * Feature switch helper.
+	 *
+	 * @param string $feature Feature key.
+	 * @return bool
+	 */
+	public function has_feature( $feature ) {
+		$map = array(
+			'analytics'         => false,
+			'admin_analytics'   => false,
+			'cron'              => true,
+			'meta_registration' => true,
+			'bulk_actions'      => false,
+			'shortcode'         => false,
+			'ajax'              => false,
+		);
+
+		return ! empty( $map[ $feature ] );
+	}
 }

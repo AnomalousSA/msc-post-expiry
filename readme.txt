@@ -1,35 +1,36 @@
-=== Micro Site Care: Post Expiry ===
-Contributors: anomalousdevelopers
-Tags: post expiry, content scheduling, auto unpublish, content management
+=== MSC Post Expiry ===
+Contributors: anomalous
+Tags: post-expiry,workflow,content,scheduling
 Requires at least: 5.9
-Tested up to: 6.5
+Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 0.1.0
-License: GPL-2.0-or-later
+Stable tag: 1.0.0
+License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Set per-post expiry dates to automatically unpublish or move posts to an archive category when they become outdated.
+Schedule and process post expiry actions.
 
 == Description ==
 
-Micro Site Care: Post Expiry lets you assign an expiry date to individual posts. A WP cron job (every 15 minutes) processes expired posts and applies the configured action.
+Schedule and process post expiry actions.
 
-* Per-post expiry date via classic editor meta box and Gutenberg sidebar.
-* Global default action: Unpublish to Draft or Move to archive category.
-* Idempotency flag ensures posts aren't processed twice.
-* Per-post expiry log for auditing (last 20 entries).
-* Action hook `mscpe_post_expired` for developer integration.
-* Filter `mscpe_post_expiry_action` to override the action per post.
+== Frequently Asked Questions ==
 
-Upgrade to **Post Expiry Pro** for draft/private/trash/redirect actions, bulk expiry scheduling, and per-post redirect URL on expiry.
+= How do I configure the plugin? =
+Navigate to Site Care > MSC Post Expiry to configure the plugin settings.
 
 == Installation ==
 
-1. Upload the `msc-post-expiry` folder to `wp-content/plugins/`.
-2. Activate through **Plugins > Installed Plugins**.
-3. Navigate to **Site Care > Post Expiry** to configure.
+1. Upload the plugin to `/wp-content/plugins/`.
+2. Activate in the WordPress plugins screen.
+3. Configure from the MSC Site Care menu.
 
 == Changelog ==
 
-= 0.1.0 =
+= 1.0.0 =
 * Initial release.
+
+== Upgrade Notice ==
+
+= 1.0.0 =
+Initial plugin release.
