@@ -19,9 +19,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Current plugin version.
+ */
 define( 'MSCPE_PLUGIN_VERSION', '1.0.0' );
+
+/**
+ * Absolute path to the main plugin file.
+ */
 define( 'MSCPE_PLUGIN_FILE', __FILE__ );
+
+/**
+ * Absolute path to the plugin directory.
+ */
 define( 'MSCPE_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+
+/**
+ * URL to the plugin directory.
+ */
 define( 'MSCPE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 require_once MSCPE_PLUGIN_DIR . 'includes/class-msc-post-expiry-module.php';
@@ -49,12 +64,13 @@ register_deactivation_hook(
 add_action(
 	'plugins_loaded',
 	static function () {
+		// Load translation files from the plugin languages directory.
 		load_plugin_textdomain(
 			'msc-post-expiry',
 			false,
 			dirname( plugin_basename( __FILE__ ) ) . '/languages'
 		);
 
-		MSC_Post_Expiry\\Plugin::instance();
+		MSC_Post_Expiry\Plugin::instance();
 	}
 );
