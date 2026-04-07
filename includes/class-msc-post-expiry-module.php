@@ -1,14 +1,19 @@
 <?php
 /**
  * Module class for MSC Post Expiry.
+ *
+ * @package MSCPE
  */
 
-namespace MSC_Post_Expiry;
+namespace MSCPE;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Frontend module class.
+ */
 class Module {
 
 	/**

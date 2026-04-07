@@ -2,7 +2,7 @@
 /**
  * Uninstall MSC Post Expiry.
  *
- * @return void
+ * @package MSCPE
  */
 
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
@@ -11,23 +11,23 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 
 delete_option( 'mscpe_options' );
 
-if ( true ) {
-	$hook = 'msc-post-expiry_cron_event';
-	$next = wp_next_scheduled( $hook );
+// Unschedule cron events.
+global $mscpe_hook;
+$mscpe_hook = 'mscpe_process_expired_posts';
+$mscpe_next = wp_next_scheduled( $mscpe_hook );
 
-	while ( $next ) {
-		wp_unschedule_event( $next, $hook );
-		$next = wp_next_scheduled( $hook );
-	}
+while ( $mscpe_next ) {
+	wp_unschedule_event( $mscpe_next, $mscpe_hook );
+	$mscpe_next = wp_next_scheduled( $mscpe_hook );
 }
 
-if ( true ) {
-	global $wpdb;
-	$pattern = $wpdb->esc_like( 'msc-post-expiry_' ) . '%';
-	$wpdb->query(
-		$wpdb->prepare(
-			"DELETE FROM {$wpdb->postmeta} WHERE meta_key LIKE %s",
-			$pattern
-		)
-	);
-}
+// Delete post meta data.
+global $wpdb;
+global $mscpe_pattern;
+$mscpe_pattern = $wpdb->esc_like( 'mscpe_' ) . '%';
+$wpdb->query(
+	$wpdb->prepare(
+		"DELETE FROM {$wpdb->postmeta} WHERE meta_key LIKE %s",
+		$mscpe_pattern
+	)
+);

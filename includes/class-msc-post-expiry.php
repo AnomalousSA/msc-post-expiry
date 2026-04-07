@@ -1,14 +1,19 @@
 <?php
 /**
  * Main bootstrap class for MSC Post Expiry.
+ *
+ * @package MSCPE
  */
 
-namespace MSC_Post_Expiry;
+namespace MSCPE;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Main plugin class.
+ */
 class Plugin {
 
 	const OPTION_KEY = 'mscpe_options';
@@ -33,6 +38,13 @@ class Plugin {
 	 * @var Settings
 	 */
 	private $settings;
+
+	/**
+	 * Cron instance.
+	 *
+	 * @var Cron
+	 */
+	private $cron;
 
 	/**
 	 * Analytics instance.
@@ -68,13 +80,22 @@ class Plugin {
 		if ( ! is_array( $options ) ) {
 			update_option( self::OPTION_KEY, self::default_options() );
 		}
+
+		// Register cron event.
+		if ( ! wp_next_scheduled( Cron::CRON_HOOK ) ) {
+			wp_schedule_event( time(), 'mscpe_5min', Cron::CRON_HOOK );
+		}
 	}
 
 	/**
 	 * Deactivate plugin.
 	 */
 	public static function deactivate() {
-		// Reserved for deactivation cleanup hooks.
+		// Unregister cron event.
+		$timestamp = wp_next_scheduled( Cron::CRON_HOOK );
+		if ( $timestamp ) {
+			wp_unschedule_event( $timestamp, Cron::CRON_HOOK );
+		}
 	}
 
 	/**
@@ -82,21 +103,8 @@ class Plugin {
 	 */
 	private function __construct() {
 		$this->settings = new Settings( $this );
-
-		if ( false ) {
-			$this->analytics = class_exists( __NAMESPACE__ . '\\Plugin_Analytics' ) ? new Plugin_Analytics() : null;
-		}
-
-		if ( false ) {
-			$this->admin_analytics = class_exists( __NAMESPACE__ . '\\Plugin_Admin_Analytics' ) ? new Plugin_Admin_Analytics() : null;
-			if ( is_object( $this->admin_analytics ) && method_exists( $this->admin_analytics, 'hooks' ) ) {
-				$this->admin_analytics->hooks();
-			}
-		}
-
-		if ( ! $this->is_pro_active() || 'pro' === 'free' ) {
-			$this->module = new Module( $this );
-		}
+		$this->module   = new Module( $this );
+		$this->cron     = new Cron( $this );
 	}
 
 	/**
@@ -108,6 +116,8 @@ class Plugin {
 		return array(
 			'module_enabled' => 1,
 			'post_types'     => array( 'post', 'page' ),
+			'post_type_mode' => 'include',
+			'expiry_action'  => 'trash',
 		);
 	}
 
@@ -115,12 +125,12 @@ class Plugin {
 	 * Option getter.
 	 *
 	 * @param string $key Key.
-	 * @param mixed  $default Default value.
+	 * @param mixed  $default_value Default value.
 	 * @return mixed
 	 */
-	public function get_option( $key, $default = null ) {
+	public function get_option( $key, $default_value = null ) {
 		$options = wp_parse_args( get_option( self::OPTION_KEY, array() ), self::default_options() );
-		return array_key_exists( $key, $options ) ? $options[ $key ] : $default;
+		return array_key_exists( $key, $options ) ? $options[ $key ] : $default_value;
 	}
 
 	/**
@@ -141,7 +151,7 @@ class Plugin {
 	 * @return bool
 	 */
 	public function is_pro_active() {
-		return (bool) apply_filters( 'msc-post-expiry_pro_active', false );
+		return (bool) apply_filters( 'mscpe_pro_active', false );
 	}
 
 	/**
