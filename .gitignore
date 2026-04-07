@@ -1,3 +1,10 @@
 node_modules
 vendor
 .DS_Store
+
+# Project-level files (marketing, documentation, assets)
+# These are managed at the MSC-Post-Expiry project level, not in the plugin repo
+/documentation
+/marketing
+/progress.md
+/assets/images
