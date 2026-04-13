@@ -3,7 +3,7 @@
  * Plugin Name: MSC Post Expiry
  * Plugin URI: https://anomalous.co.za
  * Description: Automatically expire posts and pages on a scheduled date. Set expiration dates in the post editor and let the plugin handle the rest.
- * Version: 1.0.0
+ * Version: 1.1.0
  * Author: Anomalous Developers
  * Author URI: https://anomalous.co.za
  * Text Domain: msc-post-expiry
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Current plugin version.
  */
-define( 'MSCPE_PLUGIN_VERSION', '1.0.0' );
+define( 'MSCPE_PLUGIN_VERSION', '1.1.0' );
 
 /**
  * Absolute path to the main plugin file.

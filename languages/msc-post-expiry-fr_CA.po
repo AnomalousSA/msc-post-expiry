@@ -1,0 +1,290 @@
+# Copyright (C) 2026 Anomalous Developers
+# This file is distributed under the GPL-2.0+ license.
+msgid ""
+msgstr ""
+"Project-Id-Version: MSC Post Expiry 1.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/msc-post-expiry\n"
+"POT-Creation-Date: 2026-04-11 12:00:00+00:00\n"
+"PO-Revision-Date: 2026-04-11 12:00:00+00:00\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: French (Canada) <LL@li.org>\n"
+"Language: fr_CA\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: WP-CLI 2.8.1\n"
+
+#: includes/class-msc-post-expiry-settings.php:45
+#: includes/class-msc-post-expiry-settings.php:46
+msgid "MSC Post Expiry"
+msgstr "MSC Post Expiry"
+
+#: includes/class-msc-post-expiry-settings.php:58
+msgid "You do not have permission to access this page."
+msgstr "Vous n'avez pas la permission d'accéder à cette page."
+
+#: includes/class-msc-post-expiry-settings.php:64
+msgid "Security check failed. Please try again."
+msgstr "La vérification de sécurité a échoué. Veuillez réessayer."
+
+#: includes/class-msc-post-expiry-settings.php:129
+msgid "Settings"
+msgstr "Paramètres"
+
+#: includes/class-msc-post-expiry-settings.php:133
+msgid "Support"
+msgstr "Support"
+
+#: includes/class-msc-post-expiry-settings.php:170
+msgid "Settings saved."
+msgstr "Paramètres enregistrés."
+
+#: includes/class-msc-post-expiry-settings.php:214
+#: includes/class-msc-post-expiry-settings.php:341
+msgid "Move to Trash"
+msgstr "Mettre à la corbeille"
+
+#: includes/class-msc-post-expiry-settings.php:215
+#: includes/class-msc-post-expiry-settings.php:342
+msgid "Permanently Delete"
+msgstr "Supprimer définitivement"
+
+#: includes/class-msc-post-expiry-settings.php:216
+#: includes/class-msc-post-expiry-settings.php:343
+msgid "Change to Draft"
+msgstr "Passer en brouillon"
+
+#: includes/class-msc-post-expiry-settings.php:217
+#: includes/class-msc-post-expiry-settings.php:344
+msgid "Change to Private"
+msgstr "Passer en privé"
+
+#: includes/class-msc-post-expiry-settings.php:218
+#: includes/class-msc-post-expiry-settings.php:345
+msgid "Move to Category"
+msgstr "Déplacer vers une catégorie"
+
+#: includes/class-msc-post-expiry-settings.php:230
+msgid "Enable post expiry"
+msgstr "Activer l'expiration des articles"
+
+#: includes/class-msc-post-expiry-settings.php:234
+msgid "Allow posts to expire on a scheduled date."
+msgstr "Permettre aux articles d'expirer à une date programmée."
+
+#: includes/class-msc-post-expiry-settings.php:239
+msgid "Post type mode"
+msgstr "Mode de type d'article"
+
+#: includes/class-msc-post-expiry-settings.php:242
+msgid "Enable expiry only on selected post types"
+msgstr "Activer l'expiration uniquement sur les types d'articles sélectionnés"
+
+#: includes/class-msc-post-expiry-settings.php:243
+msgid "Enable expiry on all public post types except selected"
+msgstr "Activer l'expiration sur tous les types d'articles publics sauf ceux sélectionnés"
+
+#: includes/class-msc-post-expiry-settings.php:248
+msgid "Post types"
+msgstr "Types d'articles"
+
+#: includes/class-msc-post-expiry-settings.php:262
+msgid "Expiry action"
+msgstr "Action d'expiration"
+
+#: includes/class-msc-post-expiry-settings.php:269
+msgid "What should happen when a post expires."
+msgstr "Ce qui doit se passer lorsqu'un article expire."
+
+#: includes/class-msc-post-expiry-settings.php:273
+msgid "Expiry category"
+msgstr "Catégorie d'expiration"
+
+#: includes/class-msc-post-expiry-settings.php:276
+msgid "Select a category"
+msgstr "Sélectionner une catégorie"
+
+#: includes/class-msc-post-expiry-settings.php:281
+msgid "Posts will be moved to this category when expired. Only used when \"Move to Category\" is selected above."
+msgstr "Les articles seront déplacés vers cette catégorie à l'expiration. Utilisé uniquement lorsque \"Déplacer vers une catégorie\" est sélectionné ci-dessus."
+
+#: includes/class-msc-post-expiry-settings.php:304
+msgid "Save Settings"
+msgstr "Enregistrer les paramètres"
+
+#: includes/class-msc-post-expiry-settings.php:421
+msgid "Post Expiry"
+msgstr "Expiration d'article"
+
+#: includes/class-msc-post-expiry-settings.php:443
+msgid "Expiry Date"
+msgstr "Date d'expiration"
+
+#: includes/class-msc-post-expiry-settings.php:448
+msgid "Expiry Time"
+msgstr "Heure d'expiration"
+
+#: includes/class-msc-post-expiry-settings.php:453
+msgid "Leave empty to disable expiry for this post."
+msgstr "Laisser vide pour désactiver l'expiration pour cet article."
+
+#: includes/class-msc-post-expiry-settings.php:332
+msgid "How to Use Post Expiry"
+msgstr "Comment utiliser l'expiration d'articles"
+
+#: includes/class-msc-post-expiry-settings.php:333
+msgid "Post Expiry allows you to automatically handle posts when they reach a specified expiration date."
+msgstr "L'expiration d'articles vous permet de gérer automatiquement les articles lorsqu'ils atteignent une date d'expiration spécifiée."
+
+#: includes/class-msc-post-expiry-settings.php:335
+msgid "Setting an Expiry Date"
+msgstr "Définir une date d'expiration"
+
+#: includes/class-msc-post-expiry-settings.php:336
+msgid "When editing a post or page, look for the \"Post Expiry\" box in the sidebar on the right. Enter the date and time when you want the post to expire."
+msgstr "Lors de l'édition d'un article ou d'une page, recherchez la boîte \"Expiration d'article\" dans la barre latérale à droite. Saisissez la date et l'heure auxquelles vous souhaitez que l'article expire."
+
+#: includes/class-msc-post-expiry-settings.php:338
+msgid "Expiry Actions"
+msgstr "Actions d'expiration"
+
+#: includes/class-msc-post-expiry-settings.php:339
+msgid "When a post expires, one of the following actions will occur based on your settings:"
+msgstr "Lorsqu'un article expire, l'une des actions suivantes se produira en fonction de vos paramètres :"
+
+#: includes/class-msc-post-expiry-settings.php:341
+msgid "The post is moved to trash and no longer visible to visitors."
+msgstr "L'article est mis à la corbeille et n'est plus visible par les visiteurs."
+
+#: includes/class-msc-post-expiry-settings.php:342
+msgid "The post is permanently deleted from your site."
+msgstr "L'article est définitivement supprimé de votre site."
+
+#: includes/class-msc-post-expiry-settings.php:343
+msgid "The post is changed to draft status and hidden from visitors."
+msgstr "L'article passe à l'état de brouillon et est masqué aux visiteurs."
+
+#: includes/class-msc-post-expiry-settings.php:344
+msgid "The post is changed to private status and only visible to logged-in users with appropriate permissions."
+msgstr "L'article passe à l'état privé et n'est visible que par les utilisateurs connectés ayant les autorisations appropriées."
+
+#: includes/class-msc-post-expiry-settings.php:345
+msgid "The post is moved to a specific archive category. Configure the category in the Settings tab."
+msgstr "L'article est déplacé vers une catégorie d'archive spécifique. Configurez la catégorie dans l'onglet Paramètres."
+
+#: includes/class-msc-post-expiry-settings.php:348
+msgid "Post Type Configuration"
+msgstr "Configuration des types d'articles"
+
+#: includes/class-msc-post-expiry-settings.php:349
+msgid "Use the Settings tab to choose which post types support expiry dates. You can either enable expiry on specific post types or disable it on specific types while enabling it on all others."
+msgstr "Utilisez l'onglet Paramètres pour choisir quels types d'articles prennent en charge les dates d'expiration. Vous pouvez activer l'expiration sur des types d'articles spécifiques ou la désactiver sur des types spécifiques tout en l'activant sur tous les autres."
+
+#: includes/class-msc-post-expiry-settings.php:351
+msgid "Frequently Asked Questions"
+msgstr "Questions fréquentes"
+
+#: includes/class-msc-post-expiry-settings.php:353
+msgid "The Post Expiry metabox is not showing on my posts."
+msgstr "La boîte de métadonnées d'expiration d'article ne s'affiche pas sur mes articles."
+
+#: includes/class-msc-post-expiry-settings.php:355
+msgid "Check that \"Enable post expiry\" is ticked on the Settings tab."
+msgstr "Vérifiez que \"Activer l'expiration des articles\" est coché dans l'onglet Paramètres."
+
+#: includes/class-msc-post-expiry-settings.php:356
+msgid "Check that the post type (e.g. Post, Page) is selected in the Post types list."
+msgstr "Vérifiez que le type d'article (par exemple, Article, Page) est sélectionné dans la liste des types d'articles."
+
+#: includes/class-msc-post-expiry-settings.php:357
+msgid "The metabox appears in the sidebar on the right when editing a post."
+msgstr "La boîte de métadonnées apparaît dans la barre latérale à droite lors de l'édition d'un article."
+
+#: includes/class-msc-post-expiry-settings.php:360
+msgid "When does the expiry action occur?"
+msgstr "Quand l'action d'expiration se produit-elle ?"
+
+#: includes/class-msc-post-expiry-settings.php:361
+msgid "Post expiry is processed by WordPress scheduled events (cron). The action will occur shortly after the expiry date and time passes. The exact timing depends on your site traffic and WordPress cron configuration."
+msgstr "L'expiration des articles est traitée par les événements programmés de WordPress (cron). L'action se produira peu après la date et l'heure d'expiration. Le moment exact dépend du trafic de votre site et de la configuration du cron de WordPress."
+
+#: includes/class-msc-post-expiry-settings.php:363
+msgid "Can I disable expiry for a specific post?"
+msgstr "Puis-je désactiver l'expiration pour un article spécifique?"
+
+#: includes/class-msc-post-expiry-settings.php:364
+msgid "Yes. Simply leave the expiry date and time fields empty in the Post Expiry metabox."
+msgstr "Oui. Laissez simplement les champs de date et d'heure d'expiration vides dans la boîte de métadonnées d'expiration d'article."
+
+#: includes/class-msc-post-expiry-settings.php:368
+msgid "Need Help?"
+msgstr "Besoin d'aide ?"
+
+#: includes/class-msc-post-expiry-settings.php:369
+msgid "If you have questions, encounter bugs, or need setup assistance, we're here to help."
+msgstr "Si vous avez des questions, rencontrez des bogues ou avez besoin d'aide pour la configuration, nous sommes là pour vous aider."
+
+#: includes/class-msc-post-expiry-settings.php:372
+msgid "Get Support"
+msgstr "Obtenir du support"
+
+#: includes/class-msc-post-expiry-settings.php:379
+msgid "Upgrade to Post Expiry Pro"
+msgstr "Passer à Post Expiry Pro"
+
+#: includes/class-msc-post-expiry-settings.php:380
+msgid "Get even more power and flexibility with Post Expiry Pro:"
+msgstr "Obtenez encore plus de puissance et de flexibilité avec Post Expiry Pro :"
+
+#: includes/class-msc-post-expiry-settings.php:382
+msgid "Per-post expiry actions (override the default for individual posts)"
+msgstr "Actions d'expiration par article (remplacer la valeur par défaut pour des articles individuels)"
+
+#: includes/class-msc-post-expiry-settings.php:383
+msgid "Custom redirect URLs for expired posts"
+msgstr "URLs de redirection personnalisées pour les articles expirés"
+
+#: includes/class-msc-post-expiry-settings.php:384
+msgid "Email notifications before posts expire"
+msgstr "Notifications par courriel avant l'expiration des articles"
+
+#: includes/class-msc-post-expiry-settings.php:385
+msgid "Expiry action history and logs"
+msgstr "Historique et journaux des actions d'expiration"
+
+#: includes/class-msc-post-expiry-settings.php:386
+msgid "Bulk expiry scheduling from the Posts list"
+msgstr "Programmation d'expiration en masse depuis la liste des articles"
+
+#: includes/class-msc-post-expiry-settings.php:390
+msgid "Learn More About Pro"
+msgstr "En savoir plus sur la version Pro"
+
+#: msc-post-expiry.php:78
+msgid "Every 5 minutes"
+msgstr "Toutes les 5 minutes"
+
+#: msc-post-expiry.php:149
+msgid "No expiry set"
+msgstr "Aucune expiration définie"
+
+#: msc-post-expiry.php:156
+msgid "Expired"
+msgstr "Expiré"
+
+#: msc-post-expiry.php:166
+msgid "%d day remaining"
+msgid_plural "%d days remaining"
+msgstr[0] "%d jour restant"
+msgstr[1] "%d jours restants"
+
+#: msc-post-expiry.php:174
+msgid "%d hour remaining"
+msgid_plural "%d hours remaining"
+msgstr[0] "%d heure restante"
+msgstr[1] "%d heures restantes"
+
+#: msc-post-expiry.php:179
+msgid "Expires soon"
+msgstr "Expire bientôt"

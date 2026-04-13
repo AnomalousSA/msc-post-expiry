@@ -1,0 +1,290 @@
+# Copyright (C) 2026 Anomalous Developers
+# This file is distributed under the GPL-2.0+ license.
+msgid ""
+msgstr ""
+"Project-Id-Version: MSC Post Expiry 1.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/msc-post-expiry\n"
+"POT-Creation-Date: 2026-04-11 12:00:00+00:00\n"
+"PO-Revision-Date: 2026-04-11 12:00:00+00:00\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Spanish (Mexico) <LL@li.org>\n"
+"Language: es_MX\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: WP-CLI 2.8.1\n"
+
+#: includes/class-msc-post-expiry-settings.php:45
+#: includes/class-msc-post-expiry-settings.php:46
+msgid "MSC Post Expiry"
+msgstr "MSC Post Expiry"
+
+#: includes/class-msc-post-expiry-settings.php:58
+msgid "You do not have permission to access this page."
+msgstr "No tienes permiso para acceder a esta página."
+
+#: includes/class-msc-post-expiry-settings.php:64
+msgid "Security check failed. Please try again."
+msgstr "La verificación de seguridad falló. Por favor, intenta de nuevo."
+
+#: includes/class-msc-post-expiry-settings.php:129
+msgid "Settings"
+msgstr "Configuración"
+
+#: includes/class-msc-post-expiry-settings.php:133
+msgid "Support"
+msgstr "Soporte"
+
+#: includes/class-msc-post-expiry-settings.php:170
+msgid "Settings saved."
+msgstr "Configuración guardada."
+
+#: includes/class-msc-post-expiry-settings.php:214
+#: includes/class-msc-post-expiry-settings.php:341
+msgid "Move to Trash"
+msgstr "Mover a papelera"
+
+#: includes/class-msc-post-expiry-settings.php:215
+#: includes/class-msc-post-expiry-settings.php:342
+msgid "Permanently Delete"
+msgstr "Eliminar permanentemente"
+
+#: includes/class-msc-post-expiry-settings.php:216
+#: includes/class-msc-post-expiry-settings.php:343
+msgid "Change to Draft"
+msgstr "Cambiar a borrador"
+
+#: includes/class-msc-post-expiry-settings.php:217
+#: includes/class-msc-post-expiry-settings.php:344
+msgid "Change to Private"
+msgstr "Cambiar a privado"
+
+#: includes/class-msc-post-expiry-settings.php:218
+#: includes/class-msc-post-expiry-settings.php:345
+msgid "Move to Category"
+msgstr "Mover a categoría"
+
+#: includes/class-msc-post-expiry-settings.php:230
+msgid "Enable post expiry"
+msgstr "Activar expiración de entradas"
+
+#: includes/class-msc-post-expiry-settings.php:234
+msgid "Allow posts to expire on a scheduled date."
+msgstr "Permitir que las entradas expiren en una fecha programada."
+
+#: includes/class-msc-post-expiry-settings.php:239
+msgid "Post type mode"
+msgstr "Modo de tipo de entrada"
+
+#: includes/class-msc-post-expiry-settings.php:242
+msgid "Enable expiry only on selected post types"
+msgstr "Activar expiración solo en tipos de entrada seleccionados"
+
+#: includes/class-msc-post-expiry-settings.php:243
+msgid "Enable expiry on all public post types except selected"
+msgstr "Activar expiración en todos los tipos de entrada públicos excepto los seleccionados"
+
+#: includes/class-msc-post-expiry-settings.php:248
+msgid "Post types"
+msgstr "Tipos de entrada"
+
+#: includes/class-msc-post-expiry-settings.php:262
+msgid "Expiry action"
+msgstr "Acción de expiración"
+
+#: includes/class-msc-post-expiry-settings.php:269
+msgid "What should happen when a post expires."
+msgstr "Qué debe pasar cuando una entrada expira."
+
+#: includes/class-msc-post-expiry-settings.php:273
+msgid "Expiry category"
+msgstr "Categoría de expiración"
+
+#: includes/class-msc-post-expiry-settings.php:276
+msgid "Select a category"
+msgstr "Selecciona una categoría"
+
+#: includes/class-msc-post-expiry-settings.php:281
+msgid "Posts will be moved to this category when expired. Only used when \"Move to Category\" is selected above."
+msgstr "Las entradas se moverán a esta categoría cuando expiren. Solo se usa cuando \"Mover a categoría\" está seleccionado arriba."
+
+#: includes/class-msc-post-expiry-settings.php:304
+msgid "Save Settings"
+msgstr "Guardar configuración"
+
+#: includes/class-msc-post-expiry-settings.php:421
+msgid "Post Expiry"
+msgstr "Expiración de entrada"
+
+#: includes/class-msc-post-expiry-settings.php:443
+msgid "Expiry Date"
+msgstr "Fecha de expiración"
+
+#: includes/class-msc-post-expiry-settings.php:448
+msgid "Expiry Time"
+msgstr "Hora de expiración"
+
+#: includes/class-msc-post-expiry-settings.php:453
+msgid "Leave empty to disable expiry for this post."
+msgstr "Deja vacío para desactivar la expiración para esta entrada."
+
+#: includes/class-msc-post-expiry-settings.php:332
+msgid "How to Use Post Expiry"
+msgstr "Cómo usar Expiración de entradas"
+
+#: includes/class-msc-post-expiry-settings.php:333
+msgid "Post Expiry allows you to automatically handle posts when they reach a specified expiration date."
+msgstr "Expiración de entradas te permite manejar automáticamente las entradas cuando reach una fecha de expiración específica."
+
+#: includes/class-msc-post-expiry-settings.php:335
+msgid "Setting an Expiry Date"
+msgstr "Establecer una fecha de expiración"
+
+#: includes/class-msc-post-expiry-settings.php:336
+msgid "When editing a post or page, look for the \"Post Expiry\" box in the sidebar on the right. Enter the date and time when you want the post to expire."
+msgstr "Al editar una entrada o página, busca el recuadro \"Expiración de entrada\" en la barra lateral derecha. Ingresa la fecha y hora en que quieres que la entrada expire."
+
+#: includes/class-msc-post-expiry-settings.php:338
+msgid "Expiry Actions"
+msgstr "Acciones de expiración"
+
+#: includes/class-msc-post-expiry-settings.php:339
+msgid "When a post expires, one of the following actions will occur based on your settings:"
+msgstr "Cuando una entrada expira, ocurrirá una de las siguientes acciones según tu configuración:"
+
+#: includes/class-msc-post-expiry-settings.php:341
+msgid "The post is moved to trash and no longer visible to visitors."
+msgstr "La entrada se mueve a la papelera y ya no es visible para los visitantes."
+
+#: includes/class-msc-post-expiry-settings.php:342
+msgid "The post is permanently deleted from your site."
+msgstr "La entrada se elimina permanentemente de tu sitio."
+
+#: includes/class-msc-post-expiry-settings.php:343
+msgid "The post is changed to draft status and hidden from visitors."
+msgstr "La entrada cambia a estado de borrador y queda oculta para los visitantes."
+
+#: includes/class-msc-post-expiry-settings.php:344
+msgid "The post is changed to private status and only visible to logged-in users with appropriate permissions."
+msgstr "La entrada cambia a estado privado y solo es visible para usuarios conectados con los permisos adecuados."
+
+#: includes/class-msc-post-expiry-settings.php:345
+msgid "The post is moved to a specific archive category. Configure the category in the Settings tab."
+msgstr "La entrada se mueve a una categoría de archivo específica. Configura la categoría en la pestaña Configuración."
+
+#: includes/class-msc-post-expiry-settings.php:348
+msgid "Post Type Configuration"
+msgstr "Configuración de tipos de entrada"
+
+#: includes/class-msc-post-expiry-settings.php:349
+msgid "Use the Settings tab to choose which post types support expiry dates. You can either enable expiry on specific post types or disable it on specific types while enabling it on all others."
+msgstr "Usa la pestaña Configuración para elegir qué tipos de entrada soportan fechas de expiración. Puedes activar la expiración en tipos de entrada específicos o desactivarla en tipos específicos mientras la activas en todos los demás."
+
+#: includes/class-msc-post-expiry-settings.php:351
+msgid "Frequently Asked Questions"
+msgstr "Preguntas frecuentes"
+
+#: includes/class-msc-post-expiry-settings.php:353
+msgid "The Post Expiry metabox is not showing on my posts."
+msgstr "El metabox de Expiración de entrada no aparece en mis entradas."
+
+#: includes/class-msc-post-expiry-settings.php:355
+msgid "Check that \"Enable post expiry\" is ticked on the Settings tab."
+msgstr "Verifica que \"Activar expiración de entradas\" esté marcado en la pestaña Configuración."
+
+#: includes/class-msc-post-expiry-settings.php:356
+msgid "Check that the post type (e.g. Post, Page) is selected in the Post types list."
+msgstr "Verifica que el tipo de entrada (por ejemplo, Entrada, Página) esté seleccionado en la lista de tipos de entrada."
+
+#: includes/class-msc-post-expiry-settings.php:357
+msgid "The metabox appears in the sidebar on the right when editing a post."
+msgstr "El metabox aparece en la barra lateral derecha al editar una entrada."
+
+#: includes/class-msc-post-expiry-settings.php:360
+msgid "When does the expiry action occur?"
+msgstr "¿Cuándo ocurre la acción de expiración?"
+
+#: includes/class-msc-post-expiry-settings.php:361
+msgid "Post expiry is processed by WordPress scheduled events (cron). The action will occur shortly after the expiry date and time passes. The exact timing depends on your site traffic and WordPress cron configuration."
+msgstr "La expiración de entradas se procesa mediante eventos programados de WordPress (cron). La acción ocurrirá poco después de que pasen la fecha y hora de expiración. El tiempo exacto depende del tráfico de tu sitio y de la configuración del cron de WordPress."
+
+#: includes/class-msc-post-expiry-settings.php:363
+msgid "Can I disable expiry for a specific post?"
+msgstr "¿Puedo desactivar la expiración para una entrada específica?"
+
+#: includes/class-msc-post-expiry-settings.php:364
+msgid "Yes. Simply leave the expiry date and time fields empty in the Post Expiry metabox."
+msgstr "Sí. Solo deja vacíos los campos de fecha y hora de expiración en el metabox de Expiración de entrada."
+
+#: includes/class-msc-post-expiry-settings.php:368
+msgid "Need Help?"
+msgstr "¿Necesitas ayuda?"
+
+#: includes/class-msc-post-expiry-settings.php:369
+msgid "If you have questions, encounter bugs, or need setup assistance, we're here to help."
+msgstr "Si tienes preguntas, encuentras errores o necesitas ayuda con la configuración, estamos aquí para ayudarte."
+
+#: includes/class-msc-post-expiry-settings.php:372
+msgid "Get Support"
+msgstr "Obtener soporte"
+
+#: includes/class-msc-post-expiry-settings.php:379
+msgid "Upgrade to Post Expiry Pro"
+msgstr "Actualizar a Post Expiry Pro"
+
+#: includes/class-msc-post-expiry-settings.php:380
+msgid "Get even more power and flexibility with Post Expiry Pro:"
+msgstr "Obtén aún más potencia y flexibilidad con Post Expiry Pro:"
+
+#: includes/class-msc-post-expiry-settings.php:382
+msgid "Per-post expiry actions (override the default for individual posts)"
+msgstr "Acciones de expiración por entrada (anular el valor predeterminado para entradas individuales)"
+
+#: includes/class-msc-post-expiry-settings.php:383
+msgid "Custom redirect URLs for expired posts"
+msgstr "URLs de redirección personalizadas para entradas expiradas"
+
+#: includes/class-msc-post-expiry-settings.php:384
+msgid "Email notifications before posts expire"
+msgstr "Notificaciones por correo electrónico antes de que expiren las entradas"
+
+#: includes/class-msc-post-expiry-settings.php:385
+msgid "Expiry action history and logs"
+msgstr "Historial y registros de acciones de expiración"
+
+#: includes/class-msc-post-expiry-settings.php:386
+msgid "Bulk expiry scheduling from the Posts list"
+msgstr "Programación de expiración en masa desde la lista de entradas"
+
+#: includes/class-msc-post-expiry-settings.php:390
+msgid "Learn More About Pro"
+msgstr "Más información sobre Pro"
+
+#: msc-post-expiry.php:78
+msgid "Every 5 minutes"
+msgstr "Cada 5 minutos"
+
+#: msc-post-expiry.php:149
+msgid "No expiry set"
+msgstr "Sin expiración establecida"
+
+#: msc-post-expiry.php:156
+msgid "Expired"
+msgstr "Expirado"
+
+#: msc-post-expiry.php:166
+msgid "%d day remaining"
+msgid_plural "%d days remaining"
+msgstr[0] "%d día restante"
+msgstr[1] "%d días restantes"
+
+#: msc-post-expiry.php:174
+msgid "%d hour remaining"
+msgid_plural "%d hours remaining"
+msgstr[0] "%d hora restante"
+msgstr[1] "%d horas restantes"
+
+#: msc-post-expiry.php:179
+msgid "Expires soon"
+msgstr "Expira pronto"

@@ -4,7 +4,7 @@ Tags: post-expiry,workflow,content,scheduling,automation
 Requires at least: 5.9
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,6 +23,7 @@ MSC Post Expiry allows you to schedule automatic expiration for your posts and p
 * Lightweight and efficient
 * Full internationalization support
 * Developer-friendly with helper functions
+* 12 language translations included
 
 **Use Cases:**
 
@@ -71,6 +72,10 @@ Yes! You can configure the plugin to work with any public post type, including c
 
 Only if you configure the plugin to permanently delete them. By default, expired posts are moved to trash, which allows you to recover them if needed.
 
+= What languages are supported? =
+
+The plugin includes translations for 12 languages: German (Germany and Switzerland), Spanish (Spain and Mexico), French (France and Canada), Italian, Japanese, Dutch (Netherlands and Belgium), and Portuguese (Portugal and Brazil).
+
 == Installation ==
 
 1. Upload the plugin to `/wp-content/plugins/`.
@@ -79,6 +84,14 @@ Only if you configure the plugin to permanently delete them. By default, expired
 4. When editing a post or page, use the "Post Expiry" metabox to set expiration dates.
 
 == Changelog ==
+
+= 1.1.0 =
+* Redesigned settings page with clean tab-based layout
+* Added "Support" tab with help resources and Pro upgrade CTA
+* Renamed "Usage & Support" tab to "Usage"
+* Added "Change to Private" expiry action
+* Added "Move to Category" expiry action with category selector
+* Added expiry category option to settings
 
 = 1.0.0 =
 * Initial release
@@ -91,6 +104,9 @@ Only if you configure the plugin to permanently delete them. By default, expired
 * Full internationalization support
 
 == Upgrade Notice ==
+
+= 1.1.0 =
+New features: "Change to Private" and "Move to Category" expiry actions. Redesigned settings page with improved UI. Added Support tab with help resources.
 
 = 1.0.0 =
 Initial release of MSC Post Expiry. Schedule automatic expiration for your posts and pages.

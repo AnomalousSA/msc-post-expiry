@@ -114,10 +114,11 @@ class Plugin {
 	 */
 	public static function default_options() {
 		return array(
-			'module_enabled' => 1,
+			'module_enabled'  => 1,
 			'post_types'     => array( 'post', 'page' ),
 			'post_type_mode' => 'include',
 			'expiry_action'  => 'trash',
+			'expiry_category' => 0,
 		);
 	}
 

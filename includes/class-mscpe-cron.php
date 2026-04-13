@@ -68,8 +68,16 @@ class Cron {
 	 * This is the main cron handler that finds and processes all expired posts.
 	 */
 	public function process_expired_posts() {
+		$this->log_event( '=== Cron job started at ' . current_time( 'Y-m-d H:i:s' ) . ' ===' );
+
 		// Check if module is enabled.
-		if ( ! $this->plugin->get_option( 'module_enabled', 1 ) ) {
+		$module_enabled = $this->plugin->get_option( 'module_enabled', 1 );
+		$this->log_event( 'Module enabled value: ' . var_export( $module_enabled, true ) . ' (type: ' . gettype( $module_enabled ) . ')' );
+
+		// Handle both integer 1 and string '1' as enabled.
+		$is_enabled = ! empty( $module_enabled ) || $module_enabled === '1' || $module_enabled === 1;
+		if ( ! $is_enabled ) {
+			$this->log_event( 'Module is disabled, skipping cron processing.' );
 			return;
 		}
 
@@ -81,18 +89,26 @@ class Cron {
 		$expired_posts   = $this->get_expired_posts();
 		$processed_count = 0;
 
+		$this->log_event( 'Found ' . count( $expired_posts ) . ' expired posts to process.' );
+
 		if ( empty( $expired_posts ) ) {
 			$this->log_event( 'No expired posts found.' );
 			do_action( 'mscpe_after_process_expired_posts', 0 );
+			$this->cleanup_old_logs();
 			return;
 		}
 
 		$expiry_action = (string) $this->plugin->get_option( 'expiry_action', 'trash' );
+		$this->log_event( 'Expiry action: ' . $expiry_action );
 
 		foreach ( $expired_posts as $post_id ) {
+			$this->log_event( 'Processing post ID: ' . $post_id );
 			$result = $this->expire_post( $post_id, $expiry_action );
 			if ( $result ) {
 				++$processed_count;
+				$this->log_event( 'Successfully expired post ID: ' . $post_id );
+			} else {
+				$this->log_event( 'Failed to expire post ID: ' . $post_id );
 			}
 		}
 
@@ -112,25 +128,39 @@ class Cron {
 	/**
 	 * Get all posts that have expired.
 	 *
+	 * Uses PHP-based datetime comparison for reliable time-zone aware
+	 * and time-only expiry comparisons.
+	 *
 	 * @return array<int> Array of post IDs.
 	 */
 	private function get_expired_posts() {
 		global $wpdb;
 
-		// Check cache first.
-		$cache_key      = 'mscpe_expired_posts_' . current_time( 'Y-m-d-H' );
-		$cached_results = wp_cache_get( $cache_key, 'mscpe' );
-		if ( false !== $cached_results ) {
-			return $cached_results;
+		$this->log_event( '=== Starting get_expired_posts() ===' );
+
+		// Skip cache during debugging to ensure fresh results.
+		$use_cache = ! ( defined( 'WP_DEBUG' ) && WP_DEBUG );
+		$cache_key = 'mscpe_expired_posts_' . current_time( 'Y-m-d-H' );
+
+		if ( $use_cache ) {
+			$cached_results = wp_cache_get( $cache_key, 'mscpe' );
+			if ( false !== $cached_results ) {
+				$this->log_event( 'Returning cached results: ' . count( $cached_results ) . ' posts' );
+				return $cached_results;
+			}
 		}
 
-		// Get current date and time.
-		$current_datetime                    = current_time( 'mysql' );
-		list( $current_date, $current_time ) = explode( ' ', $current_datetime );
+		// Get current timestamp (WordPress timezone-aware).
+		$current_timestamp = current_time( 'timestamp' );
+		$current_datetime = current_time( 'Y-m-d H:i:s' );
+
+		$this->log_event( 'Current timestamp: ' . $current_timestamp . ' | Datetime: ' . $current_datetime );
 
 		// Get configured post types.
 		$post_types     = (array) $this->plugin->get_option( 'post_types', array( 'post', 'page' ) );
 		$post_type_mode = (string) $this->plugin->get_option( 'post_type_mode', 'include' );
+
+		$this->log_event( 'Post types config: ' . implode( ', ', $post_types ) . ' | Mode: ' . $post_type_mode );
 
 		// Determine which post types to query.
 		$all_post_types = get_post_types( array( 'public' => true ) );
@@ -140,57 +170,74 @@ class Cron {
 			$target_post_types = array_diff( $all_post_types, $post_types );
 		}
 
+		$this->log_event( 'Target post types: ' . implode( ', ', (array) $target_post_types ) );
+
 		if ( empty( $target_post_types ) ) {
+			$this->log_event( 'No target post types, returning empty array.' );
 			return array();
 		}
 
 		// Sanitize post types.
-		$target_post_types = array_map( 'sanitize_key', $target_post_types );
+		$target_post_types = array_map( 'sanitize_key', (array) $target_post_types );
 
 		// Collect all expired post IDs across all target post types.
 		$all_expired_posts = array();
 
 		foreach ( $target_post_types as $post_type ) {
+			$this->log_event( 'Querying post type: ' . $post_type );
+
+			// Query posts that have expiry_date meta set.
+			// We do PHP-based datetime comparison for reliable time comparisons.
 			$post_ids = $wpdb->get_col(
 				$wpdb->prepare(
 					"
 					SELECT DISTINCT p.ID
 					FROM {$wpdb->posts} p
-					INNER JOIN {$wpdb->postmeta} pm_date ON p.ID = pm_date.post_id
-					LEFT JOIN {$wpdb->postmeta} pm_time ON p.ID = pm_time.post_id AND pm_time.meta_key = %s
+					INNER JOIN {$wpdb->postmeta} pm_date ON p.ID = pm_date.post_id AND pm_date.meta_key = 'mscpe_expiry_date'
+					LEFT JOIN {$wpdb->postmeta} pm_time ON p.ID = pm_time.post_id AND pm_time.meta_key = 'mscpe_expiry_time'
 					WHERE p.post_type = %s
-					AND p.post_status = %s
-					AND pm_date.meta_key = %s
-					AND (
-						pm_date.meta_value < %s
-						OR (
-							pm_date.meta_value = %s
-							AND COALESCE(pm_time.meta_value, '00:00') <= %s
-						)
-					)
-					LIMIT 50
+					AND p.post_status = 'publish'
+					LIMIT 200
 					",
-					array(
-						'mscpe_expiry_time',
-						$post_type,
-						'publish',
-						'mscpe_expiry_date',
-						$current_date,
-						$current_date,
-						$current_time,
-					)
+					$post_type
 				)
 			);
+
+			$this->log_event( 'Query for ' . $post_type . ' returned: ' . count( $post_ids ) . ' posts (before PHP filtering)' );
+
 			if ( ! empty( $post_ids ) ) {
-				$all_expired_posts = array_merge( $all_expired_posts, $post_ids );
+				// Filter posts in PHP to properly compare datetimes.
+				foreach ( $post_ids as $post_id ) {
+					$expiry_date = get_post_meta( $post_id, 'mscpe_expiry_date', true );
+					$expiry_time = get_post_meta( $post_id, 'mscpe_expiry_time', true );
+
+					// Build full expiry datetime.
+					$expiry_time_value = $expiry_time ? $expiry_time : '00:00:00';
+					$expiry_datetime   = $expiry_date . ' ' . $expiry_time_value;
+
+					// Convert to timestamp for comparison.
+					$expiry_timestamp = strtotime( $expiry_datetime );
+
+					$this->log_event( '  Checking post ID: ' . $post_id . ' | Expiry: ' . $expiry_datetime . ' | Expiry ts: ' . $expiry_timestamp . ' | Current ts: ' . $current_timestamp );
+
+					// Check if expiry timestamp is in the past or now.
+					if ( $expiry_timestamp && $expiry_timestamp <= $current_timestamp ) {
+						$all_expired_posts[] = $post_id;
+						$this->log_event( '    -> POST IS EXPIRED (ts <= current)', $expiry_timestamp );
+					}
+				}
 			}
 		}
 
 		// Convert to integers and remove duplicates.
 		$all_expired_posts = array_unique( array_map( 'intval', $all_expired_posts ) );
 
-		// Cache results for 1 hour.
-		wp_cache_set( $cache_key, $all_expired_posts, 'mscpe', HOUR_IN_SECONDS );
+		$this->log_event( 'Total expired posts after PHP filtering and dedup: ' . count( $all_expired_posts ) );
+
+		// Cache results for 1 hour (only if not debugging).
+		if ( $use_cache ) {
+			wp_cache_set( $cache_key, $all_expired_posts, 'mscpe', HOUR_IN_SECONDS );
+		}
 
 		return $all_expired_posts;
 	}
@@ -203,12 +250,16 @@ class Cron {
 	 * @return bool True if successful, false otherwise.
 	 */
 	private function expire_post( $post_id, $action ) {
+		$this->log_event( '--- expire_post() called for post ID: ' . $post_id . ' with action: ' . $action );
+
 		$post = get_post( $post_id );
 
 		if ( ! $post ) {
-			$this->log_event( sprintf( 'Post ID %d not found.', $post_id ) );
+			$this->log_event( 'Post ID ' . $post_id . ' not found (get_post returned null).' );
 			return false;
 		}
+
+		$this->log_event( 'Post found: ' . $post->post_title . ' | Status: ' . $post->post_status );
 
 		/**
 		 * Fires before expiring a post.
@@ -222,24 +273,53 @@ class Cron {
 
 		switch ( $action ) {
 			case 'trash':
+				$this->log_event( 'Executing wp_trash_post() for post ID: ' . $post_id );
 				$result = wp_trash_post( $post_id );
+				$this->log_event( 'wp_trash_post() result: ' . var_export( $result, true ) );
 				break;
 
 			case 'delete':
+				$this->log_event( 'Executing wp_delete_post() with delete=true for post ID: ' . $post_id );
 				$result = wp_delete_post( $post_id, true );
+				$this->log_event( 'wp_delete_post() result: ' . var_export( $result, true ) );
 				break;
 
 			case 'draft':
+				$this->log_event( 'Executing wp_update_post() to set draft for post ID: ' . $post_id );
 				$result = wp_update_post(
 					array(
 						'ID'          => $post_id,
 						'post_status' => 'draft',
 					)
 				);
+				$this->log_event( 'wp_update_post() to draft result: ' . var_export( $result, true ) );
+				break;
+
+			case 'private':
+				$this->log_event( 'Executing wp_update_post() to set private for post ID: ' . $post_id );
+				$result = wp_update_post(
+					array(
+						'ID'          => $post_id,
+						'post_status' => 'private',
+					)
+				);
+				$this->log_event( 'wp_update_post() to private result: ' . var_export( $result, true ) );
+				break;
+
+			case 'category':
+				$this->log_event( 'Executing category action for post ID: ' . $post_id );
+				if ( 'post' !== get_post_type( $post_id ) ) {
+					$this->log_event( 'Category action only works for posts, but post type is: ' . get_post_type( $post_id ) );
+					return false;
+				}
+				$cat = absint( $this->plugin->get_option( 'expiry_category', 0 ) );
+				$this->log_event( 'Expiry category ID: ' . $cat );
+				$result = $cat > 0 && false !== wp_set_post_categories( $post_id, array( $cat ), false ) ? $post_id : false;
+				$this->log_event( 'wp_set_post_categories() result: ' . var_export( $result, true ) );
 				break;
 
 			default:
-				$this->log_event( sprintf( 'Invalid action "%s" for post ID %d.', $action, $post_id ) );
+				$this->log_event( 'Invalid action "' . $action . '" for post ID ' . $post_id . '.' );
 				return false;
 		}
 
@@ -248,7 +328,7 @@ class Cron {
 			delete_post_meta( $post_id, 'mscpe_expiry_date' );
 			delete_post_meta( $post_id, 'mscpe_expiry_time' );
 
-			$this->log_event( sprintf( 'Post ID %d expired with action "%s".', $post_id, $action ) );
+			$this->log_event( 'Post ID ' . $post_id . ' expired successfully with action "' . $action . '". Meta cleared.' );
 
 			/**
 			 * Fires after expiring a post.
@@ -262,12 +342,14 @@ class Cron {
 			return true;
 		}
 
-		$this->log_event( sprintf( 'Failed to expire post ID %d with action "%s".', $post_id, $action ) );
+		$this->log_event( 'Failed to expire post ID ' . $post_id . ' with action "' . $action . '".' );
 		return false;
 	}
 
 	/**
 	 * Log an event.
+	 *
+	 * Uses native PHP file functions for reliable appending and permission control.
 	 *
 	 * @param string $message Log message.
 	 */
@@ -282,21 +364,26 @@ class Cron {
 		// Create log directory if it doesn't exist.
 		if ( ! is_dir( $log_path ) ) {
 			wp_mkdir_p( $log_path );
+
+			// Copy index.php for security.
+			$index_source = MSCPE_PLUGIN_DIR . 'includes/index-log.php';
+			$index_dest   = $log_path . '/index.php';
+			if ( file_exists( $index_source ) ) {
+				copy( $index_source, $index_dest );
+				@chmod( $index_dest, 0644 );
+			}
 		}
 
 		$log_file  = $log_path . '/msc-post-expiry.log';
 		$timestamp = current_time( 'Y-m-d H:i:s' );
 		$log_entry = sprintf( "[%s] %s\n", $timestamp, $message );
 
-		// Use WP_Filesystem for file operations.
-		global $wp_filesystem;
-		if ( empty( $wp_filesystem ) ) {
-			require_once ABSPATH . 'wp-admin/includes/file.php';
-			WP_Filesystem();
-		}
-
-		if ( ! empty( $wp_filesystem ) ) {
-			$wp_filesystem->put_contents( $log_file, $log_entry, FILE_APPEND );
+		// Use native PHP for reliable appending with proper permissions.
+		$fp = @fopen( $log_file, 'a' );
+		if ( $fp ) {
+			fwrite( $fp, $log_entry );
+			fclose( $fp );
+			@chmod( $log_file, 0644 );
 		}
 	}
 
