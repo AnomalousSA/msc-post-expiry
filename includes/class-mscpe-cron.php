@@ -72,7 +72,7 @@ class Cron {
 
 		// Check if module is enabled.
 		$module_enabled = $this->plugin->get_option( 'module_enabled', 1 );
-		$this->log_event( 'Module enabled value: ' . var_export( $module_enabled, true ) . ' (type: ' . gettype( $module_enabled ) . ')' );
+		$this->log_event( 'Module enabled value: ' . wp_json_encode( $module_enabled ) . ' (type: ' . gettype( $module_enabled ) . ')' );
 
 		// Handle both integer 1 and string '1' as enabled.
 		$is_enabled = ! empty( $module_enabled ) || $module_enabled === '1' || $module_enabled === 1;
@@ -188,7 +188,7 @@ class Cron {
 
 			// Query posts that have expiry_date meta set.
 			// We do PHP-based datetime comparison for reliable time comparisons.
-			$post_ids = $wpdb->get_col(
+			$post_ids = $wpdb->get_col( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
 				$wpdb->prepare(
 					"
 					SELECT DISTINCT p.ID
@@ -275,13 +275,13 @@ class Cron {
 			case 'trash':
 				$this->log_event( 'Executing wp_trash_post() for post ID: ' . $post_id );
 				$result = wp_trash_post( $post_id );
-				$this->log_event( 'wp_trash_post() result: ' . var_export( $result, true ) );
+				$this->log_event( 'wp_trash_post() result: ' . wp_json_encode( $result ) );
 				break;
 
 			case 'delete':
 				$this->log_event( 'Executing wp_delete_post() with delete=true for post ID: ' . $post_id );
 				$result = wp_delete_post( $post_id, true );
-				$this->log_event( 'wp_delete_post() result: ' . var_export( $result, true ) );
+				$this->log_event( 'wp_delete_post() result: ' . wp_json_encode( $result ) );
 				break;
 
 			case 'draft':
@@ -292,7 +292,7 @@ class Cron {
 						'post_status' => 'draft',
 					)
 				);
-				$this->log_event( 'wp_update_post() to draft result: ' . var_export( $result, true ) );
+				$this->log_event( 'wp_update_post() to draft result: ' . wp_json_encode( $result ) );
 				break;
 
 			case 'private':
@@ -303,7 +303,7 @@ class Cron {
 						'post_status' => 'private',
 					)
 				);
-				$this->log_event( 'wp_update_post() to private result: ' . var_export( $result, true ) );
+				$this->log_event( 'wp_update_post() to private result: ' . wp_json_encode( $result ) );
 				break;
 
 			case 'category':
@@ -315,7 +315,7 @@ class Cron {
 				$cat = absint( $this->plugin->get_option( 'expiry_category', 0 ) );
 				$this->log_event( 'Expiry category ID: ' . $cat );
 				$result = $cat > 0 && false !== wp_set_post_categories( $post_id, array( $cat ), false ) ? $post_id : false;
-				$this->log_event( 'wp_set_post_categories() result: ' . var_export( $result, true ) );
+				$this->log_event( 'wp_set_post_categories() result: ' . wp_json_encode( $result ) );
 				break;
 
 			default:
@@ -349,7 +349,7 @@ class Cron {
 	/**
 	 * Log an event.
 	 *
-	 * Uses native PHP file functions for reliable appending and permission control.
+	 * Uses WP_Filesystem for reliable file operations.
 	 *
 	 * @param string $message Log message.
 	 */
@@ -361,16 +361,26 @@ class Cron {
 		$log_dir  = wp_upload_dir();
 		$log_path = $log_dir['basedir'] . '/' . self::LOG_DIR;
 
+		// Use WP_Filesystem for all file operations.
+		global $wp_filesystem;
+		if ( empty( $wp_filesystem ) ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+			WP_Filesystem();
+		}
+
+		if ( empty( $wp_filesystem ) ) {
+			return;
+		}
+
 		// Create log directory if it doesn't exist.
-		if ( ! is_dir( $log_path ) ) {
-			wp_mkdir_p( $log_path );
+		if ( ! $wp_filesystem->is_dir( $log_path ) ) {
+			$wp_filesystem->mkdir( $log_path, 0755 );
 
 			// Copy index.php for security.
 			$index_source = MSCPE_PLUGIN_DIR . 'includes/index-log.php';
 			$index_dest   = $log_path . '/index.php';
-			if ( file_exists( $index_source ) ) {
-				copy( $index_source, $index_dest );
-				@chmod( $index_dest, 0644 );
+			if ( $wp_filesystem->exists( $index_source ) ) {
+				$wp_filesystem->copy( $index_source, $index_dest );
 			}
 		}
 
@@ -378,13 +388,17 @@ class Cron {
 		$timestamp = current_time( 'Y-m-d H:i:s' );
 		$log_entry = sprintf( "[%s] %s\n", $timestamp, $message );
 
-		// Use native PHP for reliable appending with proper permissions.
-		$fp = @fopen( $log_file, 'a' );
-		if ( $fp ) {
-			fwrite( $fp, $log_entry );
-			fclose( $fp );
-			@chmod( $log_file, 0644 );
+		// Read existing content.
+		$existing_content = $wp_filesystem->exists( $log_file ) ? $wp_filesystem->get_contents( $log_file ) : '';
+		if ( false === $existing_content ) {
+			$existing_content = '';
 		}
+
+		// Append new content.
+		$new_content = $existing_content . $log_entry;
+
+		// Write back.
+		$wp_filesystem->put_contents( $log_file, $new_content, FS_CHMOD_FILE );
 	}
 
 	/**

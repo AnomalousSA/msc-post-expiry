@@ -47,18 +47,32 @@ class Plugin {
 	private $cron;
 
 	/**
-	 * Analytics instance.
+	 * SEO instance.
 	 *
-	 * @var object|null
+	 * @var SEO|null
 	 */
-	private $analytics = null;
+	private $seo = null;
 
 	/**
-	 * Admin analytics instance.
+	 * Rules instance.
 	 *
-	 * @var object|null
+	 * @var Rules|null
 	 */
-	private $admin_analytics = null;
+	private $rules = null;
+
+	/**
+	 * Workflows instance.
+	 *
+	 * @var Workflows|null
+	 */
+	private $workflows = null;
+
+	/**
+	 * Analytics instance.
+	 *
+	 * @var Analytics|null
+	 */
+	private $analytics = null;
 
 	/**
 	 * Get singleton instance.
@@ -81,20 +95,35 @@ class Plugin {
 			update_option( self::OPTION_KEY, self::default_options() );
 		}
 
-		// Register cron event.
+		// Register cron events.
 		if ( ! wp_next_scheduled( Cron::CRON_HOOK ) ) {
 			wp_schedule_event( time(), 'mscpe_5min', Cron::CRON_HOOK );
 		}
+		if ( ! wp_next_scheduled( Module::CRON_HOOK ) ) {
+			wp_schedule_event( time(), 'mscpe_15min', Module::CRON_HOOK );
+		}
+
+		// Run DB migrations.
+		Migrations::run();
 	}
 
 	/**
 	 * Deactivate plugin.
 	 */
 	public static function deactivate() {
-		// Unregister cron event.
 		$timestamp = wp_next_scheduled( Cron::CRON_HOOK );
 		if ( $timestamp ) {
 			wp_unschedule_event( $timestamp, Cron::CRON_HOOK );
+		}
+
+		$timestamp_adv = wp_next_scheduled( Module::CRON_HOOK );
+		if ( $timestamp_adv ) {
+			wp_unschedule_event( $timestamp_adv, Module::CRON_HOOK );
+		}
+
+		$timestamp_wf = wp_next_scheduled( 'mscpe_process_workflow_steps' );
+		if ( $timestamp_wf ) {
+			wp_unschedule_event( $timestamp_wf, 'mscpe_process_workflow_steps' );
 		}
 	}
 
@@ -102,9 +131,21 @@ class Plugin {
 	 * Constructor.
 	 */
 	private function __construct() {
-		$this->settings = new Settings( $this );
-		$this->module   = new Module( $this );
-		$this->cron     = new Cron( $this );
+		$this->settings  = new Settings( $this );
+		$this->seo       = new SEO( $this );
+		$this->rules     = new Rules( $this );
+		$this->workflows = new Workflows( $this );
+		$this->analytics = new Analytics( $this );
+		$this->module    = new Module( $this );
+		$this->cron      = new Cron( $this );
+
+		// Hook into the existing cron's expiry to log analytics and apply SEO.
+		add_action( 'mscpe_after_expire_post', array( $this, 'on_post_expired' ), 10, 2 );
+
+		// Schedule module cron if not set.
+		if ( ! wp_next_scheduled( Module::CRON_HOOK ) ) {
+			wp_schedule_event( time(), 'mscpe_15min', Module::CRON_HOOK );
+		}
 	}
 
 	/**
@@ -114,11 +155,17 @@ class Plugin {
 	 */
 	public static function default_options() {
 		return array(
-			'module_enabled'  => 1,
-			'post_types'     => array( 'post', 'page' ),
-			'post_type_mode' => 'include',
-			'expiry_action'  => 'trash',
-			'expiry_category' => 0,
+			'module_enabled'     => 1,
+			'post_types'         => array( 'post', 'page' ),
+			'post_type_mode'     => 'include',
+			'expiry_action'      => 'trash',
+			'expiry_category'    => 0,
+			'redirect_enabled'   => 0,
+			'bulk_default_days'  => 30,
+			'notify_enabled'     => 0,
+			'notify_days_before' => 3,
+			'notify_recipients'  => 'author',
+			'log_enabled'        => 1,
 		);
 	}
 
@@ -147,31 +194,75 @@ class Plugin {
 	}
 
 	/**
-	 * Whether pro plugin is active.
+	 * Get SEO instance.
 	 *
-	 * @return bool
+	 * @return SEO|null
 	 */
-	public function is_pro_active() {
-		return (bool) apply_filters( 'mscpe_pro_active', false );
+	public function get_seo() {
+		return $this->seo;
 	}
 
 	/**
-	 * Feature switch helper.
+	 * Get Rules instance.
 	 *
-	 * @param string $feature Feature key.
-	 * @return bool
+	 * @return Rules|null
 	 */
-	public function has_feature( $feature ) {
-		$map = array(
-			'analytics'         => false,
-			'admin_analytics'   => false,
-			'cron'              => true,
-			'meta_registration' => true,
-			'bulk_actions'      => false,
-			'shortcode'         => false,
-			'ajax'              => false,
-		);
+	public function get_rules() {
+		return $this->rules;
+	}
 
-		return ! empty( $map[ $feature ] );
+	/**
+	 * Get Workflows instance.
+	 *
+	 * @return Workflows|null
+	 */
+	public function get_workflows() {
+		return $this->workflows;
+	}
+
+	/**
+	 * Get Analytics instance.
+	 *
+	 * @return Analytics|null
+	 */
+	public function get_analytics() {
+		return $this->analytics;
+	}
+
+	/**
+	 * Get Module instance.
+	 *
+	 * @return Module|null
+	 */
+	public function get_module() {
+		return $this->module;
+	}
+
+	/**
+	 * Get Settings instance.
+	 *
+	 * @return Settings
+	 */
+	public function get_settings() {
+		return $this->settings;
+	}
+
+	/**
+	 * Callback when the legacy cron expires a post.
+	 * Logs analytics and applies SEO.
+	 *
+	 * @param int    $post_id Post ID.
+	 * @param string $action  Expiry action.
+	 */
+	public function on_post_expired( $post_id, $action ) {
+		if ( $this->analytics ) {
+			$this->analytics->log_expiry( $post_id, $action );
+		}
+		if ( $this->seo ) {
+			$this->seo->apply_seo_on_expiry( $post_id );
+		}
+		if ( $this->module ) {
+			$this->module->log_action( $post_id, $action );
+		}
 	}
 }

@@ -4,285 +4,223 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MSC Post Expiry 1.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/msc-post-expiry\n"
-"POT-Creation-Date: 2026-04-11 12:00:00+00:00\n"
-"PO-Revision-Date: 2026-04-11 12:00:00+00:00\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2026-04-25T09:56:29+00:00\n"
+"PO-Revision-Date: 2026-04-25 10:00:00+00:00\n"
+"Last-Translator: Anomalous Developers <dev@anomalous.co.za>\n"
 "Language-Team: Japanese <LL@li.org>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: WP-CLI 2.8.1\n"
+"X-Generator: scripts/generate-translations.php\n"
 
-#: includes/class-msc-post-expiry-settings.php:45
-#: includes/class-msc-post-expiry-settings.php:46
 msgid "MSC Post Expiry"
 msgstr "MSC Post Expiry"
 
-#: includes/class-msc-post-expiry-settings.php:58
+msgid "https://anomalous.co.za"
+msgstr "https://anomalous.co.za"
+
+msgid "Automatically expire posts and pages on a scheduled date. Set expiration dates in the post editor and let the plugin handle the rest."
+msgstr "投稿とページを予定日に自動的に期限切れにします。投稿エディターで有効期限を設定すれば、あとはプラグインにお任せください。"
+
+msgid "Anomalous Developers"
+msgstr "Anomalous Developers"
+
 msgid "You do not have permission to access this page."
 msgstr "このページにアクセスする権限がありません。"
 
-#: includes/class-msc-post-expiry-settings.php:64
 msgid "Security check failed. Please try again."
 msgstr "セキュリティチェックに失敗しました。もう一度お試しください。"
 
-#: includes/class-msc-post-expiry-settings.php:129
 msgid "Settings"
 msgstr "設定"
 
-#: includes/class-msc-post-expiry-settings.php:133
 msgid "Support"
 msgstr "サポート"
 
-#: includes/class-msc-post-expiry-settings.php:170
 msgid "Settings saved."
 msgstr "設定を保存しました。"
 
-#: includes/class-msc-post-expiry-settings.php:214
-#: includes/class-msc-post-expiry-settings.php:341
 msgid "Move to Trash"
 msgstr "ゴミ箱に移動"
 
-#: includes/class-msc-post-expiry-settings.php:215
-#: includes/class-msc-post-expiry-settings.php:342
 msgid "Permanently Delete"
 msgstr "完全に削除"
 
-#: includes/class-msc-post-expiry-settings.php:216
-#: includes/class-msc-post-expiry-settings.php:343
 msgid "Change to Draft"
 msgstr "下書きに変更"
 
-#: includes/class-msc-post-expiry-settings.php:217
-#: includes/class-msc-post-expiry-settings.php:344
 msgid "Change to Private"
 msgstr "非公開に変更"
 
-#: includes/class-msc-post-expiry-settings.php:218
-#: includes/class-msc-post-expiry-settings.php:345
 msgid "Move to Category"
-msgstr "カテゴリに移動"
+msgstr "カテゴリーに移動"
 
-#: includes/class-msc-post-expiry-settings.php:230
 msgid "Enable post expiry"
-msgstr "記事の有効期限を有効にする"
+msgstr "投稿の期限切れを有効にする"
 
-#: includes/class-msc-post-expiry-settings.php:234
 msgid "Allow posts to expire on a scheduled date."
-msgstr "予約した日付で記事の有効期限が切れるようにします。"
+msgstr "投稿を予定日に期限切れにできるようにする。"
 
-#: includes/class-msc-post-expiry-settings.php:239
 msgid "Post type mode"
 msgstr "投稿タイプモード"
 
-#: includes/class-msc-post-expiry-settings.php:242
 msgid "Enable expiry only on selected post types"
-msgstr "選択した投稿タイプのみ有効期限を有効にする"
+msgstr "選択した投稿タイプのみで期限切れを有効にする"
 
-#: includes/class-msc-post-expiry-settings.php:243
 msgid "Enable expiry on all public post types except selected"
-msgstr "選択したものを除いて、すべての公開投稿タイプで有効期限を有効にする"
+msgstr "選択した投稿タイプを除くすべての公開投稿タイプで期限切れを有効にする"
 
-#: includes/class-msc-post-expiry-settings.php:248
 msgid "Post types"
 msgstr "投稿タイプ"
 
-#: includes/class-msc-post-expiry-settings.php:262
 msgid "Expiry action"
-msgstr "有効期限アクション"
+msgstr "期限切れアクション"
 
-#: includes/class-msc-post-expiry-settings.php:269
 msgid "What should happen when a post expires."
-msgstr "記事の有効期限が切れたときに何をすべきか。"
+msgstr "投稿が期限切れになったときに何が起こるか。"
 
-#: includes/class-msc-post-expiry-settings.php:273
 msgid "Expiry category"
-msgstr "有効期限カテゴリ"
+msgstr "期限切れカテゴリー"
 
-#: includes/class-msc-post-expiry-settings.php:276
 msgid "Select a category"
-msgstr "カテゴリを選択"
+msgstr "カテゴリーを選択"
 
-#: includes/class-msc-post-expiry-settings.php:281
 msgid "Posts will be moved to this category when expired. Only used when \"Move to Category\" is selected above."
-msgstr "有効期限が切れた記事は、このカテゴリに移動されます。上記で「カテゴリに移動」が選択されている場合のみ使用されます。"
+msgstr ""
 
-#: includes/class-msc-post-expiry-settings.php:304
 msgid "Save Settings"
 msgstr "設定を保存"
 
-#: includes/class-msc-post-expiry-settings.php:421
-msgid "Post Expiry"
-msgstr "記事有効期限"
-
-#: includes/class-msc-post-expiry-settings.php:443
-msgid "Expiry Date"
-msgstr "有効期限日"
-
-#: includes/class-msc-post-expiry-settings.php:448
-msgid "Expiry Time"
-msgstr "有効期限時刻"
-
-#: includes/class-msc-post-expiry-settings.php:453
-msgid "Leave empty to disable expiry for this post."
-msgstr "この記事の有効期限を無効にするには空のままにしてください。"
-
-#: includes/class-msc-post-expiry-settings.php:332
 msgid "How to Use Post Expiry"
-msgstr "記事有効期限の使用方法"
+msgstr "投稿期限切れの使い方"
 
-#: includes/class-msc-post-expiry-settings.php:333
 msgid "Post Expiry allows you to automatically handle posts when they reach a specified expiration date."
-msgstr "記事有効期限を使用すると、指定した有効期限日に記事が自動的に処理されます。"
+msgstr "投稿期限切れにより、投稿が指定された有効期限に達したときに自動的に処理できます。"
 
-#: includes/class-msc-post-expiry-settings.php:335
 msgid "Setting an Expiry Date"
-msgstr "有効期限日の設定"
+msgstr "有効期限の設定"
 
-#: includes/class-msc-post-expiry-settings.php:336
 msgid "When editing a post or page, look for the \"Post Expiry\" box in the sidebar on the right. Enter the date and time when you want the post to expire."
-msgstr "投稿やページを編集的时候，右側のサイドバーにある「記事有効期限」ボックスを探してください。記事を有効期限にしたい日時を入力してください。"
+msgstr ""
 
-#: includes/class-msc-post-expiry-settings.php:338
 msgid "Expiry Actions"
-msgstr "有効期限アクション"
+msgstr "期限切れアクション"
 
-#: includes/class-msc-post-expiry-settings.php:339
 msgid "When a post expires, one of the following actions will occur based on your settings:"
-msgstr "記事の有効期限が切れると、設定に基づいて次のいずれかのアクションが発生します："
+msgstr "投稿が期限切れになると、設定に基づいて以下のアクションのいずれかが実行されます："
 
-#: includes/class-msc-post-expiry-settings.php:341
 msgid "The post is moved to trash and no longer visible to visitors."
-msgstr "投稿がゴミ箱に移動され、訪問者には表示されなくなります。"
+msgstr "投稿はゴミ箱に移動され、訪問者には表示されなくなります。"
 
-#: includes/class-msc-post-expiry-settings.php:342
 msgid "The post is permanently deleted from your site."
-msgstr "投稿がサイトから完全に削除されます。"
+msgstr "投稿はサイトから完全に削除されます。"
 
-#: includes/class-msc-post-expiry-settings.php:343
 msgid "The post is changed to draft status and hidden from visitors."
-msgstr "投稿が下書きステータスに変更され、訪問者には表示されなくなります。"
+msgstr "投稿は下書きステータスに変更され、訪問者から非表示になります。"
 
-#: includes/class-msc-post-expiry-settings.php:344
 msgid "The post is changed to private status and only visible to logged-in users with appropriate permissions."
-msgstr "投稿が非公開ステータスに変更され、適切な権限を持つログイン済みユーザーのみが表示されます。"
+msgstr "投稿は非公開ステータスに変更され、適切な権限を持つログインユーザーのみに表示されます。"
 
-#: includes/class-msc-post-expiry-settings.php:345
 msgid "The post is moved to a specific archive category. Configure the category in the Settings tab."
-msgstr "投稿が特定のアーカイブカテゴリに移動されます。「設定」タブでカテゴリを設定してください。"
+msgstr "投稿は特定のアーカイブカテゴリーに移動されます。設定タブでカテゴリーを設定してください。"
 
-#: includes/class-msc-post-expiry-settings.php:348
 msgid "Post Type Configuration"
-msgstr "投稿タイプ設定"
+msgstr "投稿タイプの設定"
 
-#: includes/class-msc-post-expiry-settings.php:349
 msgid "Use the Settings tab to choose which post types support expiry dates. You can either enable expiry on specific post types or disable it on specific types while enabling it on all others."
-msgstr "「設定」タブを使用して、どの投稿タイプが有効期限をサポートするかを 选择하세요。特定の投稿タイプで有効期限を有効にしたり、特定の種類では無効にしながら他のすべてでは有効にしたりできます。"
+msgstr "設定タブを使用して、どの投稿タイプが有効期限をサポートするかを選択してください。特定の投稿タイプで期限切れを有効にするか、特定のタイプで無効にしながら他のすべてで有効にすることができます。"
 
-#: includes/class-msc-post-expiry-settings.php:351
 msgid "Frequently Asked Questions"
 msgstr "よくある質問"
 
-#: includes/class-msc-post-expiry-settings.php:353
 msgid "The Post Expiry metabox is not showing on my posts."
-msgstr "記事有効期限メタボックスが自分の投稿に表示されません。"
+msgstr "投稿期限切れのメタボックスが投稿に表示されません。"
 
-#: includes/class-msc-post-expiry-settings.php:355
 msgid "Check that \"Enable post expiry\" is ticked on the Settings tab."
-msgstr "「設定」タブで「記事有効期限を有効にする」にチェックが入っていることを確認してください。"
+msgstr ""
 
-#: includes/class-msc-post-expiry-settings.php:356
 msgid "Check that the post type (e.g. Post, Page) is selected in the Post types list."
-msgstr "投稿タイプ一覧で投稿タイプ（例：投稿、固定ページ）が選択されていることを確認してください。"
+msgstr "投稿タイプ（例：投稿、固定ページ）が投稿タイプリストで選択されていることを確認してください。"
 
-#: includes/class-msc-post-expiry-settings.php:357
 msgid "The metabox appears in the sidebar on the right when editing a post."
-msgstr "メタボックスは、投稿の編集時に右側のサイドバーに表示されます。"
+msgstr "メタボックスは投稿を編集する際、右側のサイドバーに表示されます。"
 
-#: includes/class-msc-post-expiry-settings.php:360
 msgid "When does the expiry action occur?"
-msgstr "有効期限アクションはいつ実行されますか？"
+msgstr "期限切れアクションはいつ実行されますか？"
 
-#: includes/class-msc-post-expiry-settings.php:361
 msgid "Post expiry is processed by WordPress scheduled events (cron). The action will occur shortly after the expiry date and time passes. The exact timing depends on your site traffic and WordPress cron configuration."
-msgstr "記事の有効期限は、WordPressのスケジュールイベント（cron）によって処理されます。有効期限の日時を過ぎた後、短時間でアクションが実行されます。正確なタイミングはサイトのトラフィックとWordPress cronの設定に依存します。"
+msgstr "投稿の期限切れはWordPressのスケジュールイベント（cron）によって処理されます。アクションは有効期限の日時が過ぎた直後に実行されます。正確なタイミングはサイトのトラフィックとWordPressのcron設定に依存します。"
 
-#: includes/class-msc-post-expiry-settings.php:363
 msgid "Can I disable expiry for a specific post?"
-msgstr "特定の投稿の有効期限を無効にできますか？"
+msgstr "特定の投稿の期限切れを無効にできますか？"
 
-#: includes/class-msc-post-expiry-settings.php:364
 msgid "Yes. Simply leave the expiry date and time fields empty in the Post Expiry metabox."
-msgstr "はい。記事有効期限メタボックスの有効期限日時フィールドを空のままにしてください。"
+msgstr "はい。投稿期限切れメタボックスの日付と時間のフィールドを空のままにしてください。"
 
-#: includes/class-msc-post-expiry-settings.php:368
 msgid "Need Help?"
 msgstr "お困りですか？"
 
-#: includes/class-msc-post-expiry-settings.php:369
 msgid "If you have questions, encounter bugs, or need setup assistance, we're here to help."
-msgstr "ご質問がある場合、バグが発生した場合、設定の支援が必要な場合は、ここでお手伝いします。"
+msgstr "ご質問がある場合、バグを見つけた場合、またはセットアップの支援が必要な場合は、お気軽にお問い合わせください。"
 
-#: includes/class-msc-post-expiry-settings.php:372
 msgid "Get Support"
 msgstr "サポートを受ける"
 
-#: includes/class-msc-post-expiry-settings.php:379
-msgid "Upgrade to Post Expiry Pro"
-msgstr "Post Expiry Proにアップグレード"
+msgid "Upgrade to MSC Post Expiry Pro"
+msgstr "MSC Post Expiry Pro にアップグレード"
 
-#: includes/class-msc-post-expiry-settings.php:380
-msgid "Get even more power and flexibility with Post Expiry Pro:"
-msgstr "Post Expiry Proでさらに多くの機能と柔軟性を入手："
+msgid "Get even more power and flexibility with MSC Post Expiry Pro:"
+msgstr "MSC Post Expiry Pro でさらなるパワーと柔軟性を："
 
-#: includes/class-msc-post-expiry-settings.php:382
 msgid "Per-post expiry actions (override the default for individual posts)"
-msgstr "投稿ごとの有効期限アクション（個々の投稿のデフォルトをオーバーライド）"
+msgstr "投稿ごとの期限切れアクション（個別の投稿のデフォルトを上書き）"
 
-#: includes/class-msc-post-expiry-settings.php:383
 msgid "Custom redirect URLs for expired posts"
 msgstr "期限切れ投稿のカスタムリダイレクトURL"
 
-#: includes/class-msc-post-expiry-settings.php:384
 msgid "Email notifications before posts expire"
-msgstr "投稿の有効期限前のメール通知"
+msgstr "投稿が期限切れになる前のメール通知"
 
-#: includes/class-msc-post-expiry-settings.php:385
 msgid "Expiry action history and logs"
-msgstr "有効期限アクション履歴とログ"
+msgstr "期限切れアクションの履歴とログ"
 
-#: includes/class-msc-post-expiry-settings.php:386
 msgid "Bulk expiry scheduling from the Posts list"
-msgstr "投稿一覧からの一括有効期限スケジューリング"
+msgstr "投稿一覧からの一括期限切れスケジュール"
 
-#: includes/class-msc-post-expiry-settings.php:390
 msgid "Learn More About Pro"
-msgstr "Proの詳細を見る"
+msgstr "Pro の詳細を見る"
 
-#: msc-post-expiry.php:78
+msgid "Post Expiry"
+msgstr "投稿期限切れ"
+
+msgid "Expiry Date"
+msgstr "有効期限日"
+
+msgid "Expiry Time"
+msgstr "有効期限時刻"
+
+msgid "Leave empty to disable expiry for this post."
+msgstr "この投稿の期限切れを無効にするには空のままにしてください。"
+
 msgid "Every 5 minutes"
 msgstr "5分ごと"
 
-#: msc-post-expiry.php:149
 msgid "No expiry set"
-msgstr "有効期限未設定"
+msgstr "期限切れ未設定"
 
-#: msc-post-expiry.php:156
 msgid "Expired"
 msgstr "期限切れ"
 
-#: msc-post-expiry.php:166
 msgid "%d day remaining"
 msgid_plural "%d days remaining"
 msgstr[0] "残り%d日"
 
-#: msc-post-expiry.php:174
 msgid "%d hour remaining"
 msgid_plural "%d hours remaining"
 msgstr[0] "残り%d時間"
 
-#: msc-post-expiry.php:179
 msgid "Expires soon"
 msgstr "まもなく期限切れ"
+

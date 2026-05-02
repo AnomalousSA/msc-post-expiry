@@ -4,7 +4,7 @@ Tags: post-expiry,workflow,content,scheduling,automation
 Requires at least: 5.9
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,13 +17,21 @@ MSC Post Expiry allows you to schedule automatic expiration for your posts and p
 **Features:**
 
 * Schedule post expiration dates and times
-* Choose expiration action: move to trash, permanently delete, or convert to draft
+* Choose expiration action: move to trash, permanently delete, convert to draft, change to private, move to category, or redirect only
+* Per-post expiry action override
+* Custom redirect URLs for expired posts
+* Conditional expiry rules (by category, tag, author, age, custom field)
+* Multi-step expiry workflows
+* Bulk expiry scheduling from the Posts list
+* Email notifications before posts expire
+* SEO handling for expired posts (noindex, canonical, status codes)
+* Expiry analytics dashboard with charts
+* Action history log
 * Configure which post types support expiry
-* Automatic processing via WordPress cron (every 5 minutes)
-* Lightweight and efficient
-* Full internationalization support
-* Developer-friendly with helper functions
-* 12 language translations included
+* Block editor sidebar panel
+* Automatic processing via WordPress cron
+* Full internationalization support with 12 languages
+* Developer-friendly with helper functions and hooks
 
 **Use Cases:**
 
@@ -32,29 +40,54 @@ MSC Post Expiry allows you to schedule automatic expiration for your posts and p
 * Seasonal content management
 * Event posts that should be archived
 * Automatic content cleanup workflows
+* Redirect expired offers to current landing pages
+* Notify authors before their content expires
 
-The plugin adds a "Post Expiry" metabox to your post editor where you can set the expiration date and time. Once the scheduled time passes, the plugin automatically processes the post according to your configured settings.
+The plugin adds a "Post Expiry" panel to the block editor sidebar and a metabox in the classic editor where you can set the expiration date and time. Once the scheduled time passes, the plugin automatically processes the post according to your configured settings.
 
 == Frequently Asked Questions ==
 
 = How do I set an expiration date for a post? =
 
-When editing a post or page, look for the "Post Expiry" box in the sidebar on the right. Enter the date and time when you want the post to expire.
+When editing a post or page, look for the "Post Expiry" panel in the block editor sidebar (or the metabox in the classic editor). Enter the date and time when you want the post to expire.
 
 = What happens when a post expires? =
 
-The plugin will perform one of three actions based on your settings:
+The plugin will perform one of several actions based on your settings:
 * **Move to Trash** - The post is moved to trash and no longer visible to visitors
 * **Permanently Delete** - The post is permanently deleted from your site
 * **Change to Draft** - The post is changed to draft status and hidden from visitors
+* **Change to Private** - The post is changed to private status
+* **Move to Category** - The post is moved to a selected category
+* **Redirect Only** - The post stays published but visitors are redirected to a specified URL
+
+= Can I set a different expiry action per post? =
+
+Yes! Each post can have its own expiry action, redirect URL, and target category. These override the global default.
+
+= Can I get notified before a post expires? =
+
+Yes. Enable email notifications in Settings. You can choose to notify the post author, site admin, or both, and configure how many days before expiry the notification is sent.
+
+= What are conditional rules? =
+
+Rules let you define automatic actions based on post properties. For example: "If a post is in the News category, move it to draft when it expires" or "If a post is older than 90 days, delete it permanently."
+
+= What are workflows? =
+
+Workflows are multi-step expiry sequences. For example, you could first move a post to draft, wait 7 days, then permanently delete it.
+
+= How does the SEO feature work? =
+
+When a post expires, the plugin can automatically add noindex/nofollow meta tags, set a canonical URL (to home or category), and return a 410 Gone status code. Configure these in the SEO tab.
 
 = How often does the plugin check for expired posts? =
 
-The plugin checks for expired posts every 5 minutes using WordPress cron. This is a reasonable interval that balances responsiveness with server load.
+The plugin checks for expired posts every 5 minutes (legacy date/time system) and every 15 minutes (timestamp system) using WordPress cron.
 
 = Can I choose which post types support expiry? =
 
-Yes! Go to Settings > MSC Post Expiry to configure which post types support expiration. You can either enable expiry on specific post types or disable it on specific types while enabling it on all others.
+Yes! Go to Settings > MSC Post Expiry to configure which post types support expiration.
 
 = Is there a way to check if a post is expired? =
 
@@ -68,10 +101,6 @@ Yes, developers can use the helper functions:
 
 Yes! You can configure the plugin to work with any public post type, including custom post types.
 
-= Will expired posts be permanently deleted? =
-
-Only if you configure the plugin to permanently delete them. By default, expired posts are moved to trash, which allows you to recover them if needed.
-
 = What languages are supported? =
 
 The plugin includes translations for 12 languages: German (Germany and Switzerland), Spanish (Spain and Mexico), French (France and Canada), Italian, Japanese, Dutch (Netherlands and Belgium), and Portuguese (Portugal and Brazil).
@@ -81,17 +110,35 @@ The plugin includes translations for 12 languages: German (Germany and Switzerla
 1. Upload the plugin to `/wp-content/plugins/`.
 2. Activate in the WordPress plugins screen.
 3. Go to Settings > MSC Post Expiry to configure the plugin.
-4. When editing a post or page, use the "Post Expiry" metabox to set expiration dates.
+4. When editing a post or page, use the "Post Expiry" panel to set expiration dates.
 
 == Changelog ==
 
+= 1.2.0 =
+* Added per-post expiry action override
+* Added custom redirect URLs for expired posts
+* Added "Redirect Only" expiry action
+* Added conditional expiry rules engine (by category, tag, author, age, custom field)
+* Added multi-step expiry workflows
+* Added bulk expiry scheduling from Posts list
+* Added email notifications before posts expire
+* Added SEO handling (noindex, nofollow, canonical, HTTP status codes)
+* Added analytics dashboard with Chart.js charts
+* Added action history log
+* Added block editor sidebar panel for setting expiry
+* Added SEO, Rules, Workflows, Analytics, and History tabs to settings
+* Added redirect, notification, and logging settings
+* Removed upgrade prompts (all features included)
+
 = 1.1.0 =
+* Rebranded to MSC Post Expiry
 * Redesigned settings page with clean tab-based layout
-* Added "Support" tab with help resources and Pro upgrade CTA
-* Renamed "Usage & Support" tab to "Usage"
 * Added "Change to Private" expiry action
 * Added "Move to Category" expiry action with category selector
-* Added expiry category option to settings
+* Fixed time-based expiry (posts now expire at exact scheduled times)
+* Fixed log file append issue
+* Fixed WP_Filesystem usage for WordPress.org Plugin Check compliance
+* Added comprehensive debug logging for cron processing
 
 = 1.0.0 =
 * Initial release
@@ -105,8 +152,11 @@ The plugin includes translations for 12 languages: German (Germany and Switzerla
 
 == Upgrade Notice ==
 
+= 1.2.0 =
+Major feature release: per-post actions, redirects, conditional rules, workflows, bulk scheduling, email notifications, SEO handling, analytics dashboard, and block editor support. All features included free.
+
 = 1.1.0 =
-New features: "Change to Private" and "Move to Category" expiry actions. Redesigned settings page with improved UI. Added Support tab with help resources.
+New features: "Change to Private" and "Move to Category" expiry actions. Critical bug fixes for time-based expiry and logging.
 
 = 1.0.0 =
 Initial release of MSC Post Expiry. Schedule automatic expiration for your posts and pages.

@@ -3,7 +3,7 @@
  * Plugin Name: MSC Post Expiry
  * Plugin URI: https://anomalous.co.za
  * Description: Automatically expire posts and pages on a scheduled date. Set expiration dates in the post editor and let the plugin handle the rest.
- * Version: 1.1.0
+ * Version: 1.2.0
  * Author: Anomalous Developers
  * Author URI: https://anomalous.co.za
  * Text Domain: msc-post-expiry
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Current plugin version.
  */
-define( 'MSCPE_PLUGIN_VERSION', '1.1.0' );
+define( 'MSCPE_PLUGIN_VERSION', '1.2.0' );
 
 /**
  * Absolute path to the main plugin file.
@@ -42,18 +42,23 @@ define( 'MSCPE_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'MSCPE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 require_once MSCPE_PLUGIN_DIR . 'includes/class-mscpe-cron.php';
+require_once MSCPE_PLUGIN_DIR . 'includes/class-mscpe-migrations.php';
+require_once MSCPE_PLUGIN_DIR . 'includes/class-mscpe-seo.php';
+require_once MSCPE_PLUGIN_DIR . 'includes/class-mscpe-rules.php';
+require_once MSCPE_PLUGIN_DIR . 'includes/class-mscpe-workflows.php';
+require_once MSCPE_PLUGIN_DIR . 'includes/class-mscpe-analytics.php';
 require_once MSCPE_PLUGIN_DIR . 'includes/class-msc-post-expiry-module.php';
 require_once MSCPE_PLUGIN_DIR . 'includes/class-msc-post-expiry-settings.php';
 require_once MSCPE_PLUGIN_DIR . 'includes/class-msc-post-expiry.php';
 
 register_activation_hook(
 	__FILE__,
-	array( 'MSCPE\\Plugin', 'activate' )
+	array( 'MSCPE\Plugin', 'activate' )
 );
 
 register_deactivation_hook(
 	__FILE__,
-	array( 'MSCPE\\Plugin', 'deactivate' )
+	array( 'MSCPE\Plugin', 'deactivate' )
 );
 
 add_action(
@@ -76,6 +81,12 @@ add_filter(
 			$schedules['mscpe_5min'] = array(
 				'interval' => 300,
 				'display'  => esc_html__( 'Every 5 minutes', 'msc-post-expiry' ),
+			);
+		}
+		if ( ! isset( $schedules['mscpe_15min'] ) ) {
+			$schedules['mscpe_15min'] = array(
+				'interval' => 900,
+				'display'  => esc_html__( 'Every 15 minutes', 'msc-post-expiry' ),
 			);
 		}
 		return $schedules;

@@ -32,7 +32,7 @@ class Settings {
 		$this->plugin = $plugin;
 
 		add_action( 'admin_menu', array( $this, 'register_menu' ) );
-		add_action( 'admin_post_msc-post-expiry_save_settings', array( $this, 'handle_save' ) );
+		add_action( 'admin_post_mscpe_save_settings', array( $this, 'handle_save' ) );
 		add_action( 'add_meta_boxes', array( $this, 'register_metabox' ) );
 		add_action( 'save_post', array( $this, 'save_metabox' ), 10, 2 );
 	}
@@ -60,7 +60,7 @@ class Settings {
 
 		// Verify nonce with better error handling.
 		$nonce = isset( $_POST['_wpnonce'] ) ? sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ) : '';
-		if ( ! $nonce || ! wp_verify_nonce( $nonce, 'msc-post-expiry_save_settings' ) ) {
+		if ( ! $nonce || ! wp_verify_nonce( $nonce, 'mscpe_save_settings' ) ) {
 			wp_die( esc_html__( 'Security check failed. Please try again.', 'msc-post-expiry' ) );
 		}
 
@@ -70,22 +70,37 @@ class Settings {
 		$expiry_action  = isset( $_POST['expiry_action'] ) ? sanitize_key( wp_unslash( $_POST['expiry_action'] ) ) : 'trash';
 		$expiry_category = isset( $_POST['expiry_category'] ) ? absint( wp_unslash( $_POST['expiry_category'] ) ) : 0;
 
+		$redirect_enabled   = isset( $_POST['redirect_enabled'] ) ? 1 : 0;
+		$bulk_default_days  = isset( $_POST['bulk_default_days'] ) ? absint( wp_unslash( $_POST['bulk_default_days'] ) ) : 30;
+		$notify_enabled     = isset( $_POST['notify_enabled'] ) ? 1 : 0;
+		$notify_days_before = isset( $_POST['notify_days_before'] ) ? absint( wp_unslash( $_POST['notify_days_before'] ) ) : 3;
+		$notify_recipients  = isset( $_POST['notify_recipients'] ) ? sanitize_key( wp_unslash( $_POST['notify_recipients'] ) ) : 'author';
+		$log_enabled        = isset( $_POST['log_enabled'] ) ? 1 : 0;
+
 		$this->plugin->update_options(
 			array(
-				'module_enabled'  => $module_enabled,
-				'post_types'      => $post_types,
-				'post_type_mode'  => $post_type_mode,
-				'expiry_action'   => $expiry_action,
-				'expiry_category' => $expiry_category,
+				'module_enabled'     => $module_enabled,
+				'post_types'         => $post_types,
+				'post_type_mode'     => $post_type_mode,
+				'expiry_action'      => $expiry_action,
+				'expiry_category'    => $expiry_category,
+				'redirect_enabled'   => $redirect_enabled,
+				'bulk_default_days'  => $bulk_default_days,
+				'notify_enabled'     => $notify_enabled,
+				'notify_days_before' => $notify_days_before,
+				'notify_recipients'  => $notify_recipients,
+				'log_enabled'        => $log_enabled,
 			)
 		);
 
 		/**
-		 * Fires after free plugin settings are saved.
-		 * Allows Pro plugin to save its settings within the same form submission.
+		 * Fires after plugin settings are saved.
+		 * Allows extensions to save additional settings within the same form submission.
+		 * Nonce is verified above.
 		 *
-		 * @param array $_POST Full POST data array (already sanitized via WordPress).
+		 * @param array $_POST Full POST data array.
 		 */
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verified above at line 64.
 		do_action( 'mscpe_settings_save', $_POST );
 
 		wp_safe_redirect(
@@ -129,6 +144,26 @@ class Settings {
 				'label' => __( 'Settings', 'msc-post-expiry' ),
 			),
 			array(
+				'slug'  => 'seo',
+				'label' => __( 'SEO', 'msc-post-expiry' ),
+			),
+			array(
+				'slug'  => 'rules',
+				'label' => __( 'Rules', 'msc-post-expiry' ),
+			),
+			array(
+				'slug'  => 'workflows',
+				'label' => __( 'Workflows', 'msc-post-expiry' ),
+			),
+			array(
+				'slug'  => 'analytics',
+				'label' => __( 'Analytics', 'msc-post-expiry' ),
+			),
+			array(
+				'slug'  => 'history',
+				'label' => __( 'History', 'msc-post-expiry' ),
+			),
+			array(
 				'slug'  => 'support',
 				'label' => __( 'Support', 'msc-post-expiry' ),
 			),
@@ -136,7 +171,6 @@ class Settings {
 
 		/**
 		 * Filter the tabs displayed on the settings page.
-		 * Pro plugins can add tabs like History, Pro Settings, etc.
 		 *
 		 * @param array $tabs Array of tab definitions with 'slug' and 'label'.
 		 */
@@ -183,12 +217,27 @@ class Settings {
 				case 'settings':
 					$this->render_settings_tab( $options, $post_types, $categories );
 					break;
+				case 'seo':
+					$this->render_seo_tab();
+					break;
+				case 'rules':
+					$this->render_rules_tab();
+					break;
+				case 'workflows':
+					$this->render_workflows_tab();
+					break;
+				case 'analytics':
+					$this->render_analytics_tab();
+					break;
+				case 'history':
+					$this->render_history_tab();
+					break;
 				case 'support':
 					$this->render_support_tab();
 					break;
 				default:
 					/**
-					 * Action to render content for custom tabs added by Pro plugins.
+					 * Action to render content for custom tabs.
 					 *
 					 * @param string $active_tab The active tab slug.
 					 * @param array  $options    Plugin options.
@@ -209,20 +258,21 @@ class Settings {
 	 * @param array $categories Available categories.
 	 */
 	public function render_settings_tab( $options, $post_types, $categories ) {
-		// Build expiry actions array with filter to allow Pro to add options.
+		// Build expiry actions array.
 		$expiry_actions = array(
-			'trash'    => __( 'Move to Trash', 'msc-post-expiry' ),
-			'delete'   => __( 'Permanently Delete', 'msc-post-expiry' ),
-			'draft'    => __( 'Change to Draft', 'msc-post-expiry' ),
-			'private'  => __( 'Change to Private', 'msc-post-expiry' ),
-			'category' => __( 'Move to Category', 'msc-post-expiry' ),
+			'trash'         => __( 'Move to Trash', 'msc-post-expiry' ),
+			'delete'        => __( 'Permanently Delete', 'msc-post-expiry' ),
+			'draft'         => __( 'Change to Draft', 'msc-post-expiry' ),
+			'private'       => __( 'Change to Private', 'msc-post-expiry' ),
+			'category'      => __( 'Move to Category', 'msc-post-expiry' ),
+			'redirect_only' => __( 'Redirect Only (keep published)', 'msc-post-expiry' ),
 		);
 		$expiry_actions = apply_filters( 'mscpe_expiry_actions', $expiry_actions );
 
 		?>
 		<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="margin-top:1.5em;">
-			<input type="hidden" name="action" value="msc-post-expiry_save_settings" />
-			<?php wp_nonce_field( 'msc-post-expiry_save_settings' ); ?>
+			<input type="hidden" name="action" value="mscpe_save_settings" />
+			<?php wp_nonce_field( 'mscpe_save_settings' ); ?>
 
 			<table class="form-table" role="presentation">
 				<tbody>
@@ -284,17 +334,93 @@ class Settings {
 				</tbody>
 			</table>
 
+			<h2><?php esc_html_e( 'Redirect Settings', 'msc-post-expiry' ); ?></h2>
+			<table class="form-table" role="presentation">
+				<tbody>
+					<tr>
+						<th scope="row"><?php esc_html_e( 'Enable redirects', 'msc-post-expiry' ); ?></th>
+						<td>
+							<label for="redirect_enabled">
+								<input id="redirect_enabled" type="checkbox" name="redirect_enabled" value="1" <?php checked( 1, (int) $this->plugin->get_option( 'redirect_enabled', 0 ) ); ?> />
+								<?php esc_html_e( 'Redirect expired posts to a specified URL (set per-post in the editor).', 'msc-post-expiry' ); ?>
+							</label>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<h2><?php esc_html_e( 'Bulk Scheduling', 'msc-post-expiry' ); ?></h2>
+			<table class="form-table" role="presentation">
+				<tbody>
+					<tr>
+						<th scope="row"><label for="bulk_default_days"><?php esc_html_e( 'Default expiry window', 'msc-post-expiry' ); ?></label></th>
+						<td>
+							<input id="bulk_default_days" type="number" name="bulk_default_days" min="1" max="3650" value="<?php echo esc_attr( (int) $this->plugin->get_option( 'bulk_default_days', 30 ) ); ?>" style="width:80px;" />
+							<?php esc_html_e( 'days from now', 'msc-post-expiry' ); ?>
+							<p class="description"><?php esc_html_e( 'Used when bulk-scheduling expiry from the Posts list.', 'msc-post-expiry' ); ?></p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<h2><?php esc_html_e( 'Notifications', 'msc-post-expiry' ); ?></h2>
+			<table class="form-table" role="presentation">
+				<tbody>
+					<tr>
+						<th scope="row"><?php esc_html_e( 'Email notifications', 'msc-post-expiry' ); ?></th>
+						<td>
+							<label for="notify_enabled">
+								<input id="notify_enabled" type="checkbox" name="notify_enabled" value="1" <?php checked( 1, (int) $this->plugin->get_option( 'notify_enabled', 0 ) ); ?> />
+								<?php esc_html_e( 'Send email notification before posts expire.', 'msc-post-expiry' ); ?>
+							</label>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row"><label for="notify_days_before"><?php esc_html_e( 'Days before expiry', 'msc-post-expiry' ); ?></label></th>
+						<td>
+							<input id="notify_days_before" type="number" name="notify_days_before" min="1" max="30" value="<?php echo esc_attr( (int) $this->plugin->get_option( 'notify_days_before', 3 ) ); ?>" style="width:80px;" />
+							<p class="description"><?php esc_html_e( 'Send notification this many days before a post expires.', 'msc-post-expiry' ); ?></p>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row"><label for="notify_recipients"><?php esc_html_e( 'Notify', 'msc-post-expiry' ); ?></label></th>
+						<td>
+							<?php $nr = (string) $this->plugin->get_option( 'notify_recipients', 'author' ); ?>
+							<select id="notify_recipients" name="notify_recipients">
+								<option value="author" <?php selected( 'author', $nr ); ?>><?php esc_html_e( 'Post Author', 'msc-post-expiry' ); ?></option>
+								<option value="admin" <?php selected( 'admin', $nr ); ?>><?php esc_html_e( 'Site Admin', 'msc-post-expiry' ); ?></option>
+								<option value="both" <?php selected( 'both', $nr ); ?>><?php esc_html_e( 'Both', 'msc-post-expiry' ); ?></option>
+							</select>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<h2><?php esc_html_e( 'Logging', 'msc-post-expiry' ); ?></h2>
+			<table class="form-table" role="presentation">
+				<tbody>
+					<tr>
+						<th scope="row"><?php esc_html_e( 'Action log', 'msc-post-expiry' ); ?></th>
+						<td>
+							<label for="log_enabled">
+								<input id="log_enabled" type="checkbox" name="log_enabled" value="1" <?php checked( 1, (int) $this->plugin->get_option( 'log_enabled', 1 ) ); ?> />
+								<?php esc_html_e( 'Log expiry actions in the History tab.', 'msc-post-expiry' ); ?>
+							</label>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
 			<?php
 			/**
-			 * Fires before Pro settings sections are rendered.
-			 * Use to add dividers or headings before Pro settings.
+			 * Fires before extension settings sections are rendered.
 			 *
 			 * @param array<string,mixed> $options Current options.
 			 */
-			do_action( 'mscpe_settings_before_pro', $options );
+			do_action( 'mscpe_settings_before_extensions', $options );
 
 			/**
-			 * Renders extension settings inside the shared form (used by Pro).
+			 * Renders extension settings inside the shared form.
 			 *
 			 * @param array<string,mixed> $options Current options.
 			 */
@@ -372,25 +498,6 @@ class Settings {
 					<?php esc_html_e( 'Get Support', 'msc-post-expiry' ); ?>
 				</a>
 			</p>
-
-			<?php if ( apply_filters( 'mscpe_show_upgrade_prompt', true ) ) : ?>
-				<hr style="margin:2em 0;" />
-
-				<h2><?php esc_html_e( 'Upgrade to Post Expiry Pro', 'msc-post-expiry' ); ?></h2>
-				<p><?php esc_html_e( 'Get even more power and flexibility with Post Expiry Pro:', 'msc-post-expiry' ); ?></p>
-				<ul style="margin-left:20px;">
-					<li><?php esc_html_e( 'Per-post expiry actions (override the default for individual posts)', 'msc-post-expiry' ); ?></li>
-					<li><?php esc_html_e( 'Custom redirect URLs for expired posts', 'msc-post-expiry' ); ?></li>
-					<li><?php esc_html_e( 'Email notifications before posts expire', 'msc-post-expiry' ); ?></li>
-					<li><?php esc_html_e( 'Expiry action history and logs', 'msc-post-expiry' ); ?></li>
-					<li><?php esc_html_e( 'Bulk expiry scheduling from the Posts list', 'msc-post-expiry' ); ?></li>
-				</ul>
-				<p>
-					<a class="button button-primary" href="https://anomalous.co.za" target="_blank" rel="noopener noreferrer">
-						<?php esc_html_e( 'Learn More About Pro', 'msc-post-expiry' ); ?>
-					</a>
-				</p>
-			<?php endif; ?>
 
 		</div>
 		<?php
@@ -490,5 +597,323 @@ class Settings {
 			delete_post_meta( $post_id, 'mscpe_expiry_date' );
 			delete_post_meta( $post_id, 'mscpe_expiry_time' );
 		}
+	}
+
+	/**
+	 * Render the SEO tab content.
+	 */
+	public function render_seo_tab() {
+		$seo = $this->plugin->get_seo();
+		if ( ! $seo ) {
+			return;
+		}
+
+		if ( isset( $_POST['mscpe_seo_nonce'] ) ) {
+			$nonce = sanitize_text_field( wp_unslash( $_POST['mscpe_seo_nonce'] ) );
+			if ( wp_verify_nonce( $nonce, 'mscpe_seo_settings' ) && current_user_can( 'manage_options' ) ) {
+				$seo->save_options( $_POST );
+				echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'SEO settings saved.', 'msc-post-expiry' ) . '</p></div>';
+			}
+		}
+
+		$seo_options = get_option( 'mscpe_seo_options', array() );
+		$defaults    = array(
+			'noindex_expired'  => 1,
+			'nofollow_expired' => 0,
+			'canonical_mode'   => 'none',
+			'status_code'      => '200',
+		);
+		$seo_options = wp_parse_args( $seo_options, $defaults );
+		?>
+		<div style="max-width:800px;margin-top:1.5em;">
+			<h2><?php esc_html_e( 'SEO Settings for Expired Posts', 'msc-post-expiry' ); ?></h2>
+			<p><?php esc_html_e( 'Configure how search engines handle expired content.', 'msc-post-expiry' ); ?></p>
+
+			<form method="post" action="">
+				<?php wp_nonce_field( 'mscpe_seo_settings', 'mscpe_seo_nonce' ); ?>
+
+				<table class="form-table" role="presentation">
+					<tbody>
+						<tr>
+							<th scope="row"><?php esc_html_e( 'Noindex', 'msc-post-expiry' ); ?></th>
+							<td>
+								<label>
+									<input type="checkbox" name="noindex_expired" value="1" <?php checked( 1, (int) $seo_options['noindex_expired'] ); ?> />
+									<?php esc_html_e( 'Add noindex to expired posts (prevents indexing).', 'msc-post-expiry' ); ?>
+								</label>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><?php esc_html_e( 'Nofollow', 'msc-post-expiry' ); ?></th>
+							<td>
+								<label>
+									<input type="checkbox" name="nofollow_expired" value="1" <?php checked( 1, (int) $seo_options['nofollow_expired'] ); ?> />
+									<?php esc_html_e( 'Add nofollow to expired posts (prevents link following).', 'msc-post-expiry' ); ?>
+								</label>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="canonical_mode"><?php esc_html_e( 'Canonical', 'msc-post-expiry' ); ?></label></th>
+							<td>
+								<select id="canonical_mode" name="canonical_mode">
+									<option value="none" <?php selected( 'none', $seo_options['canonical_mode'] ); ?>><?php esc_html_e( 'No change', 'msc-post-expiry' ); ?></option>
+									<option value="home" <?php selected( 'home', $seo_options['canonical_mode'] ); ?>><?php esc_html_e( 'Point to home page', 'msc-post-expiry' ); ?></option>
+									<option value="category" <?php selected( 'category', $seo_options['canonical_mode'] ); ?>><?php esc_html_e( 'Point to primary category', 'msc-post-expiry' ); ?></option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="status_code"><?php esc_html_e( 'HTTP Status Code', 'msc-post-expiry' ); ?></label></th>
+							<td>
+								<select id="status_code" name="status_code">
+									<option value="200" <?php selected( '200', $seo_options['status_code'] ); ?>>200 OK</option>
+									<option value="410" <?php selected( '410', $seo_options['status_code'] ); ?>>410 Gone</option>
+								</select>
+								<p class="description"><?php esc_html_e( '410 tells search engines the page is intentionally gone.', 'msc-post-expiry' ); ?></p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<?php submit_button( __( 'Save SEO Settings', 'msc-post-expiry' ) ); ?>
+			</form>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Render the Rules tab content.
+	 */
+	public function render_rules_tab() {
+		$rules = $this->plugin->get_rules();
+		if ( ! $rules ) {
+			return;
+		}
+
+		// Handle rule save.
+		if ( isset( $_POST['mscpe_rules_nonce'] ) ) {
+			$nonce = sanitize_text_field( wp_unslash( $_POST['mscpe_rules_nonce'] ) );
+			if ( wp_verify_nonce( $nonce, 'mscpe_rules_settings' ) && current_user_can( 'manage_options' ) ) {
+				$rule_data = array(
+					'condition_type'  => isset( $_POST['condition_type'] ) ? sanitize_key( wp_unslash( $_POST['condition_type'] ) ) : '',
+					'condition_value' => isset( $_POST['condition_value'] ) ? sanitize_text_field( wp_unslash( $_POST['condition_value'] ) ) : '',
+					'action_type'     => isset( $_POST['action_type'] ) ? sanitize_key( wp_unslash( $_POST['action_type'] ) ) : '',
+					'action_value'    => isset( $_POST['action_value'] ) ? sanitize_text_field( wp_unslash( $_POST['action_value'] ) ) : '',
+					'priority'        => isset( $_POST['priority'] ) ? absint( wp_unslash( $_POST['priority'] ) ) : 10,
+				);
+				$rules->save_rule( $rule_data );
+				echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Rule saved.', 'msc-post-expiry' ) . '</p></div>';
+			}
+		}
+
+		// Handle rule delete.
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( isset( $_GET['delete_rule'] ) && isset( $_GET['_wpnonce'] ) ) {
+			$nonce = sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) );
+			if ( wp_verify_nonce( $nonce, 'mscpe_delete_rule' ) && current_user_can( 'manage_options' ) ) {
+				$rules->delete_rule( absint( $_GET['delete_rule'] ) );
+				echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Rule deleted.', 'msc-post-expiry' ) . '</p></div>';
+			}
+		}
+
+		$all_rules = $rules->get_rules();
+		?>
+		<div style="max-width:800px;margin-top:1.5em;">
+			<h2><?php esc_html_e( 'Conditional Expiry Rules', 'msc-post-expiry' ); ?></h2>
+			<p><?php esc_html_e( 'Rules are evaluated when a post expires. The first matching rule determines the action. If no rules match, the default expiry action is used.', 'msc-post-expiry' ); ?></p>
+
+			<?php if ( ! empty( $all_rules ) ) : ?>
+				<table class="widefat" style="margin-bottom:2em;">
+					<thead>
+						<tr>
+							<th><?php esc_html_e( 'Priority', 'msc-post-expiry' ); ?></th>
+							<th><?php esc_html_e( 'Condition', 'msc-post-expiry' ); ?></th>
+							<th><?php esc_html_e( 'Value', 'msc-post-expiry' ); ?></th>
+							<th><?php esc_html_e( 'Action', 'msc-post-expiry' ); ?></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php foreach ( $all_rules as $index => $rule ) : ?>
+							<tr>
+								<td><?php echo esc_html( $rule['priority'] ?? 10 ); ?></td>
+								<td><?php echo esc_html( $rule['condition_type'] ?? '' ); ?></td>
+								<td><?php echo esc_html( $rule['condition_value'] ?? '' ); ?></td>
+								<td><?php echo esc_html( $rule['action_type'] ?? '' ); ?></td>
+								<td>
+									<a href="<?php echo esc_url( wp_nonce_url( add_query_arg( array( 'page' => 'mscpe-settings', 'tab' => 'rules', 'delete_rule' => $index ), admin_url( 'options-general.php' ) ), 'mscpe_delete_rule' ) ); ?>" class="button button-small" onclick="return confirm('<?php esc_attr_e( 'Delete this rule?', 'msc-post-expiry' ); ?>');">
+										<?php esc_html_e( 'Delete', 'msc-post-expiry' ); ?>
+									</a>
+								</td>
+							</tr>
+						<?php endforeach; ?>
+					</tbody>
+				</table>
+			<?php endif; ?>
+
+			<h3><?php esc_html_e( 'Add New Rule', 'msc-post-expiry' ); ?></h3>
+			<form method="post" action="">
+				<?php wp_nonce_field( 'mscpe_rules_settings', 'mscpe_rules_nonce' ); ?>
+				<table class="form-table" role="presentation">
+					<tbody>
+						<tr>
+							<th scope="row"><label for="condition_type"><?php esc_html_e( 'Condition', 'msc-post-expiry' ); ?></label></th>
+							<td>
+								<select id="condition_type" name="condition_type">
+									<option value="category"><?php esc_html_e( 'Category', 'msc-post-expiry' ); ?></option>
+									<option value="tag"><?php esc_html_e( 'Tag', 'msc-post-expiry' ); ?></option>
+									<option value="author"><?php esc_html_e( 'Author', 'msc-post-expiry' ); ?></option>
+									<option value="age"><?php esc_html_e( 'Post Age (days)', 'msc-post-expiry' ); ?></option>
+									<option value="custom_field"><?php esc_html_e( 'Custom Field', 'msc-post-expiry' ); ?></option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="condition_value"><?php esc_html_e( 'Condition Value', 'msc-post-expiry' ); ?></label></th>
+							<td>
+								<input type="text" id="condition_value" name="condition_value" class="regular-text" />
+								<p class="description"><?php esc_html_e( 'Category/tag slug, author login, days number, or field_name=value.', 'msc-post-expiry' ); ?></p>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="action_type"><?php esc_html_e( 'Action', 'msc-post-expiry' ); ?></label></th>
+							<td>
+								<select id="action_type" name="action_type">
+									<option value="draft"><?php esc_html_e( 'Change to Draft', 'msc-post-expiry' ); ?></option>
+									<option value="trash"><?php esc_html_e( 'Move to Trash', 'msc-post-expiry' ); ?></option>
+									<option value="private"><?php esc_html_e( 'Change to Private', 'msc-post-expiry' ); ?></option>
+									<option value="category"><?php esc_html_e( 'Move to Category', 'msc-post-expiry' ); ?></option>
+									<option value="redirect"><?php esc_html_e( 'Redirect', 'msc-post-expiry' ); ?></option>
+									<option value="delete"><?php esc_html_e( 'Permanently Delete', 'msc-post-expiry' ); ?></option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="action_value"><?php esc_html_e( 'Action Value', 'msc-post-expiry' ); ?></label></th>
+							<td>
+								<input type="text" id="action_value" name="action_value" class="regular-text" />
+								<p class="description"><?php esc_html_e( 'Category ID for "Move to Category", URL for "Redirect". Optional for other actions.', 'msc-post-expiry' ); ?></p>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="priority"><?php esc_html_e( 'Priority', 'msc-post-expiry' ); ?></label></th>
+							<td>
+								<input type="number" id="priority" name="priority" value="10" min="1" max="100" style="width:80px;" />
+								<p class="description"><?php esc_html_e( 'Lower number = higher priority.', 'msc-post-expiry' ); ?></p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<?php submit_button( __( 'Add Rule', 'msc-post-expiry' ) ); ?>
+			</form>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Render the Workflows tab content.
+	 */
+	public function render_workflows_tab() {
+		$workflows = $this->plugin->get_workflows();
+		if ( ! $workflows ) {
+			return;
+		}
+
+		$all_workflows = $workflows->get_workflows();
+		?>
+		<div style="max-width:800px;margin-top:1.5em;">
+			<h2><?php esc_html_e( 'Expiry Workflows', 'msc-post-expiry' ); ?></h2>
+			<p><?php esc_html_e( 'Workflows allow multi-step expiry actions. Assign a workflow to a post to override the default action and rules.', 'msc-post-expiry' ); ?></p>
+
+			<?php if ( ! empty( $all_workflows ) ) : ?>
+				<table class="widefat" style="margin-bottom:2em;">
+					<thead>
+						<tr>
+							<th><?php esc_html_e( 'ID', 'msc-post-expiry' ); ?></th>
+							<th><?php esc_html_e( 'Name', 'msc-post-expiry' ); ?></th>
+							<th><?php esc_html_e( 'Steps', 'msc-post-expiry' ); ?></th>
+							<th><?php esc_html_e( 'Status', 'msc-post-expiry' ); ?></th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php foreach ( $all_workflows as $wf ) : ?>
+							<tr>
+								<td><?php echo esc_html( $wf['id'] ?? '' ); ?></td>
+								<td><?php echo esc_html( $wf['name'] ?? '' ); ?></td>
+								<td><?php echo esc_html( $wf['step_count'] ?? 0 ); ?></td>
+								<td><?php echo esc_html( $wf['status'] ?? 'active' ); ?></td>
+							</tr>
+						<?php endforeach; ?>
+					</tbody>
+				</table>
+			<?php else : ?>
+				<p><?php esc_html_e( 'No workflows created yet. Workflows can be managed programmatically via the MSCPE\\Workflows class.', 'msc-post-expiry' ); ?></p>
+			<?php endif; ?>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Render the Analytics tab content.
+	 */
+	public function render_analytics_tab() {
+		$analytics = $this->plugin->get_analytics();
+		if ( ! $analytics ) {
+			return;
+		}
+
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$date_range = isset( $_GET['date_range'] ) ? sanitize_text_field( wp_unslash( $_GET['date_range'] ) ) : '30 days';
+		$analytics->render_dashboard( $date_range );
+	}
+
+	/**
+	 * Render the History tab content.
+	 */
+	public function render_history_tab() {
+		$module = $this->plugin->get_module();
+		if ( ! $module ) {
+			return;
+		}
+
+		$log = $module->get_action_log();
+		?>
+		<div style="max-width:800px;margin-top:1.5em;">
+			<h2><?php esc_html_e( 'Expiry Action History', 'msc-post-expiry' ); ?></h2>
+			<p><?php esc_html_e( 'Recent expiry actions (last 50 entries).', 'msc-post-expiry' ); ?></p>
+
+			<?php if ( empty( $log ) ) : ?>
+				<p><?php esc_html_e( 'No expiry actions recorded yet.', 'msc-post-expiry' ); ?></p>
+			<?php else : ?>
+				<table class="widefat">
+					<thead>
+						<tr>
+							<th><?php esc_html_e( 'Post', 'msc-post-expiry' ); ?></th>
+							<th><?php esc_html_e( 'Action', 'msc-post-expiry' ); ?></th>
+							<th><?php esc_html_e( 'Date', 'msc-post-expiry' ); ?></th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php foreach ( $log as $entry ) : ?>
+							<tr>
+								<td>
+									<?php
+									$edit_link = get_edit_post_link( $entry['post_id'] );
+									if ( $edit_link ) {
+										printf( '<a href="%s">%s</a>', esc_url( $edit_link ), esc_html( $entry['post_title'] ) );
+									} else {
+										echo esc_html( $entry['post_title'] );
+									}
+									?>
+								</td>
+								<td><?php echo esc_html( ucfirst( $entry['action'] ) ); ?></td>
+								<td><?php echo esc_html( wp_date( 'Y-m-d H:i', $entry['timestamp'] ) ); ?></td>
+							</tr>
+						<?php endforeach; ?>
+					</tbody>
+				</table>
+			<?php endif; ?>
+		</div>
+		<?php
 	}
 }

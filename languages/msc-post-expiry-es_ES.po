@@ -4,287 +4,225 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MSC Post Expiry 1.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/msc-post-expiry\n"
-"POT-Creation-Date: 2026-04-11 12:00:00+00:00\n"
-"PO-Revision-Date: 2026-04-11 12:00:00+00:00\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Spanish <LL@li.org>\n"
+"POT-Creation-Date: 2026-04-25T09:56:29+00:00\n"
+"PO-Revision-Date: 2026-04-25 10:00:00+00:00\n"
+"Last-Translator: Anomalous Developers <dev@anomalous.co.za>\n"
+"Language-Team: Spanish (Spain) <LL@li.org>\n"
 "Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: WP-CLI 2.8.1\n"
+"X-Generator: scripts/generate-translations.php\n"
 
-#: includes/class-msc-post-expiry-settings.php:45
-#: includes/class-msc-post-expiry-settings.php:46
 msgid "MSC Post Expiry"
 msgstr "MSC Post Expiry"
 
-#: includes/class-msc-post-expiry-settings.php:58
+msgid "https://anomalous.co.za"
+msgstr "https://anomalous.co.za"
+
+msgid "Automatically expire posts and pages on a scheduled date. Set expiration dates in the post editor and let the plugin handle the rest."
+msgstr "Expirar automáticamente entradas y páginas en una fecha programada. Establezca fechas de vencimiento en el editor de entradas y deje que el plugin se encargue del resto."
+
+msgid "Anomalous Developers"
+msgstr "Anomalous Developers"
+
 msgid "You do not have permission to access this page."
 msgstr "No tiene permiso para acceder a esta página."
 
-#: includes/class-msc-post-expiry-settings.php:64
 msgid "Security check failed. Please try again."
-msgstr "La verificación de seguridad ha fallado. Por favor, inténtelo de nuevo."
+msgstr "La verificación de seguridad falló. Por favor, inténtelo de nuevo."
 
-#: includes/class-msc-post-expiry-settings.php:129
 msgid "Settings"
-msgstr "Configuración"
+msgstr "Ajustes"
 
-#: includes/class-msc-post-expiry-settings.php:133
 msgid "Support"
 msgstr "Soporte"
 
-#: includes/class-msc-post-expiry-settings.php:170
 msgid "Settings saved."
-msgstr "Configuración guardada."
+msgstr "Ajustes guardados."
 
-#: includes/class-msc-post-expiry-settings.php:214
-#: includes/class-msc-post-expiry-settings.php:341
 msgid "Move to Trash"
 msgstr "Mover a la papelera"
 
-#: includes/class-msc-post-expiry-settings.php:215
-#: includes/class-msc-post-expiry-settings.php:342
 msgid "Permanently Delete"
 msgstr "Eliminar permanentemente"
 
-#: includes/class-msc-post-expiry-settings.php:216
-#: includes/class-msc-post-expiry-settings.php:343
 msgid "Change to Draft"
 msgstr "Cambiar a borrador"
 
-#: includes/class-msc-post-expiry-settings.php:217
-#: includes/class-msc-post-expiry-settings.php:344
 msgid "Change to Private"
 msgstr "Cambiar a privado"
 
-#: includes/class-msc-post-expiry-settings.php:218
-#: includes/class-msc-post-expiry-settings.php:345
 msgid "Move to Category"
 msgstr "Mover a categoría"
 
-#: includes/class-msc-post-expiry-settings.php:230
 msgid "Enable post expiry"
-msgstr "Activar caducidad de publicaciones"
+msgstr "Habilitar vencimiento de entradas"
 
-#: includes/class-msc-post-expiry-settings.php:234
 msgid "Allow posts to expire on a scheduled date."
-msgstr "Permitir que las publicaciones caduquen en una fecha programada."
+msgstr "Permitir que las entradas venzan en una fecha programada."
 
-#: includes/class-msc-post-expiry-settings.php:239
 msgid "Post type mode"
-msgstr "Modo de tipo de publicación"
+msgstr "Modo de tipo de entrada"
 
-#: includes/class-msc-post-expiry-settings.php:242
 msgid "Enable expiry only on selected post types"
-msgstr "Activar caducidad solo en los tipos de publicación seleccionados"
+msgstr "Habilitar vencimiento solo en los tipos de entrada seleccionados"
 
-#: includes/class-msc-post-expiry-settings.php:243
 msgid "Enable expiry on all public post types except selected"
-msgstr "Activar caducidad en todos los tipos de publicación públicos excepto en los seleccionados"
+msgstr "Habilitar vencimiento en todos los tipos de entrada públicos excepto los seleccionados"
 
-#: includes/class-msc-post-expiry-settings.php:248
 msgid "Post types"
-msgstr "Tipos de publicación"
+msgstr "Tipos de entrada"
 
-#: includes/class-msc-post-expiry-settings.php:262
 msgid "Expiry action"
-msgstr "Acción de caducidad"
+msgstr "Acción de vencimiento"
 
-#: includes/class-msc-post-expiry-settings.php:269
 msgid "What should happen when a post expires."
-msgstr "Qué debe ocurrir cuando caduca una publicación."
+msgstr "Qué debe suceder cuando una entrada vence."
 
-#: includes/class-msc-post-expiry-settings.php:273
 msgid "Expiry category"
-msgstr "Categoría de caducidad"
+msgstr "Categoría de vencimiento"
 
-#: includes/class-msc-post-expiry-settings.php:276
 msgid "Select a category"
 msgstr "Seleccionar una categoría"
 
-#: includes/class-msc-post-expiry-settings.php:281
 msgid "Posts will be moved to this category when expired. Only used when \"Move to Category\" is selected above."
-msgstr "Las publicaciones se moverán a esta categoría cuando caduquen. Solo se utiliza cuando \"Mover a categoría\" está seleccionado arriba."
+msgstr ""
 
-#: includes/class-msc-post-expiry-settings.php:304
 msgid "Save Settings"
-msgstr "Guardar configuración"
+msgstr "Guardar ajustes"
 
-#: includes/class-msc-post-expiry-settings.php:421
-msgid "Post Expiry"
-msgstr "Caducidad de publicación"
-
-#: includes/class-msc-post-expiry-settings.php:443
-msgid "Expiry Date"
-msgstr "Fecha de caducidad"
-
-#: includes/class-msc-post-expiry-settings.php:448
-msgid "Expiry Time"
-msgstr "Hora de caducidad"
-
-#: includes/class-msc-post-expiry-settings.php:453
-msgid "Leave empty to disable expiry for this post."
-msgstr "Dejar vacío para desactivar la caducidad de esta publicación."
-
-#: includes/class-msc-post-expiry-settings.php:332
 msgid "How to Use Post Expiry"
-msgstr "Cómo utilizar la caducidad de publicaciones"
+msgstr "Cómo usar el vencimiento de entradas"
 
-#: includes/class-msc-post-expiry-settings.php:333
 msgid "Post Expiry allows you to automatically handle posts when they reach a specified expiration date."
-msgstr "La caducidad de publicaciones le permite gestionar automáticamente las publicaciones cuando reach una fecha de caducidad especificada."
+msgstr "El vencimiento de entradas le permite gestionar automáticamente las entradas cuando alcanzan una fecha de vencimiento especificada."
 
-#: includes/class-msc-post-expiry-settings.php:335
 msgid "Setting an Expiry Date"
-msgstr "Establecer una fecha de caducidad"
+msgstr "Establecer una fecha de vencimiento"
 
-#: includes/class-msc-post-expiry-settings.php:336
 msgid "When editing a post or page, look for the \"Post Expiry\" box in the sidebar on the right. Enter the date and time when you want the post to expire."
-msgstr "Al editar una publicación o página, busque el cuadro \"Caducidad de publicación\" en la barra lateral derecha. Introduzca la fecha y hora en que desea que caduque la publicación."
+msgstr ""
 
-#: includes/class-msc-post-expiry-settings.php:338
 msgid "Expiry Actions"
-msgstr "Acciones de caducidad"
+msgstr "Acciones de vencimiento"
 
-#: includes/class-msc-post-expiry-settings.php:339
 msgid "When a post expires, one of the following actions will occur based on your settings:"
-msgstr "Cuando una publicación caduca, ocurrirá una de las siguientes acciones según su configuración:"
+msgstr "Cuando una entrada vence, se realizará una de las siguientes acciones según sus ajustes:"
 
-#: includes/class-msc-post-expiry-settings.php:341
 msgid "The post is moved to trash and no longer visible to visitors."
-msgstr "La publicación se mueve a la papelera y ya no es visible para los visitantes."
+msgstr "La entrada se mueve a la papelera y ya no es visible para los visitantes."
 
-#: includes/class-msc-post-expiry-settings.php:342
 msgid "The post is permanently deleted from your site."
-msgstr "La publicación se elimina permanentemente de su sitio."
+msgstr "La entrada se elimina permanentemente de su sitio."
 
-#: includes/class-msc-post-expiry-settings.php:343
 msgid "The post is changed to draft status and hidden from visitors."
-msgstr "La publicación cambia a estado de borrador y queda oculta a los visitantes."
+msgstr "La entrada se cambia a estado de borrador y se oculta de los visitantes."
 
-#: includes/class-msc-post-expiry-settings.php:344
 msgid "The post is changed to private status and only visible to logged-in users with appropriate permissions."
-msgstr "La publicación cambia a estado privado y solo es visible para usuarios conectados con los permisos apropiados."
+msgstr "La entrada se cambia a estado privado y solo es visible para usuarios conectados con los permisos apropiados."
 
-#: includes/class-msc-post-expiry-settings.php:345
 msgid "The post is moved to a specific archive category. Configure the category in the Settings tab."
-msgstr "La publicación se mueve a una categoría de archivo específica. Configure la categoría en la pestaña Configuración."
+msgstr "La entrada se mueve a una categoría de archivo específica. Configure la categoría en la pestaña de ajustes."
 
-#: includes/class-msc-post-expiry-settings.php:348
 msgid "Post Type Configuration"
-msgstr "Configuración de tipos de publicación"
+msgstr "Configuración de tipos de entrada"
 
-#: includes/class-msc-post-expiry-settings.php:349
 msgid "Use the Settings tab to choose which post types support expiry dates. You can either enable expiry on specific post types or disable it on specific types while enabling it on all others."
-msgstr "Utilice la pestaña Configuración para elegir qué tipos de publicación admiten fechas de caducidad. Puede activar la caducidad en tipos de publicación específicos o desactivarla en tipos específicos mientras la activa en todos los demás."
+msgstr "Use la pestaña de ajustes para elegir qué tipos de entrada admiten fechas de vencimiento. Puede habilitar el vencimiento en tipos específicos o deshabilitarlo en tipos específicos mientras lo habilita en todos los demás."
 
-#: includes/class-msc-post-expiry-settings.php:351
 msgid "Frequently Asked Questions"
 msgstr "Preguntas frecuentes"
 
-#: includes/class-msc-post-expiry-settings.php:353
 msgid "The Post Expiry metabox is not showing on my posts."
-msgstr "El metabox de caducidad de publicación no aparece en mis publicaciones."
+msgstr "La metabox de vencimiento de entrada no se muestra en mis entradas."
 
-#: includes/class-msc-post-expiry-settings.php:355
 msgid "Check that \"Enable post expiry\" is ticked on the Settings tab."
-msgstr "Compruebe que \"Activar caducidad de publicaciones\" está marcado en la pestaña Configuración."
+msgstr ""
 
-#: includes/class-msc-post-expiry-settings.php:356
 msgid "Check that the post type (e.g. Post, Page) is selected in the Post types list."
-msgstr "Compruebe que el tipo de publicación (por ejemplo, Entrada, Página) está seleccionado en la lista de tipos de publicación."
+msgstr "Verifique que el tipo de entrada (por ejemplo, Entrada, Página) esté seleccionado en la lista de tipos de entrada."
 
-#: includes/class-msc-post-expiry-settings.php:357
 msgid "The metabox appears in the sidebar on the right when editing a post."
-msgstr "El metabox aparece en la barra lateral derecha al editar una publicación."
+msgstr "La metabox aparece en la barra lateral derecha al editar una entrada."
 
-#: includes/class-msc-post-expiry-settings.php:360
 msgid "When does the expiry action occur?"
-msgstr "¿Cuándo ocurre la acción de caducidad?"
+msgstr "¿Cuándo se ejecuta la acción de vencimiento?"
 
-#: includes/class-msc-post-expiry-settings.php:361
 msgid "Post expiry is processed by WordPress scheduled events (cron). The action will occur shortly after the expiry date and time passes. The exact timing depends on your site traffic and WordPress cron configuration."
-msgstr "La caducidad de publicaciones se procesa mediante eventos programados de WordPress (cron). La acción ocurrirá poco después de que pasen la fecha y hora de caducidad. El tiempo exacto depende del tráfico de su sitio y de la configuración del cron de WordPress."
+msgstr "El vencimiento de entradas se procesa mediante eventos programados de WordPress (cron). La acción se ejecutará poco después de que pasen la fecha y hora de vencimiento. El momento exacto depende del tráfico de su sitio y la configuración del cron de WordPress."
 
-#: includes/class-msc-post-expiry-settings.php:363
 msgid "Can I disable expiry for a specific post?"
-msgstr "¿Puedo desactivar la caducidad para una publicación específica?"
+msgstr "¿Puedo desactivar el vencimiento para una entrada específica?"
 
-#: includes/class-msc-post-expiry-settings.php:364
 msgid "Yes. Simply leave the expiry date and time fields empty in the Post Expiry metabox."
-msgstr "Sí. Simplemente deje vacíos los campos de fecha y hora de caducidad en el metabox de caducidad de publicación."
+msgstr "Sí. Simplemente deje vacíos los campos de fecha y hora de vencimiento en la metabox de vencimiento de entrada."
 
-#: includes/class-msc-post-expiry-settings.php:368
 msgid "Need Help?"
 msgstr "¿Necesita ayuda?"
 
-#: includes/class-msc-post-expiry-settings.php:369
 msgid "If you have questions, encounter bugs, or need setup assistance, we're here to help."
 msgstr "Si tiene preguntas, encuentra errores o necesita ayuda con la configuración, estamos aquí para ayudarle."
 
-#: includes/class-msc-post-expiry-settings.php:372
 msgid "Get Support"
 msgstr "Obtener soporte"
 
-#: includes/class-msc-post-expiry-settings.php:379
-msgid "Upgrade to Post Expiry Pro"
-msgstr "Actualizar a Post Expiry Pro"
+msgid "Upgrade to MSC Post Expiry Pro"
+msgstr "Actualizar a MSC Post Expiry Pro"
 
-#: includes/class-msc-post-expiry-settings.php:380
-msgid "Get even more power and flexibility with Post Expiry Pro:"
-msgstr "Obtenga aún más potencia y flexibilidad con Post Expiry Pro:"
+msgid "Get even more power and flexibility with MSC Post Expiry Pro:"
+msgstr "Obtenga aún más potencia y flexibilidad con MSC Post Expiry Pro:"
 
-#: includes/class-msc-post-expiry-settings.php:382
 msgid "Per-post expiry actions (override the default for individual posts)"
-msgstr "Acciones de caducidad por publicación (anular el valor predeterminado para publicaciones individuales)"
+msgstr "Acciones de vencimiento por entrada (anular el valor predeterminado para entradas individuales)"
 
-#: includes/class-msc-post-expiry-settings.php:383
 msgid "Custom redirect URLs for expired posts"
-msgstr "URLs de redirección personalizadas para publicaciones caducadas"
+msgstr "URLs de redirección personalizadas para entradas vencidas"
 
-#: includes/class-msc-post-expiry-settings.php:384
 msgid "Email notifications before posts expire"
-msgstr "Notificaciones por correo electrónico antes de que caduquen las publicaciones"
+msgstr "Notificaciones por correo electrónico antes de que las entradas venzan"
 
-#: includes/class-msc-post-expiry-settings.php:385
 msgid "Expiry action history and logs"
-msgstr "Historial y registros de acciones de caducidad"
+msgstr "Historial y registros de acciones de vencimiento"
 
-#: includes/class-msc-post-expiry-settings.php:386
 msgid "Bulk expiry scheduling from the Posts list"
-msgstr "Programación de caducidad en masa desde la lista de publicaciones"
+msgstr "Programación masiva de vencimiento desde la lista de entradas"
 
-#: includes/class-msc-post-expiry-settings.php:390
 msgid "Learn More About Pro"
 msgstr "Más información sobre Pro"
 
-#: msc-post-expiry.php:78
+msgid "Post Expiry"
+msgstr "Vencimiento de entrada"
+
+msgid "Expiry Date"
+msgstr "Fecha de vencimiento"
+
+msgid "Expiry Time"
+msgstr "Hora de vencimiento"
+
+msgid "Leave empty to disable expiry for this post."
+msgstr "Dejar vacío para desactivar el vencimiento de esta entrada."
+
 msgid "Every 5 minutes"
 msgstr "Cada 5 minutos"
 
-#: msc-post-expiry.php:149
 msgid "No expiry set"
-msgstr "Sin caducidad establecida"
+msgstr "Sin vencimiento establecido"
 
-#: msc-post-expiry.php:156
 msgid "Expired"
-msgstr "Caducado"
+msgstr "Vencido"
 
-#: msc-post-expiry.php:166
 msgid "%d day remaining"
 msgid_plural "%d days remaining"
 msgstr[0] "%d día restante"
 msgstr[1] "%d días restantes"
 
-#: msc-post-expiry.php:174
 msgid "%d hour remaining"
 msgid_plural "%d hours remaining"
 msgstr[0] "%d hora restante"
 msgstr[1] "%d horas restantes"
 
-#: msc-post-expiry.php:179
 msgid "Expires soon"
-msgstr "Caduca pronto"
+msgstr "Vence pronto"
+
