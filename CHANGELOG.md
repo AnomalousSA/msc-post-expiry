@@ -2,6 +2,28 @@
 
 All notable changes to MSC Post Expiry are documented in this file.
 
+## [1.2.1] - 2026-05-03
+
+### Added
+
+- PHPUnit test suite with comprehensive tests for all plugin components
+
+### Changed
+
+- Renamed "Conditional Expiry Rules" to "Smart Expiry Rules" with improved descriptions
+- Updated Support tab with comprehensive feature documentation (Smart Rules, SEO, Analytics, per-post overrides)
+- Updated plugin version to 1.2.1
+
+### Removed
+
+- Removed multi-step expiry workflows feature and associated database tables
+- Removed Workflows settings tab
+
+### Fixed
+
+- Fixed package.json version mismatch (was 1.0.0, now 1.2.1)
+- Fixed README.md version (was showing 1.1.0)
+
 ## [1.2.0] - 2026-05-01
 
 ### Added

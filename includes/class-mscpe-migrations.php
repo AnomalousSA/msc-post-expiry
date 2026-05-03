@@ -40,66 +40,10 @@ class Migrations {
 			return;
 		}
 
-		self::create_workflows_table();
-		self::create_workflow_steps_table();
 		self::create_rules_table();
 		self::create_analytics_table();
 
 		update_option( self::VERSION_OPTION, self::MIGRATION_VERSION );
-	}
-
-	/**
-	 * Creates the workflows table.
-	 *
-	 * @return void
-	 */
-	private static function create_workflows_table() {
-		global $wpdb;
-
-		$table_name      = $wpdb->prefix . 'mscpe_workflows';
-		$charset_collate = $wpdb->get_charset_collate();
-
-		$sql = "CREATE TABLE {$table_name} (
-			id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-			name varchar(255) NOT NULL DEFAULT '',
-			description text NOT NULL,
-			enabled tinyint(1) NOT NULL DEFAULT 1,
-			created_at bigint(20) unsigned NOT NULL DEFAULT 0,
-			updated_at bigint(20) unsigned NOT NULL DEFAULT 0,
-			PRIMARY KEY (id),
-			KEY enabled (enabled)
-		) {$charset_collate};";
-
-		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-		dbDelta( $sql );
-	}
-
-	/**
-	 * Creates the workflow steps table.
-	 *
-	 * @return void
-	 */
-	private static function create_workflow_steps_table() {
-		global $wpdb;
-
-		$table_name      = $wpdb->prefix . 'mscpe_workflow_steps';
-		$charset_collate = $wpdb->get_charset_collate();
-
-		$sql = "CREATE TABLE {$table_name} (
-			id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-			workflow_id bigint(20) unsigned NOT NULL DEFAULT 0,
-			step_order int(11) NOT NULL DEFAULT 0,
-			action_type varchar(50) NOT NULL DEFAULT '',
-			action_config longtext NOT NULL,
-			delay_days int(11) NOT NULL DEFAULT 0,
-			created_at bigint(20) unsigned NOT NULL DEFAULT 0,
-			PRIMARY KEY (id),
-			KEY workflow_id (workflow_id),
-			KEY step_order (step_order)
-		) {$charset_collate};";
-
-		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-		dbDelta( $sql );
 	}
 
 	/**
@@ -176,8 +120,6 @@ class Migrations {
 		global $wpdb;
 
 		$tables = array(
-			$wpdb->prefix . 'mscpe_workflows',
-			$wpdb->prefix . 'mscpe_workflow_steps',
 			$wpdb->prefix . 'mscpe_rules',
 			$wpdb->prefix . 'mscpe_analytics',
 		);

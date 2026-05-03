@@ -251,31 +251,11 @@ class Module {
 
 		$seo       = $this->plugin->get_seo();
 		$rules     = $this->plugin->get_rules();
-		$workflows = $this->plugin->get_workflows();
 		$analytics = $this->plugin->get_analytics();
 
 		foreach ( $query->posts as $post_id ) {
 			if ( (bool) get_post_meta( $post_id, self::META_KEY_PROCESSED, true ) ) {
 				continue;
-			}
-
-			// Check for workflow first.
-			if ( $workflows ) {
-				$workflow_id = $workflows->get_post_workflow_id( $post_id );
-				if ( $workflow_id > 0 ) {
-					$result = $workflows->execute_workflow( $post_id, $workflow_id );
-					if ( $result ) {
-						update_post_meta( $post_id, self::META_KEY_PROCESSED, 1 );
-						$this->log_action( $post_id, 'workflow' );
-						if ( $analytics ) {
-							$analytics->log_expiry( $post_id, 'workflow' );
-						}
-						if ( $seo ) {
-							$seo->apply_seo_on_expiry( $post_id );
-						}
-					}
-					continue;
-				}
 			}
 
 			// Check for conditional rules.

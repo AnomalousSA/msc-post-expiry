@@ -61,13 +61,6 @@ class Plugin {
 	private $rules = null;
 
 	/**
-	 * Workflows instance.
-	 *
-	 * @var Workflows|null
-	 */
-	private $workflows = null;
-
-	/**
 	 * Analytics instance.
 	 *
 	 * @var Analytics|null
@@ -104,7 +97,7 @@ class Plugin {
 		}
 
 		// Run DB migrations.
-		Migrations::run();
+		Migrations::run_migrations();
 	}
 
 	/**
@@ -120,11 +113,6 @@ class Plugin {
 		if ( $timestamp_adv ) {
 			wp_unschedule_event( $timestamp_adv, Module::CRON_HOOK );
 		}
-
-		$timestamp_wf = wp_next_scheduled( 'mscpe_process_workflow_steps' );
-		if ( $timestamp_wf ) {
-			wp_unschedule_event( $timestamp_wf, 'mscpe_process_workflow_steps' );
-		}
 	}
 
 	/**
@@ -134,7 +122,6 @@ class Plugin {
 		$this->settings  = new Settings( $this );
 		$this->seo       = new SEO( $this );
 		$this->rules     = new Rules( $this );
-		$this->workflows = new Workflows( $this );
 		$this->analytics = new Analytics( $this );
 		$this->module    = new Module( $this );
 		$this->cron      = new Cron( $this );
@@ -209,15 +196,6 @@ class Plugin {
 	 */
 	public function get_rules() {
 		return $this->rules;
-	}
-
-	/**
-	 * Get Workflows instance.
-	 *
-	 * @return Workflows|null
-	 */
-	public function get_workflows() {
-		return $this->workflows;
 	}
 
 	/**

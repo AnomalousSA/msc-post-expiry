@@ -1,10 +1,10 @@
 === MSC Post Expiry ===
 Contributors: anomalous
-Tags: post-expiry,workflow,content,scheduling,automation
+Tags: post-expiry,content,scheduling,automation
 Requires at least: 5.9
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,7 +21,6 @@ MSC Post Expiry allows you to schedule automatic expiration for your posts and p
 * Per-post expiry action override
 * Custom redirect URLs for expired posts
 * Conditional expiry rules (by category, tag, author, age, custom field)
-* Multi-step expiry workflows
 * Bulk expiry scheduling from the Posts list
 * Email notifications before posts expire
 * SEO handling for expired posts (noindex, canonical, status codes)
@@ -39,7 +38,7 @@ MSC Post Expiry allows you to schedule automatic expiration for your posts and p
 * Time-sensitive announcements
 * Seasonal content management
 * Event posts that should be archived
-* Automatic content cleanup workflows
+* Automatic content cleanup
 * Redirect expired offers to current landing pages
 * Notify authors before their content expires
 
@@ -69,13 +68,9 @@ Yes! Each post can have its own expiry action, redirect URL, and target category
 
 Yes. Enable email notifications in Settings. You can choose to notify the post author, site admin, or both, and configure how many days before expiry the notification is sent.
 
-= What are conditional rules? =
+= What are Smart Expiry Rules? =
 
-Rules let you define automatic actions based on post properties. For example: "If a post is in the News category, move it to draft when it expires" or "If a post is older than 90 days, delete it permanently."
-
-= What are workflows? =
-
-Workflows are multi-step expiry sequences. For example, you could first move a post to draft, wait 7 days, then permanently delete it.
+Smart Rules let you define automatic actions based on post properties. For example: "If a post is in the News category, move it to draft when it expires" or "If a post is older than 90 days, delete it permanently." Rules are checked in priority order when a post expires, and the first matching rule overrides the default action.
 
 = How does the SEO feature work? =
 
@@ -114,19 +109,25 @@ The plugin includes translations for 12 languages: German (Germany and Switzerla
 
 == Changelog ==
 
+= 1.2.1 =
+* Renamed "Conditional Expiry Rules" to "Smart Expiry Rules" with improved descriptions
+* Updated Support tab with comprehensive feature documentation
+* Added PHPUnit test suite
+* Removed multi-step expiry workflows feature
+* Fixed package.json and README.md version mismatches
+
 = 1.2.0 =
 * Added per-post expiry action override
 * Added custom redirect URLs for expired posts
 * Added "Redirect Only" expiry action
 * Added conditional expiry rules engine (by category, tag, author, age, custom field)
-* Added multi-step expiry workflows
 * Added bulk expiry scheduling from Posts list
 * Added email notifications before posts expire
 * Added SEO handling (noindex, nofollow, canonical, HTTP status codes)
 * Added analytics dashboard with Chart.js charts
 * Added action history log
 * Added block editor sidebar panel for setting expiry
-* Added SEO, Rules, Workflows, Analytics, and History tabs to settings
+* Added SEO, Rules, Analytics, and History tabs to settings
 * Added redirect, notification, and logging settings
 * Removed upgrade prompts (all features included)
 
@@ -152,8 +153,11 @@ The plugin includes translations for 12 languages: German (Germany and Switzerla
 
 == Upgrade Notice ==
 
+= 1.2.1 =
+Removed workflows feature, renamed rules to Smart Expiry Rules, added PHPUnit test suite, updated documentation.
+
 = 1.2.0 =
-Major feature release: per-post actions, redirects, conditional rules, workflows, bulk scheduling, email notifications, SEO handling, analytics dashboard, and block editor support. All features included free.
+Major feature release: per-post actions, redirects, smart expiry rules, bulk scheduling, email notifications, SEO handling, analytics dashboard, and block editor support. All features included free.
 
 = 1.1.0 =
 New features: "Change to Private" and "Move to Category" expiry actions. Critical bug fixes for time-based expiry and logging.

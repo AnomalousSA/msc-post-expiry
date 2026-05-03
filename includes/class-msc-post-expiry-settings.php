@@ -149,11 +149,7 @@ class Settings {
 			),
 			array(
 				'slug'  => 'rules',
-				'label' => __( 'Rules', 'msc-post-expiry' ),
-			),
-			array(
-				'slug'  => 'workflows',
-				'label' => __( 'Workflows', 'msc-post-expiry' ),
+				'label' => __( 'Smart Rules', 'msc-post-expiry' ),
 			),
 			array(
 				'slug'  => 'analytics',
@@ -222,9 +218,6 @@ class Settings {
 					break;
 				case 'rules':
 					$this->render_rules_tab();
-					break;
-				case 'workflows':
-					$this->render_workflows_tab();
 					break;
 				case 'analytics':
 					$this->render_analytics_tab();
@@ -469,7 +462,34 @@ class Settings {
 				<li><strong><?php esc_html_e( 'Change to Draft', 'msc-post-expiry' ); ?></strong> - <?php esc_html_e( 'The post is changed to draft status and hidden from visitors.', 'msc-post-expiry' ); ?></li>
 				<li><strong><?php esc_html_e( 'Change to Private', 'msc-post-expiry' ); ?></strong> - <?php esc_html_e( 'The post is changed to private status and only visible to logged-in users with appropriate permissions.', 'msc-post-expiry' ); ?></li>
 				<li><strong><?php esc_html_e( 'Move to Category', 'msc-post-expiry' ); ?></strong> - <?php esc_html_e( 'The post is moved to a specific archive category. Configure the category in the Settings tab.', 'msc-post-expiry' ); ?></li>
+				<li><strong><?php esc_html_e( 'Redirect Only', 'msc-post-expiry' ); ?></strong> - <?php esc_html_e( 'The post stays published but visitors are redirected to a specified URL.', 'msc-post-expiry' ); ?></li>
 			</ul>
+
+			<h3><?php esc_html_e( 'Per-Post Overrides', 'msc-post-expiry' ); ?></h3>
+			<p><?php esc_html_e( 'Each post can have its own expiry action, redirect URL, and target category. These per-post settings override the global default configured in the Settings tab.', 'msc-post-expiry' ); ?></p>
+
+			<h3><?php esc_html_e( 'Smart Expiry Rules', 'msc-post-expiry' ); ?></h3>
+			<p><?php esc_html_e( 'Smart Rules let you define automatic actions based on post properties. When a post expires, the plugin checks your rules in priority order before falling back to the default action.', 'msc-post-expiry' ); ?></p>
+			<p><?php esc_html_e( 'Available conditions:', 'msc-post-expiry' ); ?></p>
+			<ul style="margin-left:20px;">
+				<li><strong><?php esc_html_e( 'Category', 'msc-post-expiry' ); ?></strong> - <?php esc_html_e( 'Match posts in a specific category.', 'msc-post-expiry' ); ?></li>
+				<li><strong><?php esc_html_e( 'Tag', 'msc-post-expiry' ); ?></strong> - <?php esc_html_e( 'Match posts with a specific tag.', 'msc-post-expiry' ); ?></li>
+				<li><strong><?php esc_html_e( 'Author', 'msc-post-expiry' ); ?></strong> - <?php esc_html_e( 'Match posts by a specific author.', 'msc-post-expiry' ); ?></li>
+				<li><strong><?php esc_html_e( 'Post Age', 'msc-post-expiry' ); ?></strong> - <?php esc_html_e( 'Match posts older than a specified number of days.', 'msc-post-expiry' ); ?></li>
+				<li><strong><?php esc_html_e( 'Custom Field', 'msc-post-expiry' ); ?></strong> - <?php esc_html_e( 'Match posts with a specific custom field value.', 'msc-post-expiry' ); ?></li>
+			</ul>
+			<p><?php esc_html_e( 'Example: "If a post is in the News category, move it to draft when it expires" or "If a post is older than 90 days, delete it permanently."', 'msc-post-expiry' ); ?></p>
+
+			<h3><?php esc_html_e( 'SEO Handling', 'msc-post-expiry' ); ?></h3>
+			<p><?php esc_html_e( 'When a post expires, the plugin can automatically manage SEO signals. Configure these options in the SEO tab:', 'msc-post-expiry' ); ?></p>
+			<ul style="margin-left:20px;">
+				<li><strong><?php esc_html_e( 'Noindex / Nofollow', 'msc-post-expiry' ); ?></strong> - <?php esc_html_e( 'Prevent search engines from indexing or following links on expired posts.', 'msc-post-expiry' ); ?></li>
+				<li><strong><?php esc_html_e( 'Canonical URL', 'msc-post-expiry' ); ?></strong> - <?php esc_html_e( 'Set a canonical URL to redirect SEO value to another page.', 'msc-post-expiry' ); ?></li>
+				<li><strong><?php esc_html_e( 'HTTP Status Code', 'msc-post-expiry' ); ?></strong> - <?php esc_html_e( 'Return a 410 Gone status code for expired posts.', 'msc-post-expiry' ); ?></li>
+			</ul>
+
+			<h3><?php esc_html_e( 'Analytics & History', 'msc-post-expiry' ); ?></h3>
+			<p><?php esc_html_e( 'The Analytics tab provides charts showing expiry trends, action breakdowns, and top categories/authors. The History tab shows the last 50 expiry actions for quick reference.', 'msc-post-expiry' ); ?></p>
 
 			<h3><?php esc_html_e( 'Post Type Configuration', 'msc-post-expiry' ); ?></h3>
 			<p><?php esc_html_e( 'Use the Settings tab to choose which post types support expiry dates. You can either enable expiry on specific post types or disable it on specific types while enabling it on all others.', 'msc-post-expiry' ); ?></p>
@@ -488,6 +508,9 @@ class Settings {
 
 			<h4><?php esc_html_e( 'Can I disable expiry for a specific post?', 'msc-post-expiry' ); ?></h4>
 			<p><?php esc_html_e( 'Yes. Simply leave the expiry date and time fields empty in the Post Expiry metabox.', 'msc-post-expiry' ); ?></p>
+
+			<h4><?php esc_html_e( 'How do Smart Rules work with per-post overrides?', 'msc-post-expiry' ); ?></h4>
+			<p><?php esc_html_e( 'When a post expires, the plugin checks Smart Rules first. If a rule matches the post, its action is used. If no rules match, the per-post action override is checked. If neither exists, the global default action is applied.', 'msc-post-expiry' ); ?></p>
 
 			<hr style="margin:2em 0;" />
 
@@ -719,8 +742,8 @@ class Settings {
 		$all_rules = $rules->get_rules();
 		?>
 		<div style="max-width:800px;margin-top:1.5em;">
-			<h2><?php esc_html_e( 'Conditional Expiry Rules', 'msc-post-expiry' ); ?></h2>
-			<p><?php esc_html_e( 'Rules are evaluated when a post expires. The first matching rule determines the action. If no rules match, the default expiry action is used.', 'msc-post-expiry' ); ?></p>
+			<h2><?php esc_html_e( 'Smart Expiry Rules', 'msc-post-expiry' ); ?></h2>
+			<p><?php esc_html_e( 'Smart Rules automatically determine what happens when a post expires based on its properties — like category, tag, author, age, or custom fields. When a post expires, the plugin checks these rules in priority order. If a rule matches, its action overrides the default expiry action.', 'msc-post-expiry' ); ?></p>
 
 			<?php if ( ! empty( $all_rules ) ) : ?>
 				<table class="widefat" style="margin-bottom:2em;">
@@ -806,49 +829,6 @@ class Settings {
 				</table>
 				<?php submit_button( __( 'Add Rule', 'msc-post-expiry' ) ); ?>
 			</form>
-		</div>
-		<?php
-	}
-
-	/**
-	 * Render the Workflows tab content.
-	 */
-	public function render_workflows_tab() {
-		$workflows = $this->plugin->get_workflows();
-		if ( ! $workflows ) {
-			return;
-		}
-
-		$all_workflows = $workflows->get_workflows();
-		?>
-		<div style="max-width:800px;margin-top:1.5em;">
-			<h2><?php esc_html_e( 'Expiry Workflows', 'msc-post-expiry' ); ?></h2>
-			<p><?php esc_html_e( 'Workflows allow multi-step expiry actions. Assign a workflow to a post to override the default action and rules.', 'msc-post-expiry' ); ?></p>
-
-			<?php if ( ! empty( $all_workflows ) ) : ?>
-				<table class="widefat" style="margin-bottom:2em;">
-					<thead>
-						<tr>
-							<th><?php esc_html_e( 'ID', 'msc-post-expiry' ); ?></th>
-							<th><?php esc_html_e( 'Name', 'msc-post-expiry' ); ?></th>
-							<th><?php esc_html_e( 'Steps', 'msc-post-expiry' ); ?></th>
-							<th><?php esc_html_e( 'Status', 'msc-post-expiry' ); ?></th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php foreach ( $all_workflows as $wf ) : ?>
-							<tr>
-								<td><?php echo esc_html( $wf['id'] ?? '' ); ?></td>
-								<td><?php echo esc_html( $wf['name'] ?? '' ); ?></td>
-								<td><?php echo esc_html( $wf['step_count'] ?? 0 ); ?></td>
-								<td><?php echo esc_html( $wf['status'] ?? 'active' ); ?></td>
-							</tr>
-						<?php endforeach; ?>
-					</tbody>
-				</table>
-			<?php else : ?>
-				<p><?php esc_html_e( 'No workflows created yet. Workflows can be managed programmatically via the MSCPE\\Workflows class.', 'msc-post-expiry' ); ?></p>
-			<?php endif; ?>
 		</div>
 		<?php
 	}

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<phpunit
+	bootstrap="tests/bootstrap.php"
+	backupGlobals="false"
+	colors="true"
+	beStrictAboutTestsThatDoNotTestAnything="true"
+>
+	<testsuites>
+		<testsuite name="MSC Post Expiry">
+			<directory prefix="Test_" suffix=".php">./tests/</directory>
+		</testsuite>
+	</testsuites>
+	<php>
+		<const name="MSCPE_TESTING" value="1" />
+	</php>
+</phpunit>

@@ -17,7 +17,7 @@ delete_option( 'mscpe_action_log' );
 delete_option( 'mscpe_db_version' );
 
 // Unschedule cron events.
-$mscpe_hooks = array( 'mscpe_process_expired_posts', 'mscpe_process_expiry_advanced', 'mscpe_process_workflow_steps' );
+$mscpe_hooks = array( 'mscpe_process_expired_posts', 'mscpe_process_expiry_advanced' );
 foreach ( $mscpe_hooks as $mscpe_hook ) {
 	$mscpe_next = wp_next_scheduled( $mscpe_hook );
 	while ( $mscpe_next ) {
@@ -29,8 +29,6 @@ foreach ( $mscpe_hooks as $mscpe_hook ) {
 // Drop custom tables.
 global $wpdb;
 $wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}mscpe_analytics" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}mscpe_workflow_steps" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}mscpe_workflows" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 $wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}mscpe_rules" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 
 // Delete post meta data (both mscpe_ and _mscpe_ patterns).

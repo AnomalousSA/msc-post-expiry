@@ -18,7 +18,6 @@ MSC Post Expiry allows you to schedule automatic expiration for your posts and p
   - Redirect Only (keep published, redirect visitors)
 - **Per-Post Overrides**: Set a different action, redirect URL, or target category on individual posts
 - **Conditional Rules**: Define rules to apply different actions based on category, tag, author, post age, or custom fields
-- **Multi-Step Workflows**: Create workflows with delayed steps (e.g., draft → wait 7 days → delete)
 - **Bulk Scheduling**: Set expiry for multiple posts at once from the Posts list
 - **Email Notifications**: Get notified before posts expire (author, admin, or both)
 - **SEO Handling**: Automatically add noindex/nofollow, set canonical URLs, and return 410 status codes for expired posts
@@ -37,7 +36,7 @@ MSC Post Expiry allows you to schedule automatic expiration for your posts and p
 - Time-sensitive announcements and news
 - Seasonal content management
 - Event posts that should be archived
-- Automatic content cleanup workflows
+- Automatic content cleanup
 - Redirect expired offers to current landing pages
 - Notify authors before their posts expire
 - SEO-safe content expiration
@@ -78,8 +77,7 @@ Navigate to **Settings > MSC Post Expiry** to configure:
 
 - **Settings** — Core expiry configuration
 - **SEO** — Configure noindex, nofollow, canonical, and HTTP status codes
-- **Rules** — Define conditional rules based on post properties
-- **Workflows** — View and manage multi-step expiry workflows
+- **Smart Rules** — Define smart rules based on post properties
 - **Analytics** — Dashboard with charts showing expiry trends and breakdowns
 - **History** — View recent expiry action log
 - **Support** — Help documentation and FAQ
@@ -238,8 +236,7 @@ msc-post-expiry/
 │   ├── class-mscpe-cron.php               # Legacy cron processing (date/time)
 │   ├── class-mscpe-migrations.php         # Database migrations
 │   ├── class-mscpe-seo.php               # SEO handling
-│   ├── class-mscpe-rules.php             # Conditional rules engine
-│   ├── class-mscpe-workflows.php         # Multi-step workflows
+│   ├── class-mscpe-rules.php             # Smart expiry rules engine
 │   └── class-mscpe-analytics.php         # Analytics tracking and dashboard
 ├── assets/
 │   ├── css/
@@ -248,6 +245,7 @@ msc-post-expiry/
 │   └── js/
 │       └── expiry-sidebar.js        # Block editor sidebar panel
 ├── languages/                       # Translation files (.po/.mo)
+├── tests/                           # PHPUnit test suite
 └── vendor/                          # Composer dependencies (dev only)
 ```
 
@@ -270,5 +268,5 @@ For support, questions, or feature requests, please visit:
 - **Website**: https://anomalous.co.za
 
 **Status**: Production Ready  
-**Version**: 1.1.0  
-**Last Updated**: April 13, 2026
+**Version**: 1.2.1  
+**Last Updated**: May 3, 2026
