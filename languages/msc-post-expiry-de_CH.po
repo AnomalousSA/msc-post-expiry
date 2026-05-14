@@ -2,10 +2,10 @@
 # This file is distributed under the GPL-2.0+ license.
 msgid ""
 msgstr ""
-"Project-Id-Version: MSC Post Expiry 1.1.0\n"
+"Project-Id-Version: MSC Post Expiry 1.3.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/msc-post-expiry\n"
-"POT-Creation-Date: 2026-04-25T09:56:29+00:00\n"
-"PO-Revision-Date: 2026-04-25 10:00:00+00:00\n"
+"POT-Creation-Date: 2026-05-03T12:00:00+00:00\n"
+"PO-Revision-Date: 2026-05-03 12:00:00+00:00\n"
 "Last-Translator: Anomalous Developers <dev@anomalous.co.za>\n"
 "Language-Team: German (Switzerland) <LL@li.org>\n"
 "Language: de_CH\n"
@@ -18,14 +18,39 @@ msgstr ""
 msgid "MSC Post Expiry"
 msgstr "MSC Post Expiry"
 
-msgid "https://anomalous.co.za"
-msgstr "https://anomalous.co.za"
+msgid "https://github.com/djm56/msc-post-expiry"
+msgstr "https://github.com/djm56/msc-post-expiry"
 
 msgid "Automatically expire posts and pages on a scheduled date. Set expiration dates in the post editor and let the plugin handle the rest."
 msgstr "Beiträge und Seiten automatisch an einem geplanten Datum ablaufen lassen. Legen Sie Ablaufdaten im Beitragseditor fest und lassen Sie das Plugin den Rest erledigen."
 
 msgid "Anomalous Developers"
 msgstr "Anomalous Developers"
+
+msgid "Every 5 minutes"
+msgstr "Alle 5 Minuten"
+
+msgid "Every 15 minutes"
+msgstr "Alle 15 Minuten"
+
+msgid "No expiry set"
+msgstr "Kein Ablauf festgelegt"
+
+msgid "Expired"
+msgstr "Abgelaufen"
+
+msgid "%d day remaining"
+msgid_plural "%d days remaining"
+msgstr[0] "%d Tag verbleibend"
+msgstr[1] "%d Tage verbleibend"
+
+msgid "%d hour remaining"
+msgid_plural "%d hours remaining"
+msgstr[0] "%d Stunde verbleibend"
+msgstr[1] "%d Stunden verbleibend"
+
+msgid "Expires soon"
+msgstr "Läuft bald ab"
 
 msgid "You do not have permission to access this page."
 msgstr "Sie haben keine Berechtigung, auf diese Seite zuzugreifen."
@@ -35,6 +60,18 @@ msgstr "Die Sicherheitsüberprüfung ist fehlgeschlagen. Bitte versuchen Sie es 
 
 msgid "Settings"
 msgstr "Einstellungen"
+
+msgid "SEO"
+msgstr "SEO"
+
+msgid "Smart Rules"
+msgstr "Intelligente Regeln"
+
+msgid "Analytics"
+msgstr "Analytik"
+
+msgid "History"
+msgstr "Verlauf"
 
 msgid "Support"
 msgstr "Support"
@@ -56,6 +93,9 @@ msgstr "Zu Privat ändern"
 
 msgid "Move to Category"
 msgstr "In Kategorie verschieben"
+
+msgid "Redirect Only (keep published)"
+msgstr "Nur Weiterleitung (veröffentlicht lassen)"
 
 msgid "Enable post expiry"
 msgstr "Beitragsablauf aktivieren"
@@ -89,6 +129,63 @@ msgstr "Kategorie auswählen"
 
 msgid "Posts will be moved to this category when expired. Only used when \"Move to Category\" is selected above."
 msgstr ""
+
+msgid "Redirect Settings"
+msgstr "Weiterleitungseinstellungen"
+
+msgid "Enable redirects"
+msgstr "Weiterleitungen aktivieren"
+
+msgid "Redirect expired posts to a specified URL (set per-post in the editor)."
+msgstr "Abgelaufene Beiträge an eine bestimmte URL weiterleiten (pro Beitrag im Editor festlegen)."
+
+msgid "Bulk Scheduling"
+msgstr "Massenplanung"
+
+msgid "Default expiry window"
+msgstr "Standard-Ablaufzeitraum"
+
+msgid "days from now"
+msgstr "Tage ab jetzt"
+
+msgid "Used when bulk-scheduling expiry from the Posts list."
+msgstr "Wird bei der Massenplanung des Ablaufs aus der Beitragsliste verwendet."
+
+msgid "Notifications"
+msgstr "Benachrichtigungen"
+
+msgid "Email notifications"
+msgstr "E-Mail-Benachrichtigungen"
+
+msgid "Send email notification before posts expire."
+msgstr "E-Mail-Benachrichtigung senden, bevor Beiträge ablaufen."
+
+msgid "Days before expiry"
+msgstr "Tage vor Ablauf"
+
+msgid "Send notification this many days before a post expires."
+msgstr "Benachrichtigung so viele Tage vor Ablauf eines Beitrags senden."
+
+msgid "Notify"
+msgstr "Benachrichtigen"
+
+msgid "Post Author"
+msgstr "Beitragsautor"
+
+msgid "Site Admin"
+msgstr "Website-Administrator"
+
+msgid "Both"
+msgstr "Beide"
+
+msgid "Logging"
+msgstr "Protokollierung"
+
+msgid "Action log"
+msgstr "Aktionsprotokoll"
+
+msgid "Log expiry actions in the History tab."
+msgstr "Ablaufaktionen im Verlauf-Tab protokollieren."
 
 msgid "Save Settings"
 msgstr "Einstellungen speichern"
@@ -126,6 +223,90 @@ msgstr "Der Beitrag wird auf den privaten Status geändert und ist nur für ange
 msgid "The post is moved to a specific archive category. Configure the category in the Settings tab."
 msgstr "Der Beitrag wird in eine bestimmte Archivkategorie verschoben. Konfigurieren Sie die Kategorie im Einstellungen-Tab."
 
+msgid "Redirect Only"
+msgstr "Nur Weiterleitung"
+
+msgid "The post stays published but visitors are redirected to a specified URL."
+msgstr "Der Beitrag bleibt veröffentlicht, aber Besucher werden an eine bestimmte URL weitergeleitet."
+
+msgid "Per-Post Overrides"
+msgstr "Individuelle Beitragsüberschreibungen"
+
+msgid "Each post can have its own expiry action, redirect URL, and target category. These per-post settings override the global default configured in the Settings tab."
+msgstr "Jeder Beitrag kann seine eigene Ablaufaktion, Weiterleitungs-URL und Zielkategorie haben. Diese individuellen Einstellungen überschreiben die globale Standardkonfiguration im Einstellungen-Tab."
+
+msgid "Smart Expiry Rules"
+msgstr "Intelligente Ablaufregeln"
+
+msgid "Smart Rules let you define automatic actions based on post properties. When a post expires, the plugin checks your rules in priority order before falling back to the default action."
+msgstr "Intelligente Regeln ermöglichen es Ihnen, automatische Aktionen basierend auf Beitragseigenschaften zu definieren. Wenn ein Beitrag abläuft, überprüft das Plugin Ihre Regeln in Prioritätsreihenfolge, bevor die Standardaktion ausgeführt wird."
+
+msgid "Available conditions:"
+msgstr "Verfügbare Bedingungen:"
+
+msgid "Category"
+msgstr "Kategorie"
+
+msgid "Match posts in a specific category."
+msgstr "Beiträge in einer bestimmten Kategorie abgleichen."
+
+msgid "Tag"
+msgstr "Schlagwort"
+
+msgid "Match posts with a specific tag."
+msgstr "Beiträge mit einem bestimmten Schlagwort abgleichen."
+
+msgid "Author"
+msgstr "Autor"
+
+msgid "Match posts by a specific author."
+msgstr "Beiträge eines bestimmten Autors abgleichen."
+
+msgid "Post Age"
+msgstr "Beitragsalter"
+
+msgid "Match posts older than a specified number of days."
+msgstr "Beiträge abgleichen, die älter als eine bestimmte Anzahl von Tagen sind."
+
+msgid "Custom Field"
+msgstr "Benutzerdefiniertes Feld"
+
+msgid "Match posts with a specific custom field value."
+msgstr "Beiträge mit einem bestimmten benutzerdefinierten Feldwert abgleichen."
+
+msgid "Example: \"If a post is in the News category, move it to draft when it expires\" or \"If a post is older than 90 days, delete it permanently.\""
+msgstr ""
+
+msgid "SEO Handling"
+msgstr "SEO-Verwaltung"
+
+msgid "When a post expires, the plugin can automatically manage SEO signals. Configure these options in the SEO tab:"
+msgstr "Wenn ein Beitrag abläuft, kann das Plugin automatisch SEO-Signale verwalten. Konfigurieren Sie diese Optionen im SEO-Tab:"
+
+msgid "Noindex / Nofollow"
+msgstr "Noindex / Nofollow"
+
+msgid "Prevent search engines from indexing or following links on expired posts."
+msgstr "Suchmaschinen daran hindern, abgelaufene Beiträge zu indexieren oder Links zu folgen."
+
+msgid "Canonical URL"
+msgstr "Kanonische URL"
+
+msgid "Set a canonical URL to redirect SEO value to another page."
+msgstr "Eine kanonische URL festlegen, um den SEO-Wert auf eine andere Seite umzuleiten."
+
+msgid "HTTP Status Code"
+msgstr "HTTP-Statuscode"
+
+msgid "Return a 410 Gone status code for expired posts."
+msgstr "Einen 410 Gone-Statuscode für abgelaufene Beiträge zurückgeben."
+
+msgid "Analytics & History"
+msgstr "Analytik & Verlauf"
+
+msgid "The Analytics tab provides charts showing expiry trends, action breakdowns, and top categories/authors. The History tab shows the last 50 expiry actions for quick reference."
+msgstr "Der Analytik-Tab bietet Diagramme mit Ablauftrends, Aktionsübersichten und Top-Kategorien/Autoren. Der Verlauf-Tab zeigt die letzten 50 Ablaufaktionen als Schnellreferenz."
+
 msgid "Post Type Configuration"
 msgstr "Beitragstyp-Konfiguration"
 
@@ -159,6 +340,12 @@ msgstr "Kann ich den Ablauf für einen bestimmten Beitrag deaktivieren?"
 msgid "Yes. Simply leave the expiry date and time fields empty in the Post Expiry metabox."
 msgstr "Ja. Lassen Sie einfach die Felder für Ablaufdatum und -zeit in der Beitragsablauf-Metabox leer."
 
+msgid "How do Smart Rules work with per-post overrides?"
+msgstr "Wie funktionieren intelligente Regeln mit individuellen Beitragsüberschreibungen?"
+
+msgid "When a post expires, the plugin checks Smart Rules first. If a rule matches the post, its action is used. If no rules match, the per-post action override is checked. If neither exists, the global default action is applied."
+msgstr "Wenn ein Beitrag abläuft, überprüft das Plugin zuerst die intelligenten Regeln. Wenn eine Regel zum Beitrag passt, wird deren Aktion verwendet. Wenn keine Regeln passen, wird die individuelle Beitragsüberschreibung geprüft. Wenn keines existiert, wird die globale Standardaktion angewendet."
+
 msgid "Need Help?"
 msgstr "Hilfe benötigt?"
 
@@ -167,30 +354,6 @@ msgstr "Wenn Sie Fragen haben, Fehler finden oder Hilfe bei der Einrichtung ben�
 
 msgid "Get Support"
 msgstr "Support erhalten"
-
-msgid "Upgrade to MSC Post Expiry Pro"
-msgstr "Upgrade auf MSC Post Expiry Pro"
-
-msgid "Get even more power and flexibility with MSC Post Expiry Pro:"
-msgstr "Noch mehr Leistung und Flexibilität mit MSC Post Expiry Pro:"
-
-msgid "Per-post expiry actions (override the default for individual posts)"
-msgstr "Individuelle Ablaufaktionen pro Beitrag (Standard für einzelne Beiträge überschreiben)"
-
-msgid "Custom redirect URLs for expired posts"
-msgstr "Benutzerdefinierte Weiterleitungs-URLs für abgelaufene Beiträge"
-
-msgid "Email notifications before posts expire"
-msgstr "E-Mail-Benachrichtigungen bevor Beiträge ablaufen"
-
-msgid "Expiry action history and logs"
-msgstr "Ablaufaktions-Verlauf und Protokolle"
-
-msgid "Bulk expiry scheduling from the Posts list"
-msgstr "Massenablauf-Planung aus der Beitragsliste"
-
-msgid "Learn More About Pro"
-msgstr "Mehr über Pro erfahren"
 
 msgid "Post Expiry"
 msgstr "Beitragsablauf"
@@ -204,25 +367,222 @@ msgstr "Ablaufzeit"
 msgid "Leave empty to disable expiry for this post."
 msgstr "Leer lassen, um den Ablauf für diesen Beitrag zu deaktivieren."
 
-msgid "Every 5 minutes"
-msgstr "Alle 5 Minuten"
+msgid "SEO settings saved."
+msgstr "SEO-Einstellungen gespeichert."
 
-msgid "No expiry set"
-msgstr "Kein Ablauf festgelegt"
+msgid "SEO Settings for Expired Posts"
+msgstr "SEO-Einstellungen für abgelaufene Beiträge"
 
-msgid "Expired"
-msgstr "Abgelaufen"
+msgid "Configure how search engines handle expired content."
+msgstr "Konfigurieren Sie, wie Suchmaschinen abgelaufene Inhalte behandeln."
 
-msgid "%d day remaining"
-msgid_plural "%d days remaining"
-msgstr[0] "%d Tag verbleibend"
-msgstr[1] "%d Tage verbleibend"
+msgid "Noindex"
+msgstr "Noindex"
 
-msgid "%d hour remaining"
-msgid_plural "%d hours remaining"
-msgstr[0] "%d Stunde verbleibend"
-msgstr[1] "%d Stunden verbleibend"
+msgid "Add noindex to expired posts (prevents indexing)."
+msgstr "Noindex zu abgelaufenen Beiträgen hinzufügen (verhindert Indexierung)."
 
-msgid "Expires soon"
-msgstr "Läuft bald ab"
+msgid "Nofollow"
+msgstr "Nofollow"
+
+msgid "Add nofollow to expired posts (prevents link following)."
+msgstr "Nofollow zu abgelaufenen Beiträgen hinzufügen (verhindert Linkfolgen)."
+
+msgid "Canonical"
+msgstr "Kanonisch"
+
+msgid "No change"
+msgstr "Keine Änderung"
+
+msgid "Point to home page"
+msgstr "Auf Startseite verweisen"
+
+msgid "Point to primary category"
+msgstr "Auf Hauptkategorie verweisen"
+
+msgid "410 tells search engines the page is intentionally gone."
+msgstr "410 teilt Suchmaschinen mit, dass die Seite absichtlich entfernt wurde."
+
+msgid "Save SEO Settings"
+msgstr "SEO-Einstellungen speichern"
+
+msgid "Rule saved."
+msgstr "Regel gespeichert."
+
+msgid "Rule deleted."
+msgstr "Regel gelöscht."
+
+msgid "Smart Rules automatically determine what happens when a post expires based on its properties — like category, tag, author, age, or custom fields. When a post expires, the plugin checks these rules in priority order. If a rule matches, its action overrides the default expiry action."
+msgstr "Intelligente Regeln bestimmen automatisch, was passiert, wenn ein Beitrag abläuft, basierend auf seinen Eigenschaften – wie Kategorie, Schlagwort, Autor, Alter oder benutzerdefinierte Felder. Wenn ein Beitrag abläuft, überprüft das Plugin diese Regeln in Prioritätsreihenfolge. Wenn eine Regel übereinstimmt, überschreibt ihre Aktion die Standardablaufaktion."
+
+msgid "Priority"
+msgstr "Priorität"
+
+msgid "Condition"
+msgstr "Bedingung"
+
+msgid "Value"
+msgstr "Wert"
+
+msgid "Action"
+msgstr "Aktion"
+
+msgid "Delete this rule?"
+msgstr "Diese Regel löschen?"
+
+msgid "Delete"
+msgstr "Löschen"
+
+msgid "Add New Rule"
+msgstr "Neue Regel hinzufügen"
+
+msgid "Post Age (days)"
+msgstr "Beitragsalter (Tage)"
+
+msgid "Condition Value"
+msgstr "Bedingungswert"
+
+msgid "Category/tag slug, author login, days number, or field_name=value."
+msgstr "Kategorie-/Schlagwort-Slug, Autoren-Login, Tagesanzahl oder feldname=wert."
+
+msgid "Redirect"
+msgstr "Weiterleitung"
+
+msgid "Action Value"
+msgstr "Aktionswert"
+
+msgid "Category ID for \"Move to Category\", URL for \"Redirect\". Optional for other actions."
+msgstr ""
+
+msgid "Lower number = higher priority."
+msgstr "Niedrigere Zahl = höhere Priorität."
+
+msgid "Add Rule"
+msgstr "Regel hinzufügen"
+
+msgid "Expiry Action History"
+msgstr "Verlauf der Ablaufaktionen"
+
+msgid "Recent expiry actions (last 50 entries)."
+msgstr "Letzte Ablaufaktionen (letzte 50 Einträge)."
+
+msgid "No expiry actions recorded yet."
+msgstr "Noch keine Ablaufaktionen aufgezeichnet."
+
+msgid "Post"
+msgstr "Beitrag"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Draft"
+msgstr "Entwurf"
+
+msgid "Private"
+msgstr "Privat"
+
+msgid "Trash"
+msgstr "Papierkorb"
+
+msgid "Uncategorized"
+msgstr "Unkategorisiert"
+
+msgid "Unknown"
+msgstr "Unbekannt"
+
+msgid "Post #%d"
+msgstr "Beitrag #%d"
+
+msgid "Date Range:"
+msgstr "Zeitraum:"
+
+msgid "Last 7 Days"
+msgstr "Letzte 7 Tage"
+
+msgid "Last 30 Days"
+msgstr "Letzte 30 Tage"
+
+msgid "Last 90 Days"
+msgstr "Letzte 90 Tage"
+
+msgid "All Time"
+msgstr "Gesamte Zeit"
+
+msgid "Apply"
+msgstr "Anwenden"
+
+msgid "Total Expired"
+msgstr "Insgesamt abgelaufen"
+
+msgid "This Month"
+msgstr "Diesen Monat"
+
+msgid "This Week"
+msgstr "Diese Woche"
+
+msgid "Avg Post Age"
+msgstr "Durchschn. Beitragsalter"
+
+msgid "days"
+msgstr "Tage"
+
+msgid "Success Rate"
+msgstr "Erfolgsrate"
+
+msgid "Expiry Trends"
+msgstr "Ablauftrends"
+
+msgid "Posts Expired"
+msgstr "Abgelaufene Beiträge"
+
+msgid "Action Breakdown"
+msgstr "Aktionsübersicht"
+
+msgid "Top Categories"
+msgstr "Top-Kategorien"
+
+msgid "Expired Posts"
+msgstr "Abgelaufene Beiträge"
+
+msgid "Top Authors"
+msgstr "Top-Autoren"
+
+msgid "Recent Expiry Activity"
+msgstr "Letzte Ablaufaktivität"
+
+msgid "No expiry activity recorded yet."
+msgstr "Noch keine Ablaufaktivität aufgezeichnet."
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Age"
+msgstr "Alter"
+
+msgid "Views"
+msgstr "Aufrufe"
+
+msgid "Set Redirect URL"
+msgstr "Weiterleitungs-URL festlegen"
+
+msgid "Post Category"
+msgstr "Beitragskategorie"
+
+msgid "Post Tag"
+msgstr "Beitragsschlagwort"
+
+msgid "Comment Count"
+msgstr "Kommentaranzahl"
+
+msgid "Post Views"
+msgstr "Beitragsaufrufe"
+
+msgid "Set a date/time and action. Use the meta box below for redirect URL."
+msgstr "Datum/Uhrzeit und Aktion festlegen. Verwenden Sie die Metabox unten für die Weiterleitungs-URL."
+
+msgid "Set expiry using default window"
+msgstr "Ablauf mit Standardzeitraum festlegen"
+
+msgid "Post Expiring Soon: %s"
+msgstr "Beitrag läuft bald ab: %s"
 

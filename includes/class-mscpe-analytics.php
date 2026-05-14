@@ -214,6 +214,7 @@ class Analytics {
 		$where = $this->build_where_clause( $date_range, $filters );
 
 		if ( ! empty( $where['args'] ) ) {
+			// phpcs:ignore WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare -- placeholders are in $where['sql'].
 			$results = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,PluginCheck.Security.DirectDB.UnescapedDBParameter
 				$wpdb->prepare(
 					"SELECT action, COUNT(*) as count FROM {$table} {$where['sql']} GROUP BY action ORDER BY count DESC", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
@@ -277,6 +278,7 @@ class Analytics {
 
 		$prepare_args = array_merge( array( $date_format ), $where['args'] );
 
+		// phpcs:ignore WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare -- placeholders are in $where['sql'].
 		$results = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,PluginCheck.Security.DirectDB.UnescapedDBParameter
 			$wpdb->prepare(
 				"SELECT DATE_FORMAT(FROM_UNIXTIME(created_at), %s) as date_group, COUNT(*) as count 
@@ -317,6 +319,7 @@ class Analytics {
 
 		$prepare_args = array_merge( $where['args'], array( $limit ) );
 
+		// phpcs:ignore WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare -- placeholders are in $where['sql'].
 		$results = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,PluginCheck.Security.DirectDB.UnescapedDBParameter
 			$wpdb->prepare(
 				"SELECT a.category_id, t.name as category_name, COUNT(*) as count 
@@ -359,6 +362,7 @@ class Analytics {
 
 		$prepare_args = array_merge( $where['args'], array( $limit ) );
 
+		// phpcs:ignore WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare -- placeholders are in $where['sql'].
 		$results = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,PluginCheck.Security.DirectDB.UnescapedDBParameter
 			$wpdb->prepare(
 				"SELECT a.author_id, u.display_name as author_name, COUNT(*) as count 
@@ -402,7 +406,7 @@ class Analytics {
 				FROM {$table} a 
 				LEFT JOIN {$wpdb->posts} p ON p.ID = a.post_id 
 				ORDER BY a.created_at DESC 
-				LIMIT %d", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				LIMIT %d", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- table name from $wpdb->prefix.
 				absint( $limit )
 			),
 			ARRAY_A

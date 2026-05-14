@@ -4,7 +4,7 @@ Tags: post-expiry,content,scheduling,automation
 Requires at least: 5.9
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.2.1
+Stable tag: 1.3.0
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,6 +109,12 @@ The plugin includes translations for 12 languages: German (Germany and Switzerla
 
 == Changelog ==
 
+= 1.3.0 =
+* Complete translations for all 189 strings across 12 locales (de_DE, de_CH, es_ES, es_MX, fr_FR, fr_CA, it_IT, ja, nl_NL, nl_BE, pt_BR, pt_PT)
+* Regenerated POT template with all current translatable strings
+* Updated translation dictionaries from 59 to 188 entries per language
+* Fixed Plugin Check SQL interpolation warnings in analytics
+
 = 1.2.1 =
 * Renamed "Conditional Expiry Rules" to "Smart Expiry Rules" with improved descriptions
 * Updated Support tab with comprehensive feature documentation
@@ -152,6 +158,9 @@ The plugin includes translations for 12 languages: German (Germany and Switzerla
 * Full internationalization support
 
 == Upgrade Notice ==
+
+= 1.3.0 =
+Complete translation update: all 189 translatable strings now translated across 12 locales. POT template regenerated.
 
 = 1.2.1 =
 Removed workflows feature, renamed rules to Smart Expiry Rules, added PHPUnit test suite, updated documentation.

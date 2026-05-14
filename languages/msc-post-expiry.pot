@@ -2,30 +2,30 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: MSC Post Expiry 1.1.0\n"
+"Project-Id-Version: MSC Post Expiry 1.3.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/msc-post-expiry\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-04-25T09:56:29+00:00\n"
+"POT-Creation-Date: 2026-05-03T12:00:00+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.12.0\n"
+"X-Generator: scripts/generate-pot.php\n"
 "X-Domain: msc-post-expiry\n"
 
 #. Plugin Name of the plugin
 #: msc-post-expiry.php
 #: includes/class-msc-post-expiry-settings.php:45
 #: includes/class-msc-post-expiry-settings.php:46
-#: includes/class-msc-post-expiry-settings.php:168
+#: includes/class-msc-post-expiry-settings.php:196
 msgid "MSC Post Expiry"
 msgstr ""
 
 #. Plugin URI of the plugin
 #. Author URI of the plugin
 #: msc-post-expiry.php
-msgid "https://anomalous.co.za"
+msgid "https://github.com/djm56/msc-post-expiry"
 msgstr ""
 
 #. Description of the plugin
@@ -38,6 +38,42 @@ msgstr ""
 msgid "Anomalous Developers"
 msgstr ""
 
+#: msc-post-expiry.php:82
+msgid "Every 5 minutes"
+msgstr ""
+
+#: msc-post-expiry.php:88
+msgid "Every 15 minutes"
+msgstr ""
+
+#: msc-post-expiry.php:159
+msgid "No expiry set"
+msgstr ""
+
+#: msc-post-expiry.php:166
+msgid "Expired"
+msgstr ""
+
+#. %d is number of days
+#: msc-post-expiry.php:176
+#, php-format
+msgid "%d day remaining"
+msgid_plural "%d days remaining"
+msgstr[0] ""
+msgstr[1] ""
+
+#. %d is number of hours
+#: msc-post-expiry.php:184
+#, php-format
+msgid "%d hour remaining"
+msgid_plural "%d hours remaining"
+msgstr[0] ""
+msgstr[1] ""
+
+#: msc-post-expiry.php:189
+msgid "Expires soon"
+msgstr ""
+
 #: includes/class-msc-post-expiry-settings.php:58
 msgid "You do not have permission to access this page."
 msgstr ""
@@ -46,267 +82,760 @@ msgstr ""
 msgid "Security check failed. Please try again."
 msgstr ""
 
-#: includes/class-msc-post-expiry-settings.php:131
+#: includes/class-msc-post-expiry-settings.php:144
 msgid "Settings"
 msgstr ""
 
-#: includes/class-msc-post-expiry-settings.php:135
+#: includes/class-msc-post-expiry-settings.php:148
+msgid "SEO"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:152
+msgid "Smart Rules"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:156
+msgid "Analytics"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:160
+msgid "History"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:164
 msgid "Support"
 msgstr ""
 
-#: includes/class-msc-post-expiry-settings.php:172
+#: includes/class-msc-post-expiry-settings.php:200
 msgid "Settings saved."
 msgstr ""
 
-#: includes/class-msc-post-expiry-settings.php:216
-#: includes/class-msc-post-expiry-settings.php:343
+#: includes/class-msc-post-expiry-settings.php:256
+#: includes/class-msc-post-expiry-settings.php:460
+#: includes/class-msc-post-expiry-settings.php:806
+#: includes/class-mscpe-rules.php:307
 msgid "Move to Trash"
 msgstr ""
 
-#: includes/class-msc-post-expiry-settings.php:217
-#: includes/class-msc-post-expiry-settings.php:344
+#: includes/class-msc-post-expiry-settings.php:257
+#: includes/class-msc-post-expiry-settings.php:461
+#: includes/class-msc-post-expiry-settings.php:810
+#: includes/class-mscpe-rules.php:310
 msgid "Permanently Delete"
 msgstr ""
 
-#: includes/class-msc-post-expiry-settings.php:218
-#: includes/class-msc-post-expiry-settings.php:345
+#: includes/class-msc-post-expiry-settings.php:258
+#: includes/class-msc-post-expiry-settings.php:462
+#: includes/class-msc-post-expiry-settings.php:805
+#: includes/class-mscpe-rules.php:305
 msgid "Change to Draft"
 msgstr ""
 
-#: includes/class-msc-post-expiry-settings.php:219
-#: includes/class-msc-post-expiry-settings.php:346
+#: includes/class-msc-post-expiry-settings.php:259
+#: includes/class-msc-post-expiry-settings.php:463
+#: includes/class-msc-post-expiry-settings.php:807
+#: includes/class-mscpe-rules.php:306
 msgid "Change to Private"
 msgstr ""
 
-#: includes/class-msc-post-expiry-settings.php:220
-#: includes/class-msc-post-expiry-settings.php:347
+#: includes/class-msc-post-expiry-settings.php:260
+#: includes/class-msc-post-expiry-settings.php:464
+#: includes/class-msc-post-expiry-settings.php:808
+#: includes/class-mscpe-rules.php:308
 msgid "Move to Category"
 msgstr ""
 
-#: includes/class-msc-post-expiry-settings.php:232
+#: includes/class-msc-post-expiry-settings.php:261
+msgid "Redirect Only (keep published)"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:273
 msgid "Enable post expiry"
 msgstr ""
 
-#: includes/class-msc-post-expiry-settings.php:236
+#: includes/class-msc-post-expiry-settings.php:277
 msgid "Allow posts to expire on a scheduled date."
 msgstr ""
 
-#: includes/class-msc-post-expiry-settings.php:241
+#: includes/class-msc-post-expiry-settings.php:282
 msgid "Post type mode"
 msgstr ""
 
-#: includes/class-msc-post-expiry-settings.php:244
+#: includes/class-msc-post-expiry-settings.php:285
 msgid "Enable expiry only on selected post types"
 msgstr ""
 
-#: includes/class-msc-post-expiry-settings.php:245
+#: includes/class-msc-post-expiry-settings.php:286
 msgid "Enable expiry on all public post types except selected"
 msgstr ""
 
-#: includes/class-msc-post-expiry-settings.php:250
+#: includes/class-msc-post-expiry-settings.php:291
 msgid "Post types"
 msgstr ""
 
-#: includes/class-msc-post-expiry-settings.php:264
+#: includes/class-msc-post-expiry-settings.php:305
 msgid "Expiry action"
 msgstr ""
 
-#: includes/class-msc-post-expiry-settings.php:271
+#: includes/class-msc-post-expiry-settings.php:312
 msgid "What should happen when a post expires."
 msgstr ""
 
-#: includes/class-msc-post-expiry-settings.php:275
+#: includes/class-msc-post-expiry-settings.php:316
 msgid "Expiry category"
 msgstr ""
 
-#: includes/class-msc-post-expiry-settings.php:278
+#: includes/class-msc-post-expiry-settings.php:319
 msgid "Select a category"
 msgstr ""
 
-#: includes/class-msc-post-expiry-settings.php:283
+#: includes/class-msc-post-expiry-settings.php:324
 msgid "Posts will be moved to this category when expired. Only used when \"Move to Category\" is selected above."
 msgstr ""
 
-#: includes/class-msc-post-expiry-settings.php:306
-msgid "Save Settings"
+#: includes/class-msc-post-expiry-settings.php:330
+msgid "Redirect Settings"
 msgstr ""
 
 #: includes/class-msc-post-expiry-settings.php:334
-msgid "How to Use Post Expiry"
-msgstr ""
-
-#: includes/class-msc-post-expiry-settings.php:335
-msgid "Post Expiry allows you to automatically handle posts when they reach a specified expiration date."
-msgstr ""
-
-#: includes/class-msc-post-expiry-settings.php:337
-msgid "Setting an Expiry Date"
+msgid "Enable redirects"
 msgstr ""
 
 #: includes/class-msc-post-expiry-settings.php:338
-msgid "When editing a post or page, look for the \"Post Expiry\" box in the sidebar on the right. Enter the date and time when you want the post to expire."
-msgstr ""
-
-#: includes/class-msc-post-expiry-settings.php:340
-msgid "Expiry Actions"
-msgstr ""
-
-#: includes/class-msc-post-expiry-settings.php:341
-msgid "When a post expires, one of the following actions will occur based on your settings:"
-msgstr ""
-
-#: includes/class-msc-post-expiry-settings.php:343
-msgid "The post is moved to trash and no longer visible to visitors."
-msgstr ""
-
-#: includes/class-msc-post-expiry-settings.php:344
-msgid "The post is permanently deleted from your site."
+msgid "Redirect expired posts to a specified URL (set per-post in the editor)."
 msgstr ""
 
 #: includes/class-msc-post-expiry-settings.php:345
-msgid "The post is changed to draft status and hidden from visitors."
+msgid "Bulk Scheduling"
 msgstr ""
 
-#: includes/class-msc-post-expiry-settings.php:346
-msgid "The post is changed to private status and only visible to logged-in users with appropriate permissions."
+#: includes/class-msc-post-expiry-settings.php:349
+msgid "Default expiry window"
 msgstr ""
 
-#: includes/class-msc-post-expiry-settings.php:347
-msgid "The post is moved to a specific archive category. Configure the category in the Settings tab."
-msgstr ""
-
-#: includes/class-msc-post-expiry-settings.php:350
-msgid "Post Type Configuration"
-msgstr ""
-
-#: includes/class-msc-post-expiry-settings.php:351
-msgid "Use the Settings tab to choose which post types support expiry dates. You can either enable expiry on specific post types or disable it on specific types while enabling it on all others."
+#: includes/class-msc-post-expiry-settings.php:352
+msgid "days from now"
 msgstr ""
 
 #: includes/class-msc-post-expiry-settings.php:353
-msgid "Frequently Asked Questions"
-msgstr ""
-
-#: includes/class-msc-post-expiry-settings.php:355
-msgid "The Post Expiry metabox is not showing on my posts."
-msgstr ""
-
-#: includes/class-msc-post-expiry-settings.php:357
-msgid "Check that \"Enable post expiry\" is ticked on the Settings tab."
-msgstr ""
-
-#: includes/class-msc-post-expiry-settings.php:358
-msgid "Check that the post type (e.g. Post, Page) is selected in the Post types list."
+msgid "Used when bulk-scheduling expiry from the Posts list."
 msgstr ""
 
 #: includes/class-msc-post-expiry-settings.php:359
-msgid "The metabox appears in the sidebar on the right when editing a post."
-msgstr ""
-
-#: includes/class-msc-post-expiry-settings.php:362
-msgid "When does the expiry action occur?"
+msgid "Notifications"
 msgstr ""
 
 #: includes/class-msc-post-expiry-settings.php:363
-msgid "Post expiry is processed by WordPress scheduled events (cron). The action will occur shortly after the expiry date and time passes. The exact timing depends on your site traffic and WordPress cron configuration."
+msgid "Email notifications"
 msgstr ""
 
-#: includes/class-msc-post-expiry-settings.php:365
-msgid "Can I disable expiry for a specific post?"
+#: includes/class-msc-post-expiry-settings.php:367
+msgid "Send email notification before posts expire."
 msgstr ""
 
-#: includes/class-msc-post-expiry-settings.php:366
-msgid "Yes. Simply leave the expiry date and time fields empty in the Post Expiry metabox."
+#: includes/class-msc-post-expiry-settings.php:372
+msgid "Days before expiry"
 msgstr ""
 
-#: includes/class-msc-post-expiry-settings.php:370
-msgid "Need Help?"
+#: includes/class-msc-post-expiry-settings.php:375
+msgid "Send notification this many days before a post expires."
 msgstr ""
 
-#: includes/class-msc-post-expiry-settings.php:371
-msgid "If you have questions, encounter bugs, or need setup assistance, we're here to help."
+#: includes/class-msc-post-expiry-settings.php:379
+msgid "Notify"
 msgstr ""
 
-#: includes/class-msc-post-expiry-settings.php:374
-msgid "Get Support"
-msgstr ""
-
-#: includes/class-msc-post-expiry-settings.php:381
-msgid "Upgrade to MSC Post Expiry Pro"
-msgstr ""
-
-#: includes/class-msc-post-expiry-settings.php:382
-msgid "Get even more power and flexibility with MSC Post Expiry Pro:"
+#: includes/class-msc-post-expiry-settings.php:383
+#: includes/class-mscpe-rules.php:329
+msgid "Post Author"
 msgstr ""
 
 #: includes/class-msc-post-expiry-settings.php:384
-msgid "Per-post expiry actions (override the default for individual posts)"
+msgid "Site Admin"
 msgstr ""
 
 #: includes/class-msc-post-expiry-settings.php:385
-msgid "Custom redirect URLs for expired posts"
-msgstr ""
-
-#: includes/class-msc-post-expiry-settings.php:386
-msgid "Email notifications before posts expire"
-msgstr ""
-
-#: includes/class-msc-post-expiry-settings.php:387
-msgid "Expiry action history and logs"
-msgstr ""
-
-#: includes/class-msc-post-expiry-settings.php:388
-msgid "Bulk expiry scheduling from the Posts list"
+msgid "Both"
 msgstr ""
 
 #: includes/class-msc-post-expiry-settings.php:392
-msgid "Learn More About Pro"
+msgid "Logging"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:396
+msgid "Action log"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:400
+msgid "Log expiry actions in the History tab."
 msgstr ""
 
 #: includes/class-msc-post-expiry-settings.php:423
-msgid "Post Expiry"
+msgid "Save Settings"
 msgstr ""
 
-#: includes/class-msc-post-expiry-settings.php:445
-msgid "Expiry Date"
+#: includes/class-msc-post-expiry-settings.php:451
+msgid "How to Use Post Expiry"
 msgstr ""
 
-#: includes/class-msc-post-expiry-settings.php:450
-msgid "Expiry Time"
+#: includes/class-msc-post-expiry-settings.php:452
+msgid "Post Expiry allows you to automatically handle posts when they reach a specified expiration date."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:454
+msgid "Setting an Expiry Date"
 msgstr ""
 
 #: includes/class-msc-post-expiry-settings.php:455
+msgid "When editing a post or page, look for the \"Post Expiry\" box in the sidebar on the right. Enter the date and time when you want the post to expire."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:457
+msgid "Expiry Actions"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:458
+msgid "When a post expires, one of the following actions will occur based on your settings:"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:460
+msgid "The post is moved to trash and no longer visible to visitors."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:461
+msgid "The post is permanently deleted from your site."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:462
+msgid "The post is changed to draft status and hidden from visitors."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:463
+msgid "The post is changed to private status and only visible to logged-in users with appropriate permissions."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:464
+msgid "The post is moved to a specific archive category. Configure the category in the Settings tab."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:465
+msgid "Redirect Only"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:465
+msgid "The post stays published but visitors are redirected to a specified URL."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:468
+msgid "Per-Post Overrides"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:469
+msgid "Each post can have its own expiry action, redirect URL, and target category. These per-post settings override the global default configured in the Settings tab."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:471
+#: includes/class-msc-post-expiry-settings.php:745
+msgid "Smart Expiry Rules"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:472
+msgid "Smart Rules let you define automatic actions based on post properties. When a post expires, the plugin checks your rules in priority order before falling back to the default action."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:473
+msgid "Available conditions:"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:475
+#: includes/class-msc-post-expiry-settings.php:786
+#: includes/class-mscpe-analytics.php:236
+msgid "Category"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:475
+msgid "Match posts in a specific category."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:476
+#: includes/class-msc-post-expiry-settings.php:787
+msgid "Tag"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:476
+msgid "Match posts with a specific tag."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:477
+#: includes/class-msc-post-expiry-settings.php:788
+msgid "Author"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:477
+msgid "Match posts by a specific author."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:478
+msgid "Post Age"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:478
+msgid "Match posts older than a specified number of days."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:479
+#: includes/class-msc-post-expiry-settings.php:790
+#: includes/class-mscpe-rules.php:333
+msgid "Custom Field"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:479
+msgid "Match posts with a specific custom field value."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:481
+msgid "Example: \"If a post is in the News category, move it to draft when it expires\" or \"If a post is older than 90 days, delete it permanently.\""
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:483
+msgid "SEO Handling"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:484
+msgid "When a post expires, the plugin can automatically manage SEO signals. Configure these options in the SEO tab:"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:486
+msgid "Noindex / Nofollow"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:486
+msgid "Prevent search engines from indexing or following links on expired posts."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:487
+msgid "Canonical URL"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:487
+msgid "Set a canonical URL to redirect SEO value to another page."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:488
+#: includes/class-msc-post-expiry-settings.php:689
+msgid "HTTP Status Code"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:488
+msgid "Return a 410 Gone status code for expired posts."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:491
+msgid "Analytics & History"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:492
+msgid "The Analytics tab provides charts showing expiry trends, action breakdowns, and top categories/authors. The History tab shows the last 50 expiry actions for quick reference."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:494
+msgid "Post Type Configuration"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:495
+msgid "Use the Settings tab to choose which post types support expiry dates. You can either enable expiry on specific post types or disable it on specific types while enabling it on all others."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:497
+msgid "Frequently Asked Questions"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:499
+msgid "The Post Expiry metabox is not showing on my posts."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:501
+msgid "Check that \"Enable post expiry\" is ticked on the Settings tab."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:502
+msgid "Check that the post type (e.g. Post, Page) is selected in the Post types list."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:503
+msgid "The metabox appears in the sidebar on the right when editing a post."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:506
+msgid "When does the expiry action occur?"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:507
+msgid "Post expiry is processed by WordPress scheduled events (cron). The action will occur shortly after the expiry date and time passes. The exact timing depends on your site traffic and WordPress cron configuration."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:509
+msgid "Can I disable expiry for a specific post?"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:510
+msgid "Yes. Simply leave the expiry date and time fields empty in the Post Expiry metabox."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:512
+msgid "How do Smart Rules work with per-post overrides?"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:513
+msgid "When a post expires, the plugin checks Smart Rules first. If a rule matches the post, its action is used. If no rules match, the per-post action override is checked. If neither exists, the global default action is applied."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:517
+msgid "Need Help?"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:518
+msgid "If you have questions, encounter bugs, or need setup assistance, we're here to help."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:521
+msgid "Get Support"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:551
+#: includes/class-msc-post-expiry-module.php:166
+msgid "Post Expiry"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:573
+msgid "Expiry Date"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:578
+msgid "Expiry Time"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:583
 msgid "Leave empty to disable expiry for this post."
 msgstr ""
 
-#: msc-post-expiry.php:78
-msgid "Every 5 minutes"
+#: includes/class-msc-post-expiry-settings.php:638
+msgid "SEO settings saved."
 msgstr ""
 
-#: msc-post-expiry.php:149
-msgid "No expiry set"
+#: includes/class-msc-post-expiry-settings.php:652
+msgid "SEO Settings for Expired Posts"
 msgstr ""
 
-#: msc-post-expiry.php:156
-msgid "Expired"
+#: includes/class-msc-post-expiry-settings.php:653
+msgid "Configure how search engines handle expired content."
 msgstr ""
 
-#. translators: %d is number of days
-#: msc-post-expiry.php:166
+#: includes/class-msc-post-expiry-settings.php:661
+msgid "Noindex"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:665
+msgid "Add noindex to expired posts (prevents indexing)."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:670
+msgid "Nofollow"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:674
+msgid "Add nofollow to expired posts (prevents link following)."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:679
+msgid "Canonical"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:682
+msgid "No change"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:683
+msgid "Point to home page"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:684
+msgid "Point to primary category"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:695
+msgid "410 tells search engines the page is intentionally gone."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:701
+msgid "Save SEO Settings"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:728
+msgid "Rule saved."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:738
+msgid "Rule deleted."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:746
+msgid "Smart Rules automatically determine what happens when a post expires based on its properties — like category, tag, author, age, or custom fields. When a post expires, the plugin checks these rules in priority order. If a rule matches, its action overrides the default expiry action."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:752
+#: includes/class-msc-post-expiry-settings.php:822
+msgid "Priority"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:753
+#: includes/class-msc-post-expiry-settings.php:783
+msgid "Condition"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:754
+msgid "Value"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:755
+#: includes/class-msc-post-expiry-settings.php:802
+#: includes/class-msc-post-expiry-settings.php:872
+#: includes/class-mscpe-analytics.php:654
+msgid "Action"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:767
+msgid "Delete this rule?"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:768
+#: includes/class-mscpe-analytics.php:238
+msgid "Delete"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:777
+msgid "Add New Rule"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:789
+#: includes/class-mscpe-rules.php:330
+msgid "Post Age (days)"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:795
+msgid "Condition Value"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:798
+msgid "Category/tag slug, author login, days number, or field_name=value."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:809
+#: includes/class-mscpe-analytics.php:237
+msgid "Redirect"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:815
+msgid "Action Value"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:818
+msgid "Category ID for \"Move to Category\", URL for \"Redirect\". Optional for other actions."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:825
+msgid "Lower number = higher priority."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:830
+msgid "Add Rule"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:862
+msgid "Expiry Action History"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:863
+msgid "Recent expiry actions (last 50 entries)."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:866
+msgid "No expiry actions recorded yet."
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:871
+#: includes/class-mscpe-analytics.php:653
+msgid "Post"
+msgstr ""
+
+#: includes/class-msc-post-expiry-settings.php:873
+#: includes/class-mscpe-analytics.php:658
+msgid "Date"
+msgstr ""
+
+#: includes/class-mscpe-analytics.php:233
+msgid "Draft"
+msgstr ""
+
+#: includes/class-mscpe-analytics.php:234
+msgid "Private"
+msgstr ""
+
+#: includes/class-mscpe-analytics.php:235
+msgid "Trash"
+msgstr ""
+
+#: includes/class-mscpe-analytics.php:341
+msgid "Uncategorized"
+msgstr ""
+
+#: includes/class-mscpe-analytics.php:384
+msgid "Unknown"
+msgstr ""
+
+#. %d: Post ID number
+#: includes/class-mscpe-analytics.php:421
+#: includes/class-msc-post-expiry-module.php:412
 #, php-format
-msgid "%d day remaining"
-msgid_plural "%d days remaining"
-msgstr[0] ""
-msgstr[1] ""
-
-#. translators: %d is number of hours
-#: msc-post-expiry.php:174
-#, php-format
-msgid "%d hour remaining"
-msgid_plural "%d hours remaining"
-msgstr[0] ""
-msgstr[1] ""
-
-#: msc-post-expiry.php:179
-msgid "Expires soon"
+msgid "Post #%d"
 msgstr ""
+
+#: includes/class-mscpe-analytics.php:519
+msgid "Date Range:"
+msgstr ""
+
+#: includes/class-mscpe-analytics.php:521
+msgid "Last 7 Days"
+msgstr ""
+
+#: includes/class-mscpe-analytics.php:522
+msgid "Last 30 Days"
+msgstr ""
+
+#: includes/class-mscpe-analytics.php:523
+msgid "Last 90 Days"
+msgstr ""
+
+#: includes/class-mscpe-analytics.php:524
+msgid "All Time"
+msgstr ""
+
+#: includes/class-mscpe-analytics.php:527
+msgid "Apply"
+msgstr ""
+
+#: includes/class-mscpe-analytics.php:533
+msgid "Total Expired"
+msgstr ""
+
+#: includes/class-mscpe-analytics.php:537
+msgid "This Month"
+msgstr ""
+
+#: includes/class-mscpe-analytics.php:541
+msgid "This Week"
+msgstr ""
+
+#: includes/class-mscpe-analytics.php:545
+msgid "Avg Post Age"
+msgstr ""
+
+#: includes/class-mscpe-analytics.php:546
+#: includes/class-mscpe-analytics.php:667
+msgid "days"
+msgstr ""
+
+#: includes/class-mscpe-analytics.php:549
+msgid "Success Rate"
+msgstr ""
+
+#: includes/class-mscpe-analytics.php:556
+msgid "Expiry Trends"
+msgstr ""
+
+#: includes/class-mscpe-analytics.php:567
+msgid "Posts Expired"
+msgstr ""
+
+#: includes/class-mscpe-analytics.php:587
+msgid "Action Breakdown"
+msgstr ""
+
+#: includes/class-mscpe-analytics.php:610
+msgid "Top Categories"
+msgstr ""
+
+#: includes/class-mscpe-analytics.php:619
+#: includes/class-mscpe-analytics.php:636
+msgid "Expired Posts"
+msgstr ""
+
+#: includes/class-mscpe-analytics.php:627
+msgid "Top Authors"
+msgstr ""
+
+#: includes/class-mscpe-analytics.php:646
+msgid "Recent Expiry Activity"
+msgstr ""
+
+#: includes/class-mscpe-analytics.php:648
+msgid "No expiry activity recorded yet."
+msgstr ""
+
+#: includes/class-mscpe-analytics.php:655
+msgid "Status"
+msgstr ""
+
+#: includes/class-mscpe-analytics.php:656
+msgid "Age"
+msgstr ""
+
+#: includes/class-mscpe-analytics.php:657
+msgid "Views"
+msgstr ""
+
+#: includes/class-mscpe-rules.php:309
+msgid "Set Redirect URL"
+msgstr ""
+
+#: includes/class-mscpe-rules.php:327
+msgid "Post Category"
+msgstr ""
+
+#: includes/class-mscpe-rules.php:328
+msgid "Post Tag"
+msgstr ""
+
+#: includes/class-mscpe-rules.php:331
+msgid "Comment Count"
+msgstr ""
+
+#: includes/class-mscpe-rules.php:332
+msgid "Post Views"
+msgstr ""
+
+#: includes/class-msc-post-expiry-module.php:167
+msgid "Set a date/time and action. Use the meta box below for redirect URL."
+msgstr ""
+
+#: includes/class-msc-post-expiry-module.php:179
+msgid "Set expiry using default window"
+msgstr ""
+
+#. %s is the post title
+#: includes/class-msc-post-expiry-module.php:376
+#, php-format
+msgid "Post Expiring Soon: %s"
+msgstr ""
+
+#. 1: Post title, 2: Expiry date/time, 3: Edit link
+#: includes/class-msc-post-expiry-module.php:381
+#, php-format
+msgid "The following post is expiring soon:
+
+Post: %1$s
+Expiry Date: %2$s
+
+Edit post: %3$s"
+msgstr ""
+

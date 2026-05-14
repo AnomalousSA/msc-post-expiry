@@ -2,6 +2,26 @@
 
 All notable changes to MSC Post Expiry are documented in this file.
 
+## [1.3.0] - 2026-05-03
+
+### Added
+
+- Complete translations for all 189 translatable strings across 12 locales
+- New translation entries for Settings, SEO, Smart Rules, Analytics, History, and Support tabs
+- Redirect Only action translations for all languages
+
+### Changed
+
+- Regenerated POT template with all current translatable strings (was severely outdated at ~60 strings, now 189)
+- Updated translation dictionaries from 59 entries to 188 entries per language
+- Regenerated all .po and .mo files for de_DE, de_CH, es_ES, es_MX, fr_FR, fr_CA, it_IT, ja, nl_NL, nl_BE, pt_BR, pt_PT
+- Bumped plugin version to 1.3.0
+
+### Fixed
+
+- Fixed Plugin Check SQL interpolation warnings in analytics class (phpcs:ignore comments)
+- Fixed duplicate msgid in POT file (merged Plugin Name header entry)
+
 ## [1.2.1] - 2026-05-03
 
 ### Added

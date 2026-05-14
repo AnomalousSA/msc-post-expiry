@@ -8,3 +8,4 @@ vendor
 /marketing
 /progress.md
 /assets/images
+.phpunit.result.cache

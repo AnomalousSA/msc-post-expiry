@@ -2,10 +2,10 @@
 # This file is distributed under the GPL-2.0+ license.
 msgid ""
 msgstr ""
-"Project-Id-Version: MSC Post Expiry 1.1.0\n"
+"Project-Id-Version: MSC Post Expiry 1.3.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/msc-post-expiry\n"
-"POT-Creation-Date: 2026-04-25T09:56:29+00:00\n"
-"PO-Revision-Date: 2026-04-25 10:00:00+00:00\n"
+"POT-Creation-Date: 2026-05-03T12:00:00+00:00\n"
+"PO-Revision-Date: 2026-05-03 12:00:00+00:00\n"
 "Last-Translator: Anomalous Developers <dev@anomalous.co.za>\n"
 "Language-Team: Japanese <LL@li.org>\n"
 "Language: ja\n"
@@ -18,14 +18,37 @@ msgstr ""
 msgid "MSC Post Expiry"
 msgstr "MSC Post Expiry"
 
-msgid "https://anomalous.co.za"
-msgstr "https://anomalous.co.za"
+msgid "https://github.com/djm56/msc-post-expiry"
+msgstr "https://github.com/djm56/msc-post-expiry"
 
 msgid "Automatically expire posts and pages on a scheduled date. Set expiration dates in the post editor and let the plugin handle the rest."
 msgstr "投稿とページを予定日に自動的に期限切れにします。投稿エディターで有効期限を設定すれば、あとはプラグインにお任せください。"
 
 msgid "Anomalous Developers"
 msgstr "Anomalous Developers"
+
+msgid "Every 5 minutes"
+msgstr "5分ごと"
+
+msgid "Every 15 minutes"
+msgstr "15分ごと"
+
+msgid "No expiry set"
+msgstr "期限切れ未設定"
+
+msgid "Expired"
+msgstr "期限切れ"
+
+msgid "%d day remaining"
+msgid_plural "%d days remaining"
+msgstr[0] "残り%d日"
+
+msgid "%d hour remaining"
+msgid_plural "%d hours remaining"
+msgstr[0] "残り%d時間"
+
+msgid "Expires soon"
+msgstr "まもなく期限切れ"
 
 msgid "You do not have permission to access this page."
 msgstr "このページにアクセスする権限がありません。"
@@ -35,6 +58,18 @@ msgstr "セキュリティチェックに失敗しました。もう一度お試
 
 msgid "Settings"
 msgstr "設定"
+
+msgid "SEO"
+msgstr "SEO"
+
+msgid "Smart Rules"
+msgstr "スマートルール"
+
+msgid "Analytics"
+msgstr "アナリティクス"
+
+msgid "History"
+msgstr "履歴"
 
 msgid "Support"
 msgstr "サポート"
@@ -56,6 +91,9 @@ msgstr "非公開に変更"
 
 msgid "Move to Category"
 msgstr "カテゴリーに移動"
+
+msgid "Redirect Only (keep published)"
+msgstr "リダイレクトのみ（公開を維持）"
 
 msgid "Enable post expiry"
 msgstr "投稿の期限切れを有効にする"
@@ -89,6 +127,63 @@ msgstr "カテゴリーを選択"
 
 msgid "Posts will be moved to this category when expired. Only used when \"Move to Category\" is selected above."
 msgstr ""
+
+msgid "Redirect Settings"
+msgstr "リダイレクト設定"
+
+msgid "Enable redirects"
+msgstr "リダイレクトを有効にする"
+
+msgid "Redirect expired posts to a specified URL (set per-post in the editor)."
+msgstr "期限切れの投稿を指定されたURLにリダイレクトします（エディターで投稿ごとに設定）。"
+
+msgid "Bulk Scheduling"
+msgstr "一括スケジュール"
+
+msgid "Default expiry window"
+msgstr "デフォルトの有効期限ウィンドウ"
+
+msgid "days from now"
+msgstr "日後"
+
+msgid "Used when bulk-scheduling expiry from the Posts list."
+msgstr "投稿一覧から一括で有効期限をスケジュールする際に使用されます。"
+
+msgid "Notifications"
+msgstr "通知"
+
+msgid "Email notifications"
+msgstr "メール通知"
+
+msgid "Send email notification before posts expire."
+msgstr "投稿が期限切れになる前にメール通知を送信します。"
+
+msgid "Days before expiry"
+msgstr "期限切れまでの日数"
+
+msgid "Send notification this many days before a post expires."
+msgstr "投稿が期限切れになるこの日数前に通知を送信します。"
+
+msgid "Notify"
+msgstr "通知先"
+
+msgid "Post Author"
+msgstr "投稿者"
+
+msgid "Site Admin"
+msgstr "サイト管理者"
+
+msgid "Both"
+msgstr "両方"
+
+msgid "Logging"
+msgstr "ログ記録"
+
+msgid "Action log"
+msgstr "アクションログ"
+
+msgid "Log expiry actions in the History tab."
+msgstr "履歴タブで有効期限アクションを記録します。"
 
 msgid "Save Settings"
 msgstr "設定を保存"
@@ -126,6 +221,90 @@ msgstr "投稿は非公開ステータスに変更され、適切な権限を持
 msgid "The post is moved to a specific archive category. Configure the category in the Settings tab."
 msgstr "投稿は特定のアーカイブカテゴリーに移動されます。設定タブでカテゴリーを設定してください。"
 
+msgid "Redirect Only"
+msgstr "リダイレクトのみ"
+
+msgid "The post stays published but visitors are redirected to a specified URL."
+msgstr "投稿は公開のままですが、訪問者は指定されたURLにリダイレクトされます。"
+
+msgid "Per-Post Overrides"
+msgstr "投稿ごとの上書き"
+
+msgid "Each post can have its own expiry action, redirect URL, and target category. These per-post settings override the global default configured in the Settings tab."
+msgstr "各投稿には独自の有効期限アクション、リダイレクトURL、対象カテゴリーを設定できます。これらの投稿ごとの設定は、設定タブで構成されたグローバルなデフォルトを上書きします。"
+
+msgid "Smart Expiry Rules"
+msgstr "スマート有効期限ルール"
+
+msgid "Smart Rules let you define automatic actions based on post properties. When a post expires, the plugin checks your rules in priority order before falling back to the default action."
+msgstr "スマートルールでは、投稿のプロパティに基づいて自動アクションを定義できます。投稿が期限切れになると、プラグインはデフォルトのアクションにフォールバックする前に、優先度順にルールをチェックします。"
+
+msgid "Available conditions:"
+msgstr "利用可能な条件:"
+
+msgid "Category"
+msgstr "カテゴリー"
+
+msgid "Match posts in a specific category."
+msgstr "特定のカテゴリーの投稿にマッチします。"
+
+msgid "Tag"
+msgstr "タグ"
+
+msgid "Match posts with a specific tag."
+msgstr "特定のタグを持つ投稿にマッチします。"
+
+msgid "Author"
+msgstr "著者"
+
+msgid "Match posts by a specific author."
+msgstr "特定の著者の投稿にマッチします。"
+
+msgid "Post Age"
+msgstr "投稿の経過日数"
+
+msgid "Match posts older than a specified number of days."
+msgstr "指定された日数より古い投稿にマッチします。"
+
+msgid "Custom Field"
+msgstr "カスタムフィールド"
+
+msgid "Match posts with a specific custom field value."
+msgstr "特定のカスタムフィールド値を持つ投稿にマッチします。"
+
+msgid "Example: \"If a post is in the News category, move it to draft when it expires\" or \"If a post is older than 90 days, delete it permanently.\""
+msgstr ""
+
+msgid "SEO Handling"
+msgstr "SEO管理"
+
+msgid "When a post expires, the plugin can automatically manage SEO signals. Configure these options in the SEO tab:"
+msgstr "投稿が期限切れになると、プラグインは自動的にSEOシグナルを管理できます。SEOタブでこれらのオプションを設定してください："
+
+msgid "Noindex / Nofollow"
+msgstr "Noindex / Nofollow"
+
+msgid "Prevent search engines from indexing or following links on expired posts."
+msgstr "期限切れの投稿で検索エンジンによるインデックスやリンクのフォローを防止します。"
+
+msgid "Canonical URL"
+msgstr "正規URL"
+
+msgid "Set a canonical URL to redirect SEO value to another page."
+msgstr "正規URLを設定して、SEO価値を別のページにリダイレクトします。"
+
+msgid "HTTP Status Code"
+msgstr "HTTPステータスコード"
+
+msgid "Return a 410 Gone status code for expired posts."
+msgstr "期限切れの投稿に410 Goneステータスコードを返します。"
+
+msgid "Analytics & History"
+msgstr "アナリティクスと履歴"
+
+msgid "The Analytics tab provides charts showing expiry trends, action breakdowns, and top categories/authors. The History tab shows the last 50 expiry actions for quick reference."
+msgstr "アナリティクスタブでは、有効期限のトレンド、アクションの内訳、トップカテゴリー/著者を示すグラフを提供します。履歴タブでは、最新50件の有効期限アクションをクイックリファレンスとして表示します。"
+
 msgid "Post Type Configuration"
 msgstr "投稿タイプの設定"
 
@@ -159,6 +338,12 @@ msgstr "特定の投稿の期限切れを無効にできますか？"
 msgid "Yes. Simply leave the expiry date and time fields empty in the Post Expiry metabox."
 msgstr "はい。投稿期限切れメタボックスの日付と時間のフィールドを空のままにしてください。"
 
+msgid "How do Smart Rules work with per-post overrides?"
+msgstr "スマートルールは投稿ごとの上書きとどのように機能しますか？"
+
+msgid "When a post expires, the plugin checks Smart Rules first. If a rule matches the post, its action is used. If no rules match, the per-post action override is checked. If neither exists, the global default action is applied."
+msgstr "投稿が期限切れになると、プラグインはまずスマートルールをチェックします。ルールが投稿に一致する場合、そのアクションが使用されます。一致するルールがない場合、投稿ごとのアクション上書きがチェックされます。どちらも存在しない場合、グローバルなデフォルトアクションが適用されます。"
+
 msgid "Need Help?"
 msgstr "お困りですか？"
 
@@ -167,30 +352,6 @@ msgstr "ご質問がある場合、バグを見つけた場合、またはセッ
 
 msgid "Get Support"
 msgstr "サポートを受ける"
-
-msgid "Upgrade to MSC Post Expiry Pro"
-msgstr "MSC Post Expiry Pro にアップグレード"
-
-msgid "Get even more power and flexibility with MSC Post Expiry Pro:"
-msgstr "MSC Post Expiry Pro でさらなるパワーと柔軟性を："
-
-msgid "Per-post expiry actions (override the default for individual posts)"
-msgstr "投稿ごとの期限切れアクション（個別の投稿のデフォルトを上書き）"
-
-msgid "Custom redirect URLs for expired posts"
-msgstr "期限切れ投稿のカスタムリダイレクトURL"
-
-msgid "Email notifications before posts expire"
-msgstr "投稿が期限切れになる前のメール通知"
-
-msgid "Expiry action history and logs"
-msgstr "期限切れアクションの履歴とログ"
-
-msgid "Bulk expiry scheduling from the Posts list"
-msgstr "投稿一覧からの一括期限切れスケジュール"
-
-msgid "Learn More About Pro"
-msgstr "Pro の詳細を見る"
 
 msgid "Post Expiry"
 msgstr "投稿期限切れ"
@@ -204,23 +365,222 @@ msgstr "有効期限時刻"
 msgid "Leave empty to disable expiry for this post."
 msgstr "この投稿の期限切れを無効にするには空のままにしてください。"
 
-msgid "Every 5 minutes"
-msgstr "5分ごと"
+msgid "SEO settings saved."
+msgstr "SEO設定を保存しました。"
 
-msgid "No expiry set"
-msgstr "期限切れ未設定"
+msgid "SEO Settings for Expired Posts"
+msgstr "期限切れ投稿のSEO設定"
 
-msgid "Expired"
-msgstr "期限切れ"
+msgid "Configure how search engines handle expired content."
+msgstr "検索エンジンが期限切れのコンテンツをどのように処理するかを設定します。"
 
-msgid "%d day remaining"
-msgid_plural "%d days remaining"
-msgstr[0] "残り%d日"
+msgid "Noindex"
+msgstr "Noindex"
 
-msgid "%d hour remaining"
-msgid_plural "%d hours remaining"
-msgstr[0] "残り%d時間"
+msgid "Add noindex to expired posts (prevents indexing)."
+msgstr "期限切れの投稿にnoindexを追加します（インデックスを防止）。"
 
-msgid "Expires soon"
-msgstr "まもなく期限切れ"
+msgid "Nofollow"
+msgstr "Nofollow"
+
+msgid "Add nofollow to expired posts (prevents link following)."
+msgstr "期限切れの投稿にnofollowを追加します（リンクフォローを防止）。"
+
+msgid "Canonical"
+msgstr "正規"
+
+msgid "No change"
+msgstr "変更なし"
+
+msgid "Point to home page"
+msgstr "ホームページを指定"
+
+msgid "Point to primary category"
+msgstr "プライマリカテゴリーを指定"
+
+msgid "410 tells search engines the page is intentionally gone."
+msgstr "410は検索エンジンにページが意図的に削除されたことを伝えます。"
+
+msgid "Save SEO Settings"
+msgstr "SEO設定を保存"
+
+msgid "Rule saved."
+msgstr "ルールを保存しました。"
+
+msgid "Rule deleted."
+msgstr "ルールを削除しました。"
+
+msgid "Smart Rules automatically determine what happens when a post expires based on its properties — like category, tag, author, age, or custom fields. When a post expires, the plugin checks these rules in priority order. If a rule matches, its action overrides the default expiry action."
+msgstr "スマートルールは、カテゴリー、タグ、著者、経過日数、カスタムフィールドなどのプロパティに基づいて、投稿が期限切れになったときに何が起こるかを自動的に決定します。投稿が期限切れになると、プラグインはこれらのルールを優先度順にチェックします。ルールが一致する場合、そのアクションがデフォルトの有効期限アクションを上書きします。"
+
+msgid "Priority"
+msgstr "優先度"
+
+msgid "Condition"
+msgstr "条件"
+
+msgid "Value"
+msgstr "値"
+
+msgid "Action"
+msgstr "アクション"
+
+msgid "Delete this rule?"
+msgstr "このルールを削除しますか？"
+
+msgid "Delete"
+msgstr "削除"
+
+msgid "Add New Rule"
+msgstr "新しいルールを追加"
+
+msgid "Post Age (days)"
+msgstr "投稿の経過日数"
+
+msgid "Condition Value"
+msgstr "条件の値"
+
+msgid "Category/tag slug, author login, days number, or field_name=value."
+msgstr "カテゴリー/タグスラッグ、著者ログイン、日数、またはフィールド名=値。"
+
+msgid "Redirect"
+msgstr "リダイレクト"
+
+msgid "Action Value"
+msgstr "アクションの値"
+
+msgid "Category ID for \"Move to Category\", URL for \"Redirect\". Optional for other actions."
+msgstr ""
+
+msgid "Lower number = higher priority."
+msgstr "小さい数字 = 高い優先度。"
+
+msgid "Add Rule"
+msgstr "ルールを追加"
+
+msgid "Expiry Action History"
+msgstr "有効期限アクション履歴"
+
+msgid "Recent expiry actions (last 50 entries)."
+msgstr "最近の有効期限アクション（最新50件）。"
+
+msgid "No expiry actions recorded yet."
+msgstr "有効期限アクションはまだ記録されていません。"
+
+msgid "Post"
+msgstr "投稿"
+
+msgid "Date"
+msgstr "日付"
+
+msgid "Draft"
+msgstr "下書き"
+
+msgid "Private"
+msgstr "非公開"
+
+msgid "Trash"
+msgstr "ゴミ箱"
+
+msgid "Uncategorized"
+msgstr "未分類"
+
+msgid "Unknown"
+msgstr "不明"
+
+msgid "Post #%d"
+msgstr "投稿 #%d"
+
+msgid "Date Range:"
+msgstr "期間:"
+
+msgid "Last 7 Days"
+msgstr "過去7日間"
+
+msgid "Last 30 Days"
+msgstr "過去30日間"
+
+msgid "Last 90 Days"
+msgstr "過去90日間"
+
+msgid "All Time"
+msgstr "全期間"
+
+msgid "Apply"
+msgstr "適用"
+
+msgid "Total Expired"
+msgstr "合計期限切れ"
+
+msgid "This Month"
+msgstr "今月"
+
+msgid "This Week"
+msgstr "今週"
+
+msgid "Avg Post Age"
+msgstr "平均投稿年齢"
+
+msgid "days"
+msgstr "日"
+
+msgid "Success Rate"
+msgstr "成功率"
+
+msgid "Expiry Trends"
+msgstr "有効期限トレンド"
+
+msgid "Posts Expired"
+msgstr "期限切れの投稿"
+
+msgid "Action Breakdown"
+msgstr "アクション内訳"
+
+msgid "Top Categories"
+msgstr "トップカテゴリー"
+
+msgid "Expired Posts"
+msgstr "期限切れの投稿"
+
+msgid "Top Authors"
+msgstr "トップ著者"
+
+msgid "Recent Expiry Activity"
+msgstr "最近の有効期限アクティビティ"
+
+msgid "No expiry activity recorded yet."
+msgstr "有効期限アクティビティはまだ記録されていません。"
+
+msgid "Status"
+msgstr "ステータス"
+
+msgid "Age"
+msgstr "年齢"
+
+msgid "Views"
+msgstr "閲覧数"
+
+msgid "Set Redirect URL"
+msgstr "リダイレクトURLを設定"
+
+msgid "Post Category"
+msgstr "投稿カテゴリー"
+
+msgid "Post Tag"
+msgstr "投稿タグ"
+
+msgid "Comment Count"
+msgstr "コメント数"
+
+msgid "Post Views"
+msgstr "投稿閲覧数"
+
+msgid "Set a date/time and action. Use the meta box below for redirect URL."
+msgstr "日時とアクションを設定してください。リダイレクトURLにはメタボックスを使用してください。"
+
+msgid "Set expiry using default window"
+msgstr "デフォルトウィンドウを使用して有効期限を設定"
+
+msgid "Post Expiring Soon: %s"
+msgstr "投稿がまもなく期限切れ: %s"
 
